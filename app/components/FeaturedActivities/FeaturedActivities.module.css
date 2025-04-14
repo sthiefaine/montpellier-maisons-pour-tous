@@ -1,0 +1,47 @@
+.container {
+  position: relative;
+  overflow: hidden;
+  overscroll-behavior-x: contain;
+  padding: 0 2rem;
+  margin: 0 -2rem;
+}
+
+.slider {
+  display: flex;
+  transition: transform 700ms ease-in-out;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.slide {
+  width: 300px;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.slideContent {
+  height: 200px;
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navButton {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+  transition: background-color 200ms;
+}
+
+.navButton:hover {
+  background-color: #f3f4f6;
+}
+
+.navIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+} 
