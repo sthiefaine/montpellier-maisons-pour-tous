@@ -3,23 +3,21 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { MPT, Activity } from '@/types';
+
 import { MAIN_CATEGORIES } from '@/types/categories';
 import CategoryIcon from '@/app/components/Icons/Category/Category';
 import ActivityCard from '@/app/components/Cards/Activity/Activity';
-import { NAVIGATION_ICONS } from '@/lib/helpers/icons';
-import { PAGINATION_CONFIG, SEARCH_CONFIG } from '@/lib/helpers/config';
-import { debounce } from '@/lib/helpers/utils';
+
 import {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   XMarkIcon,
-  CalendarDaysIcon,
   UserGroupIcon,
-  HomeIcon,
   AcademicCapIcon,
   ChevronDownIcon,
 } from '@heroicons/react/24/outline';
+import { MPT } from '@/types/maisons';
+import { Activity } from '@/types/activity';
 
 type SearchFilters = {
   search: string;

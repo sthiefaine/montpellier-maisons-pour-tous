@@ -5,6 +5,18 @@ import { Activity } from '@/types/activity';
 import { MAIN_CATEGORIES } from '@/types/categories';
 import ActivitiesListClient from '@/app/components/(client)/Activites/Activities';
 
+interface ActivitiesPageProps {
+  searchParams: Promise<{
+    search?: string;
+    category?: string;
+    subcategory?: string;
+    public?: string;
+    mpt?: string;
+    level?: string;
+    day?: string;
+  }>;
+}
+
 async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   try {
     const mptData = await fs.readFile(path.join(process.cwd(), 'data/mpt.json'), 'utf8');
@@ -26,31 +38,17 @@ async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   }
 }
 
-export default async function ActivitiesPage({
-  searchParams,
-}: {
-  searchParams: {
-    search?: string;
-    category?: string;
-    subcategory?: string;
-    public?: string;
-    mpt?: string;
-    level?: string;
-    day?: string;
-  };
-}) {
-  const [{ mpts, activities }, params] = await Promise.all([
-    getData(),
-    Promise.resolve(searchParams),
-  ]);
+export default async function ActivitiesPage({ searchParams }: ActivitiesPageProps) {
+  const params = await searchParams;
+  const { mpts, activities } = await getData();
 
   const subCategoriesByCategory: Record<string, string[]> = {};
   MAIN_CATEGORIES.forEach(category => {
     const subCategories = Array.from(
       new Set(
         activities
-          .filter(activity => activity.category === category)
-          .map(activity => activity.subCategory)
+          .filter((activity: Activity) => activity.category === category)
+          .map((activity: Activity) => activity.subCategory)
       )
     ).filter(Boolean) as string[];
 
@@ -58,7 +56,7 @@ export default async function ActivitiesPage({
   });
 
   const allPublics = Array.from(
-    new Set(activities.map(activity => activity.public).filter(Boolean))
+    new Set(activities.map((activity: Activity) => activity.public).filter(Boolean))
   ) as string[];
 
   const allLevels = ['débutant', 'intermédiaire', 'confirmé', 'tous niveaux'];
@@ -66,8 +64,8 @@ export default async function ActivitiesPage({
   const allDays = Array.from(
     new Set(
       activities
-        .filter(activity => activity.schedule?.day)
-        .map(activity => activity.schedule?.day)
+        .filter((activity: Activity) => activity.schedule?.day)
+        .map((activity: Activity) => activity.schedule?.day)
         .filter(Boolean)
     )
   ) as string[];

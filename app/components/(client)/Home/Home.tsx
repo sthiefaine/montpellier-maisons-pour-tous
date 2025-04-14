@@ -1,11 +1,14 @@
 'use client';
 
 import React from 'react';
-import { MPT, Activity, StatisticsType } from '@/types';
+import { MPT } from '@/types/maisons';
+import { Activity } from '@/types/activity';
+
 import CategorySection from '../../HomepageClient/CategorySection';
 import FeaturedMPTs from '../../HomepageClient/FeaturedMPTs';
 import FeaturedActivities from '@/app/components/FeaturedActivities/FeaturedActivities';
 import HeroSection from '../../HomepageClient/HeroSection';
+import { StatisticsType } from '@/types';
 
 type HomeClientProps = {
   mpts: MPT[];

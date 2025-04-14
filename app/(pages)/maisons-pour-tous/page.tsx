@@ -26,9 +26,15 @@ async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   }
 }
 
-export default async function MPTPage({ searchParams }: { searchParams: { search?: string } }) {
+interface PageProps {
+  searchParams: Promise<{ search?: string }>;
+}
+
+export default async function MPTPage({ searchParams }: PageProps) {
   const { mpts, activities } = await getData();
-  const search = searchParams?.search || '';
+
+  const resolvedSearchParams = await searchParams;
+  const search = resolvedSearchParams?.search || '';
 
   const mptCount = mpts.length;
 

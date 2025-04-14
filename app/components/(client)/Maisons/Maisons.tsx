@@ -2,7 +2,8 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { MPT, Activity } from '@/types';
+import { MPT } from '@/types/maisons';
+import { Activity } from '@/types/activity';
 import MPTCard from '@/app/components/Cards/Maisons/Maisons';
 import {
   MagnifyingGlassIcon,

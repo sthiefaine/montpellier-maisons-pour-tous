@@ -8,6 +8,12 @@ import Link from 'next/link';
 import ActivitiesListClient from '@/app/components/(client)/Activites/Activities';
 import { MAIN_CATEGORIES } from '@/types/categories';
 
+interface MPTPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
 async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   try {
     const mptData = await fs.readFile(path.join(process.cwd(), 'data/mpt.json'), 'utf8');
@@ -29,9 +35,11 @@ async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   }
 }
 
-export default async function MPTPage({ params }: { params: { slug: string } }) {
+export default async function MPTPage({ params }: MPTPageProps) {
   const { mpts, activities } = await getData();
-  const mpt = mpts.find(m => m.slug === params.slug);
+
+  const resolvedParams = await params;
+  const mpt = mpts.find(m => m.slug === resolvedParams.slug);
 
   if (!mpt) {
     notFound();
