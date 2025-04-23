@@ -93,7 +93,7 @@ export default function FeaturedActivities({
   };
 
   return (
-    <section className="py-14 relative">
+    <section className="py-14 relative overscroll-x-contain">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>

@@ -9,6 +9,7 @@ import FeaturedMPTs from '../../HomepageClient/FeaturedMPTs';
 import FeaturedActivities from '@/app/components/FeaturedActivities/FeaturedActivities';
 import HeroSection from '../../HomepageClient/HeroSection';
 import { StatisticsType } from '@/types';
+import MapSection from '../../HomepageClient/MapSection';
 
 type HomeClientProps = {
   mpts: MPT[];
@@ -30,7 +31,7 @@ export default function HomeClient({
   return (
     <div className="min-h-screen bg-gray-50">
       <HeroSection statistics={statistics} />
-
+      <MapSection />
       <div className="container mx-auto px-4 py-12">
         <CategorySection activities={activities} activitiesByCategory={activitiesByCategory} />
 

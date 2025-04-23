@@ -5,6 +5,8 @@ export type MPT = {
   phone?: string;
   email?: string;
   website?: string;
+  instagram?: string;
+  facebook?: string;
   coordinates?: {
     lat: number;
     lng: number;

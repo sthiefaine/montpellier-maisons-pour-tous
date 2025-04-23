@@ -8,8 +8,8 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky h-[60px] top-0 z-40 bg-white border-b border-gray-200">
-      <div className="container mx-auto max-w-6xl px-4 py-3">
+    <header className="sticky h-[50px] top-0 z-40 bg-white border-b border-gray-200">
+      <div className="container mx-auto max-w-6xl px-4 py-2">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold text-gray-900">🏠</span>

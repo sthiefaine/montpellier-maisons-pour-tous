@@ -92,7 +92,15 @@
       "activity-1652",
       "activity-1658",
       "activity-1781"
-    ]
+    ],
+    "phone": "04 30 78 30 95",
+    "email": "mpt.dubout@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptalbertdubout",
+    "facebook": "https://www.facebook.com/mptalbertdubout",
+    "coordinates": {
+      "lat": 43.6263521,
+      "lng": 3.8825339
+    }
   },
   {
     "id": "mpt-maison-pour-tous-rosa-lee-parks",
@@ -189,7 +197,14 @@
       "activity-1725",
       "activity-1753",
       "activity-1758"
-    ]
+    ],
+    "phone": "04 48 18 62 03",
+    "email": "mpt.parks@montpellier.fr",
+    "facebook": "https://www.facebook.com/mptparks",
+    "coordinates": {
+      "lat": 43.63363750000001,
+      "lng": 3.8335271
+    }
   },
   {
     "id": "mpt-maison-pour-tous-albertine-sarrazin",
@@ -246,7 +261,14 @@
       "activity-1141",
       "activity-1143",
       "activity-1144"
-    ]
+    ],
+    "phone": "04 67 47 31 74",
+    "email": "mpt.sarrazin@montpellier.fr",
+    "facebook": "https://www.facebook.com/mptsarrazin",
+    "coordinates": {
+      "lat": 43.6075126,
+      "lng": 3.8619137
+    }
   },
   {
     "id": "mpt-maison-pour-tous-joseph-ricome-et-theatre-gerard-philipe",
@@ -375,7 +397,15 @@
       "activity-1623",
       "activity-1624",
       "activity-1793"
-    ]
+    ],
+    "phone": "04 48 18 62 21",
+    "email": "mpt.ricome@montpellier.fr",
+    "instagram": "https://www.instagram.com/mpt_ricome_theatre_g.philipe",
+    "facebook": "https://www.facebook.com/ricome.theatregerardphilipe",
+    "coordinates": {
+      "lat": 43.6084796,
+      "lng": 3.8664031
+    }
   },
   {
     "id": "mpt-maison-pour-tous-voltaire",
@@ -501,7 +531,15 @@
       "activity-1739",
       "activity-1761",
       "activity-1787"
-    ]
+    ],
+    "phone": "04 48 18 62 16",
+    "email": "mpt.voltaire@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptvoltaire/",
+    "facebook": "https://www.facebook.com/mptvoltaire",
+    "coordinates": {
+      "lat": 43.60376400000001,
+      "lng": 3.8891628
+    }
   },
   {
     "id": "mpt-maison-pour-tous-frederic-chopin",
@@ -655,7 +693,15 @@
       "activity-1500",
       "activity-1501",
       "activity-1502"
-    ]
+    ],
+    "phone": "04 34 46 67 87",
+    "email": "mpt.chopin@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptchopin/",
+    "facebook": "https://www.facebook.com/mpt.chopin",
+    "coordinates": {
+      "lat": 43.6162677,
+      "lng": 3.8839578
+    }
   },
   {
     "id": "mpt-maison-pour-tous-george-sand",
@@ -771,7 +817,15 @@
       "activity-1518",
       "activity-1519",
       "activity-1782"
-    ]
+    ],
+    "phone": "04 48 18 62 08",
+    "email": "mpt.sand@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptgeorgesand",
+    "facebook": "https://www.facebook.com/maisonpourtousgeorgesand",
+    "coordinates": {
+      "lat": 43.6187896,
+      "lng": 3.8941375
+    }
   },
   {
     "id": "mpt-maison-pour-tous-boris-vian",
@@ -863,7 +917,15 @@
       "activity-1263",
       "activity-1655",
       "activity-1657"
-    ]
+    ],
+    "phone": "04 99 58 89 99",
+    "email": "mpt.vian@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptborisvian/",
+    "facebook": "https://www.facebook.com/mptborisvian",
+    "coordinates": {
+      "lat": 43.5966205,
+      "lng": 3.8910781
+    }
   },
   {
     "id": "mpt-maison-pour-tous-lescoutaire",
@@ -1009,7 +1071,13 @@
       "activity-1535",
       "activity-1566",
       "activity-1567"
-    ]
+    ],
+    "phone": "04 48 18 62 10",
+    "email": "mpt.escoutaire@montpellier.fr",
+    "coordinates": {
+      "lat": 43.59685959999999,
+      "lng": 3.8502617
+    }
   },
   {
     "id": "mpt-maison-pour-tous-jean-pierre-caillens",
@@ -1105,7 +1173,14 @@
       "activity-1755",
       "activity-1756",
       "activity-1757"
-    ]
+    ],
+    "phone": "04 48 18 62 12",
+    "instagram": "https://www.instagram.com/mptcaillens",
+    "facebook": "https://www.facebook.com/mptcaillens",
+    "coordinates": {
+      "lat": 43.5811961,
+      "lng": 3.8770017
+    }
   },
   {
     "id": "mpt-maison-pour-tous-melina-mercouri",
@@ -1234,7 +1309,15 @@
       "activity-1503",
       "activity-1783",
       "activity-1784"
-    ]
+    ],
+    "phone": "04 48 18 62 05",
+    "email": "MPT.mercouri@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptmercouri",
+    "facebook": "https://www.facebook.com/Maisonpourtousmelinamercouri",
+    "coordinates": {
+      "lat": 43.6137064,
+      "lng": 3.9090048
+    }
   },
   {
     "id": "mpt-maison-pour-tous-frida-kahlo",
@@ -1340,7 +1423,15 @@
       "activity-1626",
       "activity-1656",
       "activity-1795"
-    ]
+    ],
+    "phone": "04 48 18 62 17",
+    "email": "Mpt.kahlo@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptfridakahlo",
+    "facebook": "https://www.facebook.com/MptFridaKAHLO",
+    "coordinates": {
+      "lat": 43.59581439999999,
+      "lng": 3.903343
+    }
   },
   {
     "id": "mpt-maison-pour-tous-antoine-de-saint-exupery",
@@ -1425,7 +1516,14 @@
       "activity-1704",
       "activity-1705",
       "activity-1706"
-    ]
+    ],
+    "phone": "04 48 18 62 11",
+    "email": "mpt.saintexupery@montpellier.fr",
+    "facebook": "https://www.facebook.com/mptsaintexupery",
+    "coordinates": {
+      "lat": 43.5978721,
+      "lng": 3.8388331
+    }
   },
   {
     "id": "mpt-maison-pour-tous-andre-chamson",
@@ -1522,7 +1620,13 @@
       "activity-1610",
       "activity-1627",
       "activity-1771"
-    ]
+    ],
+    "phone": "04 48 18 62 22",
+    "email": "mpt.chamson@montpellier.fr",
+    "coordinates": {
+      "lat": 43.6093147,
+      "lng": 3.8351227
+    }
   },
   {
     "id": "mpt-maison-pour-tous-marcel-pagnol",
@@ -1694,7 +1798,15 @@
       "activity-1722",
       "activity-1723",
       "activity-1763"
-    ]
+    ],
+    "phone": "04 48 18 62 09",
+    "email": "mpt.pagnol@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptmarcelpagnol/",
+    "facebook": "https://www.facebook.com/mptmarcelpagnol",
+    "coordinates": {
+      "lat": 43.6014637,
+      "lng": 3.8503809
+    }
   },
   {
     "id": "mpt-maison-pour-tous-francois-villon",
@@ -1805,7 +1917,14 @@
       "activity-1588",
       "activity-1589",
       "activity-1590"
-    ]
+    ],
+    "phone": "04 48 18 62 20",
+    "email": "mpt.villon@montpellier.fr",
+    "facebook": "https://www.facebook.com/mptfrancoisvillon",
+    "coordinates": {
+      "lat": 43.6154026,
+      "lng": 3.839425
+    }
   },
   {
     "id": "mpt-maison-pour-tous-fanfonne-guillierme",
@@ -1875,7 +1994,15 @@
       "activity-1388",
       "activity-1750",
       "activity-1752"
-    ]
+    ],
+    "phone": "04 48 18 62 15",
+    "email": "mpt.guillierme@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptfanfonneguillierme",
+    "facebook": "https://www.facebook.com/mptfanfonneguillierme/",
+    "coordinates": {
+      "lat": 43.6175674,
+      "lng": 3.8397537
+    }
   },
   {
     "id": "mpt-maison-pour-tous-paul-emile-victor",
@@ -1992,7 +2119,14 @@
       "activity-1439",
       "activity-1785",
       "activity-1794"
-    ]
+    ],
+    "phone": "04 48 18 62 19",
+    "email": "mpt.victor@montpellier.fr",
+    "facebook": "https://www.facebook.com/paulemilevictormtp",
+    "coordinates": {
+      "lat": 43.622598,
+      "lng": 3.8406705
+    }
   },
   {
     "id": "mpt-maison-pour-tous-albert-camus",
@@ -2165,7 +2299,15 @@
       "activity-1565",
       "activity-1759",
       "activity-1786"
-    ]
+    ],
+    "phone": "04 34 88 76 84",
+    "email": "mpt.camus@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptalbertcamus",
+    "facebook": "https://www.facebook.com/maisonpourtousalbertcamus",
+    "coordinates": {
+      "lat": 43.5974384,
+      "lng": 3.8707516
+    }
   },
   {
     "id": "mpt-maison-pour-tous-michel-colucci",
@@ -2259,7 +2401,15 @@
       "activity-1639",
       "activity-1760",
       "activity-1762"
-    ]
+    ],
+    "phone": "04 48 18 62 13",
+    "email": "mpt.colucci@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptcolucci",
+    "facebook": "https://www.facebook.com/profile.php?id=61552600643194",
+    "coordinates": {
+      "lat": 43.59685959999999,
+      "lng": 3.8502617
+    }
   },
   {
     "id": "mpt-maison-pour-tous-louis-feuillade",
@@ -2309,7 +2459,15 @@
       "activity-1653",
       "activity-1654",
       "activity-1659"
-    ]
+    ],
+    "phone": "04 34 46 68 00",
+    "email": "mpt.feuillade@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptlouisfeuillade",
+    "facebook": "https://www.facebook.com/MPTFeuillade",
+    "coordinates": {
+      "lat": 43.6238547,
+      "lng": 3.8165071
+    }
   },
   {
     "id": "mpt-maison-pour-tous-marie-curie",
@@ -2431,7 +2589,15 @@
       "activity-1754",
       "activity-1766",
       "activity-1767"
-    ]
+    ],
+    "phone": "04 48 18 62 14",
+    "email": "mpt.curie@montpellier.fr",
+    "instagram": "https://www.instagram.com/mptmariecurie",
+    "facebook": "https://www.facebook.com/maisonpourtousmariecurie",
+    "coordinates": {
+      "lat": 43.6128767,
+      "lng": 3.8306259
+    }
   },
   {
     "id": "mpt-maison-pour-tous-leo-lagrange",
@@ -2596,7 +2762,14 @@
       "activity-1778",
       "activity-1779",
       "activity-1780"
-    ]
+    ],
+    "phone": "04 48 18 62 18",
+    "email": "mpt.lagrange@montpellier.fr",
+    "facebook": "https://www.facebook.com/MptLAGRANGE",
+    "coordinates": {
+      "lat": 43.6279957,
+      "lng": 3.8163382
+    }
   },
   {
     "id": "mpt-maison-pour-tous-georges-brassens",
@@ -2704,6 +2877,13 @@
       "activity-1790",
       "activity-1791",
       "activity-1792"
-    ]
+    ],
+    "phone": "04 48 18 62 06",
+    "email": "mpt.brassens@montpellier.fr",
+    "facebook": "https://www.facebook.com/mptgeorgesbrassens",
+    "coordinates": {
+      "lat": 43.641874,
+      "lng": 3.818124
+    }
   }
 ]

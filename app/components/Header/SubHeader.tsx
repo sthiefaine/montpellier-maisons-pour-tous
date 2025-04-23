@@ -43,7 +43,7 @@ export default function SubHeader() {
   }
 
   return (
-    <div className="sticky top-[60px] z-30 bg-white shadow-sm">
+    <div className="sticky top-[50px] z-30 bg-white shadow-sm">
       <div className="container mx-auto max-w-6xl px-4 py-3">
         <div className="relative">
           <SearchBar mpts={data?.mpts || []} activities={data?.activities || []} />

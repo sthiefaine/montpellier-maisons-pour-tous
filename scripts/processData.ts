@@ -91,10 +91,122 @@ function extractAgeInfo(level: string): { min?: number; max?: number; text?: str
   return ageInfo;
 }
 
+/**
+ * Scrape les détails d'une MPT depuis sa page de détail
+ */
+async function scrapeMPTDetails(
+  slug: string,
+  logMessage?: (message: string) => void
+): Promise<{
+  phone?: string;
+  email?: string;
+  instagram?: string;
+  facebook?: string;
+}> {
+  const log = logMessage || console.log;
+  const details: { phone?: string; email?: string; instagram?: string; facebook?: string } = {};
+
+  try {
+    const url = `https://www.montpellier.fr/territoire/lieux-equipements/${slug}`;
+    log(`Scraping des détails de la MPT: ${url}`);
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml,application/xml',
+        'Accept-Language': 'fr,fr-FR;q=0.9,en;q=0.8',
+      },
+    });
+
+    if (!response.ok) {
+      log(`Erreur HTTP lors du scraping des détails: ${response.status} ${response.statusText}`);
+      return details;
+    }
+
+    const html = await response.text();
+    const dom = new JSDOM(html);
+    const document = dom.window.document;
+
+    // Récupération du téléphone
+    const phoneLink = document.querySelector('a[href^="tel:"]');
+    if (phoneLink) {
+      details.phone = phoneLink.textContent?.trim() || undefined;
+    }
+
+    // Récupération de l'email
+    const emailLink = document.querySelector('a[href^="mailto:"]');
+    if (emailLink) {
+      details.email = emailLink.textContent?.trim() || undefined;
+    }
+
+    // Récupération des réseaux sociaux
+    const socialLinks = document.querySelectorAll('.social-link-field a');
+    socialLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href) {
+        if (href.includes('facebook.com')) {
+          details.facebook = href;
+        } else if (href.includes('instagram.com')) {
+          details.instagram = href;
+        }
+      }
+    });
+
+    return details;
+  } catch (error) {
+    log(
+      `Erreur lors du scraping des détails: ${
+        error instanceof Error ? error.message : 'Erreur inconnue'
+      }`
+    );
+    return details;
+  }
+}
+
+/**
+ * Charge les coordonnées depuis le fichier maisons-livemap.json
+ */
+async function loadCoordinates(
+  logMessage?: (message: string) => void
+): Promise<Record<string, { lat: number; lng: number }>> {
+  const log = logMessage || console.log;
+  const coordinates: Record<string, { lat: number; lng: number }> = {};
+
+  try {
+    const filePath = path.join(process.cwd(), 'data/sav/maisons-livemap.json');
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    const mpts = JSON.parse(fileContent);
+
+    for (const mpt of mpts) {
+      if (mpt.latitude && mpt.longitude) {
+        // On utilise le nom de la MPT comme clé
+        coordinates[mpt.name] = {
+          lat: mpt.latitude,
+          lng: mpt.longitude,
+        };
+      }
+    }
+
+    log(`Coordonnées chargées pour ${Object.keys(coordinates).length} MPTs`);
+    return coordinates;
+  } catch (error) {
+    log(
+      `Erreur lors du chargement des coordonnées: ${
+        error instanceof Error ? error.message : 'Erreur inconnue'
+      }`
+    );
+    return {};
+  }
+}
+
 export async function scrapeMPTs(logMessage?: (message: string) => void): Promise<MPT[]> {
   const log = logMessage || console.log;
 
   try {
+    // Chargement des coordonnées
+    const coordinates = await loadCoordinates(log);
+
     const baseUrl =
       'https://www.montpellier.fr/vie-quotidienne/vivre-ici/se-cultiver/24-maisons-pour-tous-a-montpellier';
     let currentPage = 0;
@@ -205,6 +317,13 @@ export async function scrapeMPTs(logMessage?: (message: string) => void): Promis
           continue;
         }
 
+        // Récupération des détails supplémentaires
+        const details = await scrapeMPTDetails(slug, log);
+        log(`Détails récupérés pour ${name}:`, details);
+
+        // Récupération des coordonnées
+        const mptCoordinates = coordinates[name];
+
         allMPTs.push({
           id: `mpt-${slug}`,
           codeMPT,
@@ -214,7 +333,15 @@ export async function scrapeMPTs(logMessage?: (message: string) => void): Promis
           address,
           openingHours,
           activities: [],
+          phone: details.phone,
+          email: details.email,
+          instagram: details.instagram,
+          facebook: details.facebook,
+          coordinates: mptCoordinates,
         });
+
+        // Pause pour éviter de surcharger le serveur
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
 
       const nextPageLink = document.querySelector('.pager__item--next a');
