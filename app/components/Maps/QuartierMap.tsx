@@ -5,18 +5,9 @@ import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
 import mptData from '@/data/mpt.json';
 import quartierData from '@/data/sav/montpellier_quartiers.json';
 import Link from 'next/link';
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-
-interface MPT {
-  id: string;
-  name: string;
-  address: string;
-  slug: string;
-  coordinates?: {
-    lat: number;
-    lng: number;
-  };
-}
+import { ArrowTopRightOnSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import QuartierDetail from './QuartierDetail';
+import { MPT, MPT_NUMBERS, QUARTIERS } from './types';
 
 interface QuartierMapProps {
   width?: number;
@@ -46,69 +37,6 @@ interface GeoJSON {
   features: GeoJSONFeature[];
 }
 
-interface MPTWithNumber {
-  id: string;
-  number: number;
-}
-
-const MPT_NUMBERS: MPTWithNumber[] = [
-  { id: 'mpt-maison-pour-tous-andre-chamson', number: 1 },
-  { id: 'mpt-maison-pour-tous-antoine-de-saint-exupery', number: 2 },
-  { id: 'mpt-maison-pour-tous-fanfonne-guillierme', number: 3 },
-  { id: 'mpt-maison-pour-tous-francois-villon', number: 4 },
-  { id: 'mpt-maison-pour-tous-marcel-pagnol', number: 5 },
-  { id: 'mpt-maison-pour-tous-paul-emile-victor', number: 6 },
-  { id: 'mpt-maison-pour-tous-albert-camus', number: 7 },
-  { id: 'mpt-maison-pour-tous-michel-colucci', number: 8 },
-  { id: 'mpt-maison-pour-tous-albert-dubout', number: 9 },
-  { id: 'mpt-maison-pour-tous-rosa-lee-parks', number: 10 },
-  { id: 'mpt-maison-pour-tous-albertine-sarrazin', number: 11 },
-  { id: 'mpt-maison-pour-tous-frederic-chopin', number: 12 },
-  { id: 'mpt-maison-pour-tous-george-sand', number: 13 },
-  { id: 'mpt-maison-pour-tous-joseph-ricome-et-theatre-gerard-philipe', number: 14 },
-  { id: 'mpt-maison-pour-tous-voltaire', number: 15 },
-  { id: 'mpt-maison-pour-tous-georges-brassens', number: 16 },
-  { id: 'mpt-maison-pour-tous-leo-lagrange', number: 17 },
-  { id: 'mpt-maison-pour-tous-marie-curie', number: 18 },
-  { id: 'mpt-maison-pour-tous-louis-feuillade', number: 19 },
-  { id: 'mpt-maison-pour-tous-melina-mercouri', number: 20 },
-  { id: 'mpt-maison-pour-tous-frida-kahlo', number: 21 },
-  { id: 'mpt-maison-pour-tous-lescoutaire', number: 22 },
-  { id: 'mpt-maison-pour-tous-jean-pierre-caillens', number: 23 },
-  { id: 'mpt-maison-pour-tous-boris-vian', number: 24 },
-];
-
-const QUARTIERS = [
-  {
-    name: 'Les Cévennes',
-    mpts: [1, 2, 3, 4, 5, 6],
-  },
-  {
-    name: "Croix d'Argent",
-    mpts: [7, 8],
-  },
-  {
-    name: 'Hôpitaux-Facultés',
-    mpts: [9, 10],
-  },
-  {
-    name: 'Centre',
-    mpts: [11, 12, 13, 14, 15],
-  },
-  {
-    name: 'Mosson',
-    mpts: [16, 17, 18, 19],
-  },
-  {
-    name: 'Port Marianne',
-    mpts: [20, 21],
-  },
-  {
-    name: "Près d'Arènes",
-    mpts: [22, 23, 24],
-  },
-];
-
 export default function QuartierMap({ width = 800, height = 600 }: QuartierMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedMPT, setSelectedMPT] = useState<{
@@ -118,6 +46,7 @@ export default function QuartierMap({ width = 800, height = 600 }: QuartierMapPr
     address: string;
     slug: string;
   } | null>(null);
+  const [selectedQuartier, setSelectedQuartier] = useState<string | null>(null);
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -189,6 +118,12 @@ export default function QuartierMap({ width = 800, height = 600 }: QuartierMapPr
       path.setAttribute('fill', style.fill);
       path.setAttribute('stroke', style.stroke);
       path.setAttribute('stroke-width', '1');
+      path.setAttribute('cursor', 'pointer');
+      path.addEventListener('click', () => {
+        console.log('quartierName', quartierName);
+        setSelectedQuartier(quartierName);
+        setSelectedMPT(null);
+      });
       svg.appendChild(path);
 
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -284,21 +219,35 @@ export default function QuartierMap({ width = 800, height = 600 }: QuartierMapPr
   }, [width, height]);
 
   return (
-    <div className="w-full min-w-[428px] relative">
+    <div className="w-full min-w-[320px] relative">
       {selectedMPT && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-xl min-w-[200px]">
-            <div className="text-sm font-semibold text-gray-900 mb-1">{selectedMPT.name}</div>
-            <div className="text-xs text-gray-500 mb-2">{selectedMPT.address}</div>
-            <Link
-              href={`/maisons-pour-tous/${selectedMPT.slug}`}
-              className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1"
-            >
-              Voir la fiche
-              <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" />
-            </Link>
+        <>
+          <div className="fixed inset-0 z-10" onClick={() => setSelectedMPT(null)} />
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-xl min-w-[200px]">
+              <div className="flex justify-between items-start mb-1">
+                <div className="text-sm font-semibold text-gray-900">{selectedMPT.name}</div>
+                <button
+                  onClick={() => setSelectedMPT(null)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <XMarkIcon className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="text-xs text-gray-500 mb-2">{selectedMPT.address}</div>
+              <Link
+                href={`/maisons-pour-tous/${selectedMPT.slug}`}
+                className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1"
+              >
+                Voir la fiche
+                <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
+      )}
+      {selectedQuartier && (
+        <QuartierDetail quartierName={selectedQuartier} onClose={() => setSelectedQuartier(null)} />
       )}
       <svg ref={svgRef} className="w-full h-auto" preserveAspectRatio="xMidYMid meet" />
     </div>
