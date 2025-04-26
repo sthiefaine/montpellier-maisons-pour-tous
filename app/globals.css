@@ -568,3 +568,23 @@ pre {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.maplibregl-map {
+  width: 100%;
+  height: 100%;
+}
+
+.maplibregl-ctrl-top-right {
+  top: 10px;
+  right: 10px;
+}
+
+.maplibregl-ctrl-bottom-right {
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Masquer la légende de la carte */
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
