@@ -3,13 +3,13 @@ import path from 'path';
 import { MPT } from '@/types/maisons';
 import { Activity } from '@/types/activity';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import ActivitiesListClient from '@/app/components/(client)/Activites/Activities';
+import ActivitiesSkeleton from '@/app/components/(client)/Activites/ActivitiesSkeleton';
 import { MAIN_CATEGORIES } from '@/types/categories';
 import { Informations } from '@/app/components/(client)/Maisons/Informations/Informations';
-import { MapPinIcon } from '@heroicons/react/24/outline';
 import LocalisationTabs from '@/app/components/Localisation/LocalisationTabs';
-import { cache } from 'react';
+import MPTHeader from '@/app/components/(client)/Maisons/MPTHeader';
+import { cache, Suspense } from 'react';
 
 interface MPTPageProps {
   params: Promise<{
@@ -83,46 +83,9 @@ export default async function MPTPage({ params }: MPTPageProps) {
     )
   ) as string[];
 
-  const displayName = mpt.name.toLowerCase().replace('maison pour tous', '');
-
   return (
     <>
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">{mpt.name}</h1>
-              <p className="text-blue-100 text-lg font-medium mb-4">
-                {mptActivities.length} activité
-                {mptActivities.length !== 1 ? 's' : ''} disponible
-                {mptActivities.length !== 1 ? 's' : ''}
-              </p>
-            </div>
-          </div>
-          <div className="mt-4">
-            <div className="flex space-x-2 text-sm">
-              <Link
-                href="/"
-                className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
-              >
-                Accueil
-              </Link>
-              <span className="text-blue-200">/</span>
-              <Link
-                href="/maisons-pour-tous"
-                className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
-              >
-                Maisons
-              </Link>
-              <span className="text-blue-200">/</span>
-              <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">
-                {displayName}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <MPTHeader mpt={mpt} activitiesCount={mptActivities.length} isDetailPage />
       <div className="container mx-auto max-w-6xl px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-8">
@@ -138,24 +101,26 @@ export default async function MPTPage({ params }: MPTPageProps) {
 
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-6">Activités proposées</h2>
-          <ActivitiesListClient
-            mpts={[mpt]}
-            activities={mptActivities}
-            subCategoriesByCategory={subCategoriesByCategory}
-            allPublics={allPublics}
-            allLevels={allLevels}
-            allDays={allDays}
-            initialSearchParams={{
-              search: '',
-              category: '',
-              subcategory: '',
-              public: '',
-              mpt: mpt.id,
-              level: '',
-              day: '',
-            }}
-            hideHeader={true}
-          />
+          <Suspense fallback={<ActivitiesSkeleton />}>
+            <ActivitiesListClient
+              mpts={[mpt]}
+              activities={mptActivities}
+              subCategoriesByCategory={subCategoriesByCategory}
+              allPublics={allPublics}
+              allLevels={allLevels}
+              allDays={allDays}
+              initialSearchParams={{
+                search: '',
+                category: '',
+                subcategory: '',
+                public: '',
+                mpt: mpt.id,
+                level: '',
+                day: '',
+              }}
+              hideHeader={true}
+            />
+          </Suspense>
         </div>
       </div>
     </>

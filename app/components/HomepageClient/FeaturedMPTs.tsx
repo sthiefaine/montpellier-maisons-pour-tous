@@ -31,7 +31,9 @@ export default function FeaturedMPTs({ featuredMPTs, activities }: FeaturedMPTsP
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredMPTs.map(mpt => (
-            <MPTCard key={mpt.id} mpt={mpt} activities={activities} />
+            <div key={mpt.id}>
+              <MPTCard mpt={mpt} activities={activities} />
+            </div>
           ))}
         </div>
       </div>

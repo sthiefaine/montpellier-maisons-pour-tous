@@ -10,6 +10,7 @@ import {
   ClockIcon,
   ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline';
+import { unstable_ViewTransition as ViewTransition } from 'react';
 
 type MaisonsCardProps = {
   mpt: MPT;
@@ -83,14 +84,18 @@ export default function MaisonsCard({ mpt, activities }: MaisonsCardProps) {
           <div className="relative z-10">
             <div className="flex items-center">
               <HomeIcon className="h-5 w-5 mr-2" />
-              <h2 className="text-xl font-bold mt-1 mb-2 group-hover:translate-x-2 transition-transform duration-300 truncate">
-                {mpt.codeMPT}
-              </h2>
+              <ViewTransition name={`mpt-title-${mpt.id}`}>
+                <h2 className="text-xl font-bold mt-1 mb-2 group-hover:translate-x-2 transition-transform duration-300 truncate">
+                  {mpt.codeMPT}
+                </h2>
+              </ViewTransition>
             </div>
 
             <div className="flex items-start">
-              <MapPinIcon className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-              <p className="text-xs opacity-90 line-clamp-1">{formatAddress(mpt.address)}</p>
+              <ViewTransition name={`mpt-address-${mpt.id}`}>
+                <MapPinIcon className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                <p className="text-xs opacity-90 line-clamp-1">{formatAddress(mpt.address)}</p>
+              </ViewTransition>
             </div>
           </div>
         </div>
@@ -98,9 +103,11 @@ export default function MaisonsCard({ mpt, activities }: MaisonsCardProps) {
         <div className="p-4 flex-grow flex flex-col justify-between">
           <div>
             <div className="flex flex-wrap gap-1.5 mb-3">
-              <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">
-                {mptActivities.length} activités
-              </span>
+              <ViewTransition name={`mpt-activities-${mpt.id}`}>
+                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">
+                  {mptActivities.length} activités
+                </span>
+              </ViewTransition>
 
               {activityCategories.map(category => (
                 <span

@@ -1,0 +1,45 @@
+:root {
+  --transition-duration: 0.8s;
+}
+
+/* Transitions pour les titres des MPT */
+::view-transition-group(.mpt-title) {
+  animation-duration: var(--transition-duration);
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+::view-transition-old(.mpt-title),
+::view-transition-new(.mpt-title) {
+  animation-duration: var(--transition-duration);
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+::view-transition-old(.mpt-title) {
+  animation-name: slide-out;
+}
+
+::view-transition-new(.mpt-title) {
+  animation-name: slide-in;
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

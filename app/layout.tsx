@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer';
 import SubHeader from './components/Header/SubHeader';
 import { SubHeaderSkeleton } from './components/Header/SubHeaderSkeleton';
 import './globals.css';
+import './styles/transitions.css';
 
 export const metadata: Metadata = {
   title: 'Maisons Pour Tous - Montpellier',

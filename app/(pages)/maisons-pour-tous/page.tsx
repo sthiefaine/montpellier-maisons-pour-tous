@@ -3,6 +3,7 @@ import path from 'path';
 import { MPT } from '@/types/maisons';
 import { Activity } from '@/types/activity';
 import MPTListClient from '@/app/components/(client)/Maisons/Maisons';
+import MPTHeader from '@/app/components/(client)/Maisons/MPTHeader';
 import { NEIGHBORHOODS } from '@/lib/helpers/neighborhoods';
 
 async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
@@ -47,15 +48,18 @@ export default async function MPTPage({ searchParams }: PageProps) {
   }).filter(stat => stat.count > 0);
 
   return (
-    <MPTListClient
-      mpts={mpts}
-      activities={activities}
-      initialSearch={search}
-      stats={{
-        mptCount,
-        areaCount: neighborhoodStats.length,
-        totalActivities: activities.length,
-      }}
-    />
+    <>
+      <MPTHeader />
+      <MPTListClient
+        mpts={mpts}
+        activities={activities}
+        initialSearch={search}
+        stats={{
+          mptCount,
+          areaCount: neighborhoodStats.length,
+          totalActivities: activities.length,
+        }}
+      />
+    </>
   );
 }

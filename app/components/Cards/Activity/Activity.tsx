@@ -12,7 +12,6 @@ import {
   ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline';
 import Badge from '@/app/components/Badge/Badge';
-
 type ActivityCardProps = {
   activity: Activity & {
     multipleSchedules?: Activity['schedule'][];

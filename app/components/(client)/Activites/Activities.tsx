@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
 
 import { MAIN_CATEGORIES } from '@/types/categories';
 import CategoryIcon from '@/app/components/Icons/Category/Category';
@@ -15,6 +14,7 @@ import {
   UserGroupIcon,
   AcademicCapIcon,
   ChevronDownIcon,
+  CalendarIcon,
 } from '@heroicons/react/24/outline';
 import { MPT } from '@/types/maisons';
 import { Activity } from '@/types/activity';
@@ -61,26 +61,12 @@ export default function ActivitiesListClient({
   const [filters, setFilters] = useState<SearchFilters>(initialSearchParams);
   const [showFilters, setShowFilters] = useState(false);
 
-  const router = useRouter();
-  const pathname = usePathname();
-
   const updateFilter = (key: keyof SearchFilters, value: string) => {
     setFilters(prev => ({
       ...prev,
       [key]: value,
     }));
   };
-
-/*   useEffect(() => {
-    const searchParams = new URLSearchParams();
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value) {
-        searchParams.append(key, value);
-      }
-    });
-    const newUrl = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
-    router.push(newUrl, { scroll: false });
-  }, [filters, pathname, router]); */
 
   const filteredActivities = useMemo(() => {
     return activities.filter(activity => {
@@ -462,26 +448,48 @@ export default function ActivitiesListClient({
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredActivities.map((activity, index) => (
-            <div key={`${activity.id}-${index}`} className="h-full" style={{ height: `200px` }}>
-              <ActivityCard activity={activity} showMPT={true} />
-            </div>
-          ))}
-        </div>
+      <div className="container mx-auto max-w-6xl px-4 py-8">
+        {!hideHeader && (
+          <div className="mb-6">
+            <p className="text-gray-600">
+              {filteredActivities.length}{' '}
+              {filteredActivities.length === 1 ? 'activité trouvée' : 'activités trouvées'}
+              {filters.search && ` pour "${filters.search}"`}
+              {filters.category && ` dans la catégorie ${filters.category}`}
+              {filters.subcategory && ` > ${filters.subcategory}`}
+            </p>
+          </div>
+        )}
 
-        {filteredActivities.length === 0 && (
+        {filteredActivities.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredActivities.map((activity, index) => (
+                <div key={`${activity.id}-${index}`} className="h-full" style={{ height: `200px` }}>
+                  <ActivityCard activity={activity} showMPT={true} />
+                </div>
+            ))}
+          </div>
+        ) : (
           <div className="text-center py-12">
             <div className="inline-flex justify-center items-center bg-blue-100 text-blue-600 p-3 rounded-full mb-4">
-              <CategoryIcon category="default" className="h-8 w-8" />
+              <CalendarIcon className="h-8 w-8" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Aucune activité trouvée</h3>
             <p className="text-gray-600 mb-6">
               Essayez de modifier vos critères de recherche ou de filtrage.
             </p>
             <button
-              onClick={resetFilters}
+              onClick={() => {
+                setFilters({
+                  search: '',
+                  category: '',
+                  subcategory: '',
+                  public: '',
+                  mpt: '',
+                  level: '',
+                  day: '',
+                });
+              }}
               className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
             >
               <XMarkIcon className="h-5 w-5 mr-2" />
@@ -491,7 +499,7 @@ export default function ActivitiesListClient({
         )}
       </div>
 
-      {hasActiveFilters && (
+      {(filters.search || filters.category || filters.subcategory || filters.public || filters.level || filters.day || filters.mpt) && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg md:hidden py-3 px-4">
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-500">{filteredActivities.length} résultats</div>

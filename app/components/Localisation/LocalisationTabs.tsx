@@ -5,7 +5,7 @@ import MapLibre from '@/app/components/(client)/Map/MapLibre';
 import maplibregl from 'maplibre-gl';
 import { memo, useState } from 'react';
 import { MapPinIcon, MapIcon } from '@heroicons/react/24/outline';
-
+import { unstable_ViewTransition as ViewTransition } from 'react';
 interface LocalisationTabsProps {
   mpt: MPT;
   mapStyle: maplibregl.StyleSpecification;
@@ -59,8 +59,10 @@ function LocalisationTabs({ mpt, mapStyle }: LocalisationTabsProps) {
       {error && <p className="text-red-600 text-sm text-right">{error}</p>}
       <div className="w-full space-y-2">
         <div className="flex items-center gap-2 text-gray-600">
-          <MapPinIcon className="w-5 h-5" />
-          <p>{mpt.address}</p>
+          <ViewTransition name={`mpt-address-${mpt.id}`}>
+            <MapPinIcon className="w-5 h-5" />
+            <p>{mpt.address}</p>
+          </ViewTransition>
         </div>
         <div className="w-full h-[400px] rounded-lg overflow-hidden">
           {mpt.coordinates ? (
