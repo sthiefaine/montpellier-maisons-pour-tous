@@ -6,6 +6,7 @@ import { Activity } from '@/types/activity';
 import { MPT } from '@/types/maisons';
 import HeroSection from './components/HomepageClient/HeroSection';
 import MapSection from './components/HomepageClient/MapSection';
+import GuideSection from './components/HomepageClient/GuideSection';
 import CategorySection from './components/HomepageClient/CategorySection';
 import FeaturedMPTs from './components/HomepageClient/FeaturedMPTs';
 import FeaturedActivities from './components/FeaturedActivities/FeaturedActivities';
@@ -88,17 +89,14 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-    <div className="min-h-screen bg-gray-50">
       <HeroSection statistics={statistics} />
       <MapSection />
+      <GuideSection />
       <div className="container mx-auto px-4 py-12">
         <CategorySection activities={activities} activitiesByCategory={activitiesByCategory} />
-
         <FeaturedMPTs featuredMPTs={featuredMPTs} activities={activities} />
-
         <FeaturedActivities groupedActivities={randomActivities} />
       </div>
-    </div>
     </div>
   );
 }

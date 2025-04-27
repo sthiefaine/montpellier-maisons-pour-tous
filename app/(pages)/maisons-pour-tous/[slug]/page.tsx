@@ -83,6 +83,8 @@ export default async function MPTPage({ params }: MPTPageProps) {
     )
   ) as string[];
 
+  const displayName = mpt.name.replace('Maison pour Tous', '');
+
   return (
     <>
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-4">
@@ -114,7 +116,7 @@ export default async function MPTPage({ params }: MPTPageProps) {
               </Link>
               <span className="text-blue-200">/</span>
               <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">
-                {mpt.name}
+                {displayName}
               </span>
             </div>
           </div>
