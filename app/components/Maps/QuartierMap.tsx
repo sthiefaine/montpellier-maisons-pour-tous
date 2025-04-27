@@ -83,7 +83,14 @@ export default function QuartierMap({
   const offsetY = (height - (maxY - minY) * scale) / 2;
 
   const mptPositions: { x: number; y: number }[] = [];
-  mptData.forEach((mpt: MPT) => {
+  // Trier les MPT par numéro pour assurer un ordre cohérent
+  const sortedMptData = [...mptData].sort((a, b) => {
+    const numA = MPT_NUMBERS.find(m => m.id === a.id)?.number || 0;
+    const numB = MPT_NUMBERS.find(m => m.id === b.id)?.number || 0;
+    return numA - numB;
+  });
+
+  sortedMptData.forEach((mpt: MPT) => {
     if (!mpt.coordinates) return;
 
     const mptNumber = MPT_NUMBERS.find(m => m.id === mpt.id)?.number;
@@ -91,7 +98,11 @@ export default function QuartierMap({
 
     const x = (mpt.coordinates.lng - minX) * scale + offsetX;
     const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
-    mptPositions.push({ x, y });
+    
+    // Ajustement spécial pour L'Escoutaïre (MPT 22)
+    const adjustedX = mpt.id === 'mpt-22' ? x - 5 : x;
+    
+    mptPositions.push({ x: adjustedX, y });
   });
 
   const handleMptClick = (mpt: MPT) => {
@@ -184,7 +195,10 @@ export default function QuartierMap({
 
           const x = (mpt.coordinates.lng - minX) * scale + offsetX;
           const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
-
+          
+          // Ajustement spécial pour L'Escoutaïre (MPT 22)
+          const adjustedX = mpt.id === 'mpt-22' ? x - 5 : x;
+          
           return (
             <g
               key={`mpt-shape-${mpt.id}`}
@@ -192,7 +206,7 @@ export default function QuartierMap({
               onClick={() => handleMptClick(mpt)}
               style={{ cursor: 'pointer' }}
             >
-              <circle cx={x} cy={y} r="12" fill="#FFFFFF" stroke="#000000" strokeWidth="1.5" />
+              <circle cx={mpt.id === 'mpt-22' ? adjustedX : x} cy={y} r="12" fill="#FFFFFF" stroke="#000000" strokeWidth="1.5" />
             </g>
           );
         })}
@@ -262,7 +276,7 @@ export default function QuartierMap({
             return (
               <g key={`mpt-text-${mpt.id}`}>
                 <text
-                  x={x}
+                  x={mpt.id === 'mpt-22' ? x - 5 : x}
                   y={y}
                   textAnchor="middle"
                   dominantBaseline="central"

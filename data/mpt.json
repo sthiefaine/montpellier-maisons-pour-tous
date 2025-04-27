@@ -931,9 +931,9 @@
     "id": "mpt-maison-pour-tous-lescoutaire",
     "codeMPT": "L'Escoutaïre",
     "codeMPTWithDashes": "L'Escoutaïre",
-    "slug": "maison-pour-tous-lescoutaire",
+    "slug": "lescoutaire",
     "name": "Maison pour tous L'Escoutaïre",
-    "address": "67 Rue des Razeteurs 34070 Montpellier",
+    "address": "67 Rue des Razeteurs, 34000 Montpellier",
     "openingHours": {
       "Lundi": {
         "slots": ["9:00-19:00"],
@@ -1075,8 +1075,8 @@
     "phone": "04 48 18 62 10",
     "email": "mpt.escoutaire@montpellier.fr",
     "coordinates": {
-      "lat": 43.59685959999999,
-      "lng": 3.8502617
+      "lat": 43.5954735,
+      "lng": 3.8832913
     }
   },
   {
