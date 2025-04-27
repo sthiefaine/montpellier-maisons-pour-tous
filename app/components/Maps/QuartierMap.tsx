@@ -115,7 +115,7 @@ export default function QuartierMap({
       {selectedQuartier && (
         <QuartierDetail quartierName={selectedQuartier} onClose={() => setSelectedQuartier(null)} />
       )}
-      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet">
+      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" style={{ userSelect: 'none' }}>
         {/* Formes des quartiers */}
         {data.features.map(quartierData => {
           const quartierName = quartierData.properties.name;
@@ -283,6 +283,7 @@ export default function QuartierMap({
                   fill="#000000"
                   fontSize="14"
                   fontWeight="bold"
+                  style={{ userSelect: 'none', pointerEvents: 'none' }}
                 >
                   {mptNumber}
                 </text>
