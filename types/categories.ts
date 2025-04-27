@@ -12,6 +12,13 @@ export const MAIN_CATEGORIES = [
 
 export type MainCategory = (typeof MAIN_CATEGORIES)[number];
 
+export const CATEGORY_IMAGES: Record<string, string> = {
+  'Activités physiques, détente': '/AC_sport.png',
+  'Langues et alphabétisation': '/AC_langues.png',
+  'Littérature et société, théâtre et cirque': '/AC_theatre.png',
+  'Solidarité, médiation et partage': '/AC_solidarite.png',
+};
+
 export const SUB_CATEGORIES: Record<MainCategory, string[]> = {
   'Activités physiques, détente': [
     'Yoga',
