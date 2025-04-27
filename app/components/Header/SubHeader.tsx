@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { MPT } from '@/types/maisons';
 import { Activity } from '@/types/activity';
 import SearchBar from '@/app/components/SearchBar/SearchBar';
+import { SubHeaderSkeleton } from './SubHeaderSkeleton';
 
 let globalData: { mpts: MPT[]; activities: Activity[] } | null = null;
 
@@ -31,15 +32,7 @@ export default function SubHeader() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto max-w-6xl px-4 py-3">
-          <div className="flex items-center justify-center">
-            <div className="w-full max-w-2xl h-10 bg-gray-100 rounded-lg animate-pulse" />
-          </div>
-        </div>
-      </div>
-    );
+    return <SubHeaderSkeleton />;
   }
 
   return (

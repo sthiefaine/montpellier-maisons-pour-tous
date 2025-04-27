@@ -142,7 +142,7 @@ export default function QuartierMap({ width = 800, height = 600 }: QuartierMapPr
 
       // Position spéciale pour Les Cévennes et Port Marianne
       const isBottomPosition = quartierName === 'Les Cévennes' || quartierName === 'Port Marianne';
-      const baseOffset = isBottomPosition ? 30 : -30; // Commencer en bas ou en haut
+      const baseOffset = isBottomPosition ? 30 : -30;
 
       while (!foundPosition && offset < maxOffset) {
         const testY = textY + baseOffset + (isBottomPosition ? offset : -offset);
@@ -253,7 +253,6 @@ export default function QuartierMap({ width = 800, height = 600 }: QuartierMapPr
     </div>
   );
 }
-
 function calculateCentroid(coords: Ring): Coordinate {
   let x = 0;
   let y = 0;
@@ -266,3 +265,4 @@ function calculateCentroid(coords: Ring): Coordinate {
 
   return [x / len, y / len];
 }
+

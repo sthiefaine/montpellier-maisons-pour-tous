@@ -87,7 +87,7 @@ export default function MaisonsClient({
             <div>
               <h1 className="text-3xl md:text-4xl font-bold mb-2">Maisons Pour Tous</h1>
               <p className="text-blue-100 text-lg font-medium mb-4">
-                {stats.mptCount} Maisons Pour Tous dans {stats.areaCount} secteurs de Montpellier
+                {stats.mptCount} Maisons Pour Tous dans {stats.areaCount} quartiers de Montpellier
               </p>
             </div>
             <div className="flex space-x-2 text-sm">

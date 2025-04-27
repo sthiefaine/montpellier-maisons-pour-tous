@@ -3,86 +3,93 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { MapLibreSkeleton } from './MapLibreSkeleton';
 
 interface MapLibreProps {
   coordinates: {
     lat: number;
     lng: number;
   };
-  style: maplibregl.StyleSpecification;
+  mapStyle: maplibregl.StyleSpecification;
+  userLocation?: {
+    lat: number;
+    lng: number;
+  };
+  onMapReady?: () => void;
 }
 
-export default function MapLibre({ coordinates, style }: MapLibreProps) {
+const bounds: maplibregl.LngLatBoundsLike = [
+  [3.738, 43.524], // Southwest coordinates
+  [4.018, 43.706], // Northeast coordinates
+];
+
+export default function MapLibre({ coordinates, mapStyle, userLocation, onMapReady }: MapLibreProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
-  const [showAttribution, setShowAttribution] = useState(false);
-  const attributionControl = useRef<maplibregl.AttributionControl | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    const bounds = [
-      [3.738, 43.524],
-      [4.018, 43.706],
-    ] as maplibregl.LngLatBoundsLike;
-
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: style,
+      style: mapStyle,
       center: [coordinates.lng, coordinates.lat],
-      zoom: 16,
-      maxZoom: 18,
-      minZoom: 6,
+      zoom: 15,
       maxBounds: bounds,
-      pitch: 25,
-      bearing: 0
+      maxZoom: 18,
     });
 
-    // Créer le contrôle d'attribution mais ne pas l'ajouter à la carte
-    attributionControl.current = new maplibregl.AttributionControl({
-      compact: true
+    map.current.on('load', () => {
+      setIsLoading(false);
+      onMapReady?.();
     });
 
-    new maplibregl.Marker()
+    new maplibregl.Marker({
+      color: 'green',
+    })
       .setLngLat([coordinates.lng, coordinates.lat])
       .addTo(map.current);
 
+
     return () => {
-      map.current?.remove();
-    };
-  }, [coordinates, style]);
-
-  const toggleAttribution = () => {
-    if (!map.current || !attributionControl.current) return;
-
-    if (showAttribution) {
-      // Supprimer le contrôle
-      const controlElement = map.current.getContainer().querySelector('.maplibregl-ctrl-attrib');
-      if (controlElement) {
-        controlElement.remove();
+      if (map.current) {
+        map.current.remove();
       }
-    } else {
-      // Ajouter le contrôle
-      map.current.addControl(attributionControl.current);
-    }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coordinates, mapStyle]);
 
-    setShowAttribution(!showAttribution);
-  };
+  useEffect(() => {
+    if (!userLocation) return;
+
+    if (map.current) {
+      const marker = new maplibregl.Marker({
+        color: '#0000FF',
+      })
+        .setLngLat([userLocation.lng, userLocation.lat])
+        .addTo(map.current)
+
+      map.current?.flyTo({
+        center: [userLocation.lng, userLocation.lat],
+        zoom: 15,
+        duration: 1000,
+      });
+
+      return () => {
+        if (marker) {
+          marker.remove();
+        }
+      };
+    }
+  }, [userLocation]);
 
   return (
-    <div className="relative w-full h-[400px] overflow-hidden rounded-lg">
-      <div 
-        ref={mapContainer} 
-        className="absolute inset-0 w-full h-full"
-      />
-      <button
-        onClick={toggleAttribution}
-        className="absolute bottom-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors z-10"
-        title={showAttribution ? "Masquer la légende" : "Afficher la légende"}
-      >
-        <InformationCircleIcon className="w-5 h-5 text-gray-600" />
-      </button>
+    <div className="relative w-full h-full">
+      <div className={`absolute inset-0 ${isLoading ? 'block' : 'hidden'}`}>
+        <MapLibreSkeleton />
+      </div>
+      <div ref={mapContainer} className={`w-full h-full ${isLoading ? 'hidden' : 'block'}`} />
     </div>
   );
-} 
+}

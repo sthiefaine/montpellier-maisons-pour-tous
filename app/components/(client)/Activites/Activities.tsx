@@ -59,13 +59,7 @@ export default function ActivitiesListClient({
   hideHeader = false,
 }: ActivitiesListClientProps) {
   const [filters, setFilters] = useState<SearchFilters>(initialSearchParams);
-  const [visibleActivities, setVisibleActivities] = useState<Activity[]>([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const observer = useRef<IntersectionObserver | null>(null);
-  const lastActivityRef = useRef<HTMLDivElement>(null);
-  const ITEMS_PER_PAGE = 20;
 
   const router = useRouter();
   const pathname = usePathname();
@@ -77,32 +71,16 @@ export default function ActivitiesListClient({
     }));
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     const searchParams = new URLSearchParams();
-
     Object.entries(filters).forEach(([key, value]) => {
       if (value) {
         searchParams.append(key, value);
       }
     });
-
     const newUrl = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
-
     router.push(newUrl, { scroll: false });
-
-    setPage(1);
-    setVisibleActivities([]);
-    loadMoreActivities();
-  }, [filters, pathname, router]);
-
-  useEffect(() => {
-    if (filters.category && filters.subcategory) {
-      const validSubCategories = subCategoriesByCategory[filters.category] || [];
-      if (!validSubCategories.includes(filters.subcategory)) {
-        updateFilter('subcategory', '');
-      }
-    }
-  }, [filters.category, filters.subcategory, subCategoriesByCategory]);
+  }, [filters, pathname, router]); */
 
   const filteredActivities = useMemo(() => {
     return activities.filter(activity => {
@@ -112,18 +90,11 @@ export default function ActivitiesListClient({
         activity.mptName.toLowerCase().includes(filters.search.toLowerCase());
 
       const matchesCategory = !filters.category || activity.category === filters.category;
-
-      const matchesSubCategory =
-        !filters.subcategory || activity.subCategory === filters.subcategory;
-
+      const matchesSubCategory = !filters.subcategory || activity.subCategory === filters.subcategory;
       const matchesPublic = !filters.public || activity.public === filters.public;
-
       const matchesMPT = !filters.mpt || activity.mptId === filters.mpt;
-
       const matchesLevel = !filters.level || activity.level?.value === filters.level;
-
-      const matchesDay =
-        !filters.day || (activity.schedule && activity.schedule.day === filters.day);
+      const matchesDay = !filters.day || (activity.schedule && activity.schedule.day === filters.day);
 
       return (
         matchesSearch &&
@@ -136,61 +107,6 @@ export default function ActivitiesListClient({
       );
     });
   }, [activities, filters]);
-
-  const loadMoreActivities = useCallback(() => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-
-    const newActivities = filteredActivities.slice(start, end);
-
-    setVisibleActivities(prev => [...prev, ...newActivities]);
-    setPage(prev => prev + 1);
-    setIsLoading(false);
-  }, [filteredActivities, page, isLoading]);
-
-  useEffect(() => {
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting && !isLoading) {
-          loadMoreActivities();
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '200px',
-      }
-    );
-
-    if (lastActivityRef.current) {
-      observer.current.observe(lastActivityRef.current);
-    }
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [loadMoreActivities, isLoading]);
-
-  useEffect(() => {
-    setPage(1);
-    setVisibleActivities([]);
-    loadMoreActivities();
-  }, [filteredActivities]);
-
-  const activeMPTs = useMemo(() => {
-    const mptsWithActivities = activities.reduce((acc, activity) => {
-      if (activity.mptId) {
-        acc.add(activity.mptId);
-      }
-      return acc;
-    }, new Set<string>());
-
-    return mpts.filter(mpt => mptsWithActivities.has(mpt.id));
-  }, [mpts, activities]);
 
   const resetFilters = () => {
     setFilters({
@@ -548,25 +464,14 @@ export default function ActivitiesListClient({
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {visibleActivities.map((activity, index) => (
-            <div
-              key={`${activity.id}-${index}`}
-              ref={index === visibleActivities.length - 1 ? lastActivityRef : null}
-              className="h-full"
-              style={{ height: `200px` }}
-            >
+          {filteredActivities.map((activity, index) => (
+            <div key={`${activity.id}-${index}`} className="h-full" style={{ height: `200px` }}>
               <ActivityCard activity={activity} showMPT={true} />
             </div>
           ))}
         </div>
 
-        {isLoading && (
-          <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          </div>
-        )}
-
-        {!isLoading && visibleActivities.length === 0 && (
+        {filteredActivities.length === 0 && (
           <div className="text-center py-12">
             <div className="inline-flex justify-center items-center bg-blue-100 text-blue-600 p-3 rounded-full mb-4">
               <CategoryIcon category="default" className="h-8 w-8" />
@@ -589,7 +494,7 @@ export default function ActivitiesListClient({
       {hasActiveFilters && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg md:hidden py-3 px-4">
           <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-500">{visibleActivities.length} résultats</div>
+            <div className="text-sm text-gray-500">{filteredActivities.length} résultats</div>
             <button
               onClick={resetFilters}
               className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm"

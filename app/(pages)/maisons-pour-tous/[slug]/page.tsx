@@ -6,17 +6,21 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ActivitiesListClient from '@/app/components/(client)/Activites/Activities';
 import { MAIN_CATEGORIES } from '@/types/categories';
-import dynamic from 'next/dynamic';
 import { Informations } from '@/app/components/(client)/Maisons/Informations/Informations';
 import { MapPinIcon } from '@heroicons/react/24/outline';
-
-const MapLibre = dynamic(() => import('@/app/components/(client)/Map/MapLibre'));
+import LocalisationTabs from '@/app/components/Localisation/LocalisationTabs';
+import { cache } from 'react';
 
 interface MPTPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
+
+const getMapStyle = cache(async () => {
+  const data = await fs.readFile(path.join(process.cwd(), 'data/map/style.json'), 'utf8');
+  return JSON.parse(data) as maplibregl.StyleSpecification;
+});
 
 async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   try {
@@ -38,12 +42,6 @@ async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
     };
   }
 }
-
-const getMapStyle = async () => {
-  const res = await fetch("https://tiles.openfreemap.org/styles/liberty");
-  const data = await res.json();
-  return data as maplibregl.StyleSpecification;
-};
 
 export default async function MPTPage({ params }: MPTPageProps) {
   const { mpts, activities } = await getData();
@@ -97,16 +95,12 @@ export default async function MPTPage({ params }: MPTPageProps) {
                 {mptActivities.length !== 1 ? 's' : ''} disponible
                 {mptActivities.length !== 1 ? 's' : ''}
               </p>
-              <div className="flex items-center text-blue-100">
-                <MapPinIcon className="w-5 h-5 mr-2" />
-                <p>{mpt.address}</p>
-              </div>
             </div>
           </div>
           <div className="mt-4">
             <div className="flex space-x-2 text-sm">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
               >
                 Accueil
@@ -119,7 +113,9 @@ export default async function MPTPage({ params }: MPTPageProps) {
                 Maisons Pour Tous
               </Link>
               <span className="text-blue-200">/</span>
-              <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">{mpt.name}</span>
+              <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">
+                {mpt.name}
+              </span>
             </div>
           </div>
         </div>
@@ -127,23 +123,14 @@ export default async function MPTPage({ params }: MPTPageProps) {
 
       <div className="container mx-auto max-w-6xl px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <Informations mpt={mpt} />
+          <div className="space-y-8">
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <Informations mpt={mpt} />
+            </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-semibold mb-4">Localisation</h2>
-            <div className="space-y-4">
-              <div className="flex items-center text-gray-600">
-                <MapPinIcon className="w-5 h-5 mr-2 text-gray-500" />
-                <p>{mpt.address}</p>
-              </div>
-              {mpt.coordinates ? (
-                <MapLibre coordinates={mpt.coordinates} style={mapStyle ?? ""} />
-              ) : (
-                <p className="text-gray-500">Aucune coordonnée disponible</p>
-              )}
-            </div>
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <LocalisationTabs mpt={mpt} mapStyle={mapStyle} />
           </div>
         </div>
 

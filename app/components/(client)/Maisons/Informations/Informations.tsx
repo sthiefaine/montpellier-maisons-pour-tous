@@ -1,7 +1,10 @@
 'use client';
 
 import { MPT } from '@/types/maisons';
-import { formatOpeningHours } from '@/app/utils/formatOpeningHours';
+import { ClockIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { OpeningStatus } from '../OpeningStatus/OpeningStatus';
+import { Suspense } from 'react';
+import { OpeningStatusSkeleton } from '../OpeningStatus/OpeningStatusSkeleton';
 
 interface InformationsProps {
   mpt: MPT;
@@ -12,19 +15,37 @@ export function Informations({ mpt }: InformationsProps) {
     <div className="space-y-8">
       {/* Horaires */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Horaires d'ouverture</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <h2 className="text-2xl font-bold flex items-center">
+          <ClockIcon className="w-6 h-6 mr-2 text-blue-600" />
+          Horaires d'ouverture
+        </h2>
+
+        <Suspense fallback={<OpeningStatusSkeleton />}>
+          <OpeningStatus mpt={mpt} />
+        </Suspense>
+
+        <div className="space-y-1">
           {Object.entries(mpt.openingHours).map(([day, schedule]) => (
-            <div key={day} className="flex flex-col">
-              <span className="font-semibold">{day}</span>
-              <div className="flex flex-col">
+            <div
+              key={day}
+              className="flex items-center justify-between py-1 border-b border-gray-100 last:border-0"
+            >
+              <span className="font-medium text-gray-700">{day}</span>
+              <div className="flex flex-col items-end">
                 {schedule.slots.map((slot, index) => (
-                  <span key={index} className="text-gray-600">
+                  <span
+                    key={index}
+                    className={`font-medium ${slot.toLowerCase().includes('fermé') ? 'text-red-600' : 'text-green-600'}`}
+                  >
                     {slot}
                   </span>
                 ))}
                 {schedule.comments && (
-                  <span className="text-sm text-gray-500">{schedule.comments}</span>
+                  <span
+                    className={`text-sm ${schedule.comments.toLowerCase().includes('ferm') ? 'text-red-600' : 'text-gray-500'}`}
+                  >
+                    {schedule.comments}
+                  </span>
                 )}
               </div>
             </div>
@@ -34,7 +55,10 @@ export function Informations({ mpt }: InformationsProps) {
 
       {/* Coordonnées */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Coordonnées</h2>
+        <h2 className="text-2xl font-bold flex items-center">
+          <PhoneIcon className="w-6 h-6 mr-2 text-blue-600" />
+          Coordonnées
+        </h2>
         <div className="space-y-2">
           {mpt.phone && (
             <p className="text-gray-600">
@@ -56,4 +80,4 @@ export function Informations({ mpt }: InformationsProps) {
       </div>
     </div>
   );
-} 
+}

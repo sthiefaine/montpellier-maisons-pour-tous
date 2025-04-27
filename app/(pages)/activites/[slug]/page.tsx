@@ -100,8 +100,8 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
               <p className="text-blue-100 text-lg font-medium">{mpt?.name}</p>
             </div>
             <div className="flex space-x-2 text-sm">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
               >
                 Accueil
@@ -280,8 +280,8 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
 
         <div className="mt-8">
           <div className="flex space-x-2 text-sm">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
             >
               Accueil
@@ -294,7 +294,9 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
               Activités
             </Link>
             <span className="text-blue-200">/</span>
-            <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">{activity.name}</span>
+            <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">
+              {activity.name}
+            </span>
           </div>
         </div>
       </div>
