@@ -83,7 +83,7 @@ export default async function MPTPage({ params }: MPTPageProps) {
     )
   ) as string[];
 
-  const displayName = mpt.name.replace('Maison pour Tous', '');
+  const displayName = mpt.name.toLowerCase().replace('maison pour tous', '');
 
   return (
     <>
@@ -112,7 +112,7 @@ export default async function MPTPage({ params }: MPTPageProps) {
                 href="/maisons-pour-tous"
                 className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
               >
-                Maisons Pour Tous
+                Maisons
               </Link>
               <span className="text-blue-200">/</span>
               <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">

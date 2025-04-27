@@ -1,0 +1,25 @@
+@keyframes scroll {
+  0% {
+    transform: translateX(-70%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.scrolling-banner-container {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.scrolling-banner {
+  display: flex;
+  align-items: center;
+  animation: scroll 100s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}

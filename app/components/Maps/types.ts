@@ -75,4 +75,27 @@ export const QUARTIERS: Quartier[] = [
     name: "Prés d'Arènes",
     mpts: [22, 23, 24],
   },
-]; 
+];
+
+export interface TramLine {
+  type: string;
+  properties: {
+    id_lignes_sens: string;
+    reseau: string;
+    mode: string;
+    nom_ligne: string;
+    num_exploitation: number;
+    sens: string;
+    fonctionnement: string;
+    code_couleur: string;
+  };
+  geometry: {
+    type: string;
+    coordinates: number[][];
+  };
+}
+
+export interface TramData {
+  type: string;
+  features: TramLine[];
+} 

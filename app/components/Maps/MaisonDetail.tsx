@@ -23,10 +23,7 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
         transition={{ duration: 0.2 }}
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
       >
-        <div 
-          className="fixed inset-0 backdrop-blur-sm"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 backdrop-blur-sm" onClick={onClose} />
         <motion.div
           initial={{ y: 50 }}
           animate={{ y: 0 }}
@@ -35,15 +32,10 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
         >
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center justify-center gap-2">
-              <span className=" pl-1">
-                🏠 
-              </span>
+              <span className=" pl-1">🏠</span>
               <h2 className="text-xl font-bold text-gray-900">{displayName}</h2>
             </div>
-            <button
-              onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
-            >
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
               <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
@@ -68,4 +60,4 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
       </motion.div>
     </AnimatePresence>
   );
-} 
+}

@@ -20,8 +20,8 @@ export const QUARTIER_STYLES = {
     text: '#FFFFFF',
   },
   'Hôpitaux-Facultés': {
-    fill: '#E50156',
-    stroke: '#CC014D',
+    fill: '#C53030',
+    stroke: '#9B2C2C',
     text: '#FFFFFF',
   },
   'Les Cévennes': {

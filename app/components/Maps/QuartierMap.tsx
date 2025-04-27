@@ -1,11 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { ArrowTopRightOnSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 import QuartierDetail from './QuartierDetail';
 import MaisonDetail from './MaisonDetail';
-import { MPT, MPT_NUMBERS, Quartier } from './types';
+import { MPT, MPT_NUMBERS, Quartier, TramData } from './types';
 import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
 
 type Coordinate = [number, number];
@@ -35,6 +33,7 @@ interface QuartierMapProps {
   height?: number;
   mptData: MPT[];
   quartierData: Quartier[];
+  tramData?: TramData;
 }
 
 function calculateCentroid(coords: Ring): Coordinate {
@@ -50,7 +49,13 @@ function calculateCentroid(coords: Ring): Coordinate {
   return [x / len, y / len];
 }
 
-export default function QuartierMap({ width = 800, height = 600, mptData, quartierData }: QuartierMapProps) {
+export default function QuartierMap({
+  width = 800,
+  height = 600,
+  mptData,
+  quartierData,
+  tramData,
+}: QuartierMapProps) {
   const [selectedQuartier, setSelectedQuartier] = useState<string | null>(null);
   const [selectedMpt, setSelectedMpt] = useState<MPT | null>(null);
 
@@ -94,14 +99,13 @@ export default function QuartierMap({ width = 800, height = 600, mptData, quarti
   };
 
   return (
-    <div className="w-full min-w-[320px] relative">
-      {selectedMpt && (
-        <MaisonDetail mpt={selectedMpt} onClose={() => setSelectedMpt(null)} />
-      )}
+    <div className="w-full min-w-[320px] relative space-y-4">
+      {selectedMpt && <MaisonDetail mpt={selectedMpt} onClose={() => setSelectedMpt(null)} />}
       {selectedQuartier && (
         <QuartierDetail quartierName={selectedQuartier} onClose={() => setSelectedQuartier(null)} />
       )}
       <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet">
+        {/* Formes des quartiers */}
         {data.features.map(quartierData => {
           const quartierName = quartierData.properties.name;
           const style = QUARTIER_STYLES[quartierName as keyof typeof QUARTIER_STYLES] || {
@@ -122,34 +126,8 @@ export default function QuartierMap({ width = 800, height = 600, mptData, quarti
             })
             .join(' Z ');
 
-          const centroid = calculateCentroid(quartierData.geometry.coordinates[0]);
-          let textX = (centroid[0] - minX) * scale + offsetX;
-          let textY = height - ((centroid[1] - minY) * scale + offsetY);
-
-          const mptRadius = 12;
-          const textMargin = 20;
-          let foundPosition = false;
-          let offset = 0;
-          const maxOffset = 50;
-          const isBottomPosition = quartierName === 'Les Cévennes' || quartierName === 'Port Marianne';
-          const baseOffset = isBottomPosition ? 30 : -30;
-
-          while (!foundPosition && offset < maxOffset) {
-            const testY = textY + baseOffset + (isBottomPosition ? offset : -offset);
-            const hasOverlap = mptPositions.some(mpt => {
-              const distance = Math.sqrt(Math.pow(textX - mpt.x, 2) + Math.pow(testY - mpt.y, 2));
-              return distance < mptRadius + textMargin;
-            });
-
-            if (!hasOverlap) {
-              textY = testY;
-              foundPosition = true;
-            }
-            offset += 5;
-          }
-
           return (
-            <g key={quartierName}>
+            <g key={`quartier-shape-${quartierName}`}>
               <path
                 id={`quartier-${quartierName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
                 d={d}
@@ -160,23 +138,44 @@ export default function QuartierMap({ width = 800, height = 600, mptData, quarti
                 data-quartier={quartierName}
                 onClick={() => setSelectedQuartier(quartierName)}
               />
-              <text
-                x={textX}
-                y={textY}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="#FFFFFF"
-                fontSize="14"
-                fontWeight="bold"
-                stroke="#000000"
-                strokeWidth="0.5"
-                paintOrder="stroke"
-              >
-                {quartierName.toUpperCase()}
-              </text>
             </g>
           );
         })}
+
+        {/* Lignes de tramway */}
+        {tramData?.features.map((line, index) => {
+          const lineIndex = tramData.features
+            .slice(0, index)
+            .filter(l => l.properties.num_exploitation !== line.properties.num_exploitation).length;
+
+          const points = line.geometry.coordinates
+            .map(([x, y]) => {
+              // Appliquer le décalage uniquement si c'est une ligne différente
+              const offset = lineIndex * 2;
+              const scaledX = (x - minX) * scale + offsetX + offset;
+              const scaledY = height - ((y - minY) * scale + offsetY);
+              return `${scaledX},${scaledY}`;
+            })
+            .join(' ');
+
+          return (
+            <g
+              key={`tram-${line.properties.id_lignes_sens}-${line.properties.num_exploitation}-${index}`}
+            >
+              <polyline
+                points={points}
+                fill="none"
+                stroke={line.properties.code_couleur}
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.8"
+              />
+            </g>
+          );
+        })}
+
+        {/* Cercles des MPTs */}
         {mptData.map((mpt: MPT) => {
           if (!mpt.coordinates) return null;
 
@@ -187,36 +186,97 @@ export default function QuartierMap({ width = 800, height = 600, mptData, quarti
           const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
 
           return (
-            <g 
-              key={mpt.id} 
+            <g
+              key={`mpt-shape-${mpt.id}`}
               data-mpt-id={mpt.id}
               onClick={() => handleMptClick(mpt)}
               style={{ cursor: 'pointer' }}
             >
-              <circle
-                cx={x}
-                cy={y}
-                r="12"
-                fill="#FFFFFF"
-                stroke="#000000"
-                strokeWidth="1.5"
-              />
-              <text
-                x={x}
-                y={y}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill="#000000"
-                fontSize="14"
-                fontWeight="bold"
-              >
-                {mptNumber}
-              </text>
+              <circle cx={x} cy={y} r="12" fill="#FFFFFF" stroke="#000000" strokeWidth="1.5" />
             </g>
           );
         })}
+
+        {/* Textes (noms des quartiers et numéros des MPTs) */}
+        <g>
+          {/* Noms des quartiers */}
+          {data.features.map(quartierData => {
+            const quartierName = quartierData.properties.name;
+            const centroid = calculateCentroid(quartierData.geometry.coordinates[0]);
+            let textX = (centroid[0] - minX) * scale + offsetX;
+            let textY = height - ((centroid[1] - minY) * scale + offsetY);
+
+            const mptRadius = 12;
+            const textMargin = 20;
+            let foundPosition = false;
+            let offset = 0;
+            const maxOffset = 50;
+            const isBottomPosition =
+              quartierName === 'Les Cévennes' || quartierName === 'Port Marianne';
+            const baseOffset = isBottomPosition ? 30 : -30;
+
+            while (!foundPosition && offset < maxOffset) {
+              const testY = textY + baseOffset + (isBottomPosition ? offset : -offset);
+              const hasOverlap = mptPositions.some(mpt => {
+                const distance = Math.sqrt(Math.pow(textX - mpt.x, 2) + Math.pow(testY - mpt.y, 2));
+                return distance < mptRadius + textMargin;
+              });
+
+              if (!hasOverlap) {
+                textY = testY;
+                foundPosition = true;
+              }
+              offset += 5;
+            }
+
+            return (
+              <g key={`quartier-text-${quartierName}`}>
+                <text
+                  x={textX}
+                  y={textY}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#FFFFFF"
+                  fontSize="14"
+                  fontWeight="bold"
+                  stroke="#000000"
+                  strokeWidth="0.5"
+                  paintOrder="stroke"
+                >
+                  {quartierName.toUpperCase()}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Numéros des MPTs */}
+          {mptData.map((mpt: MPT) => {
+            if (!mpt.coordinates) return null;
+
+            const mptNumber = MPT_NUMBERS.find(m => m.id === mpt.id)?.number;
+            if (!mptNumber) return null;
+
+            const x = (mpt.coordinates.lng - minX) * scale + offsetX;
+            const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
+
+            return (
+              <g key={`mpt-text-${mpt.id}`}>
+                <text
+                  x={x}
+                  y={y}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fill="#000000"
+                  fontSize="14"
+                  fontWeight="bold"
+                >
+                  {mptNumber}
+                </text>
+              </g>
+            );
+          })}
+        </g>
       </svg>
     </div>
   );
 }
-

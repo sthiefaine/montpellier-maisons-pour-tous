@@ -9,10 +9,14 @@ import {
   UserGroupIcon,
   TrophyIcon,
   CreditCardIcon,
+  BuildingOfficeIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Badge from '@/app/components/Badge/Badge';
 import FeaturedActivities from '@/app/components/FeaturedActivities/FeaturedActivities';
+import { OpeningStatus } from '@/app/components/(client)/Maisons/OpeningStatus/OpeningStatus';
+import { Suspense } from 'react';
+import { OpeningStatusSkeleton } from '@/app/components/(client)/Maisons/OpeningStatus/OpeningStatusSkeleton';
 
 interface ActivityPageProps {
   params: Promise<{
@@ -135,6 +139,20 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
                     <p className="text-gray-600">{mpt?.address}</p>
                   </div>
                 </div>
+                {mpt && (
+                  <Suspense fallback={<OpeningStatusSkeleton />}>
+                    <OpeningStatus mpt={mpt} />
+                  </Suspense>
+                )}
+                {mpt && (
+                  <Link
+                    href={`/maisons-pour-tous/${mpt.slug}`}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+                  >
+                    <BuildingOfficeIcon className="w-5 h-5" />
+                    <span>Visiter la Maison Pour Tous</span>
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -277,28 +295,6 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
             />
           </div>
         )}
-
-        <div className="mt-8">
-          <div className="flex space-x-2 text-sm">
-            <Link
-              href="/"
-              className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
-            >
-              Accueil
-            </Link>
-            <span className="text-blue-200">/</span>
-            <Link
-              href="/activites"
-              className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
-            >
-              Activités
-            </Link>
-            <span className="text-blue-200">/</span>
-            <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">
-              {activity.name}
-            </span>
-          </div>
-        </div>
       </div>
     </>
   );
