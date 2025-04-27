@@ -2,9 +2,13 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { MAIN_CATEGORIES } from '@/types/categories';
 import { groupSimilarActivities } from '@/lib/utils/activity';
-import HomepageClient from '@/app/components/(client)/Home/Home';
 import { Activity } from '@/types/activity';
 import { MPT } from '@/types/maisons';
+import HeroSection from './components/HomepageClient/HeroSection';
+import MapSection from './components/HomepageClient/MapSection';
+import CategorySection from './components/HomepageClient/CategorySection';
+import FeaturedMPTs from './components/HomepageClient/FeaturedMPTs';
+import FeaturedActivities from './components/FeaturedActivities/FeaturedActivities';
 
 function getStatistics(mpts: MPT[], activities: Activity[]) {
   const uniquePublics = new Set(activities.map(activity => activity.public).filter(Boolean));
@@ -69,7 +73,9 @@ export default async function Home() {
     .sort((a, b) => b.activities.length - a.activities.length)
     .slice(0, 6);
 
-  const featuredActivities = groupedActivities.slice(0, 8);
+  const maxActivities = 8;
+  const featuredActivities = groupedActivities.slice(0, maxActivities);
+  const randomActivities = groupedActivities.sort(() => Math.random() - 0.5).slice(0, maxActivities);
 
   const activitiesByCategory: Record<string, Activity[]> = {};
   MAIN_CATEGORIES.forEach(category => {
@@ -82,15 +88,17 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <HomepageClient
-        mpts={mpts}
-        activities={activities}
-        groupedActivities={groupedActivities}
-        featuredMPTs={featuredMPTs}
-        featuredActivities={featuredActivities}
-        activitiesByCategory={activitiesByCategory}
-        statistics={statistics}
-      />
+    <div className="min-h-screen bg-gray-50">
+      <HeroSection statistics={statistics} />
+      <MapSection />
+      <div className="container mx-auto px-4 py-12">
+        <CategorySection activities={activities} activitiesByCategory={activitiesByCategory} />
+
+        <FeaturedMPTs featuredMPTs={featuredMPTs} activities={activities} />
+
+        <FeaturedActivities groupedActivities={randomActivities} />
+      </div>
+    </div>
     </div>
   );
 }

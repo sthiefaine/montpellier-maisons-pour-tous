@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Activity } from '@/types/activity';
 import ActivityCard from '@/app/components/Cards/Activity/Activity';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
@@ -16,19 +16,12 @@ export default function FeaturedActivities({
   groupedActivities,
   title = 'Découvrez nos activités',
   subtitle = "Explorez notre sélection d'activités populaires",
-  maxItems = 50,
 }: FeaturedActivitiesProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   const [cardWidth, setCardWidth] = useState(300);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
-
-  const filteredActivities = useMemo(() => {
-    const shuffled = [...groupedActivities].sort(() => 0.5 - Math.random());
-
-    return shuffled.slice(0, maxItems);
-  }, [groupedActivities, maxItems]);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -54,7 +47,7 @@ export default function FeaturedActivities({
 
     window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
-  }, [filteredActivities]);
+  }, [groupedActivities]);
 
   useEffect(() => {
     if (!autoScrollEnabled || maxScroll <= 0) return;
@@ -133,8 +126,8 @@ export default function FeaturedActivities({
             className="flex overflow-x-auto pb-6 hide-scrollbar snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {filteredActivities.length > 0 ? (
-              filteredActivities.map(activity => (
+            {groupedActivities.length > 0 ? (
+              groupedActivities.map(activity => (
                 <div
                   key={activity.id}
                   className="snap-start flex-none px-2 first:pl-4 last:pr-4"

@@ -2,11 +2,15 @@
 
 import { useState } from 'react';
 import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
-import mptData from '@/data/mpt.json';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { QUARTIERS, MPT_NUMBERS } from './types';
+import { MPT } from '@/types/maisons';
 
-export default function MapLegend() {
+type MapLegendProps = {
+  mptData: MPT[];
+};
+
+export default function MapLegend({ mptData }: MapLegendProps) {
   const [expandedQuartiers, setExpandedQuartiers] = useState<Set<string>>(new Set());
 
   const toggleQuartier = (quartierName: string) => {
