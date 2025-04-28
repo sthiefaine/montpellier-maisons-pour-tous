@@ -40,12 +40,12 @@ export function OpeningStatus({ mpt }: OpeningStatusProps) {
     if (!todaySchedule) {
       const days = Object.keys(mpt.openingHours);
       const currentDayIndex = days.indexOf(currentDay);
-      
+
       for (let i = 1; i <= 7; i++) {
         const nextDayIndex = (currentDayIndex + i) % 7;
         const nextDay = days[nextDayIndex];
         const nextDaySchedule = mpt.openingHours[nextDay];
-        
+
         if (nextDaySchedule) {
           const firstSlot = nextDaySchedule.slots.find(
             slot => !slot.toLowerCase().includes('fermé')
@@ -65,21 +65,29 @@ export function OpeningStatus({ mpt }: OpeningStatusProps) {
           }
         }
       }
-      
+
       return { isOpen: false, nextOpening: null, currentDay, currentTime: now };
     }
 
-    let tempClosureEnd = null;
     if (todaySchedule.comments) {
       const match = todaySchedule.comments.match(/fermée entre (\d+)h(\d+)? et (\d+)h(\d+)?/i);
-      
+
       if (match) {
         const [, startHour, startMin, endHour, endMin] = match;
         const closureStart = parseInt(startHour) * 60 + (startMin ? parseInt(startMin) : 0);
         const closureEnd = parseInt(endHour) * 60 + (endMin ? parseInt(endMin) : 0);
-        
+
         if (currentTime >= closureStart && currentTime <= closureEnd) {
-          tempClosureEnd = closureEnd;
+          return {
+            isOpen: false,
+            nextOpening: {
+              day: currentDay,
+              time: closureEnd,
+              isTemporary: true,
+            },
+            currentDay,
+            currentTime: now,
+          };
         }
       }
     }
@@ -101,47 +109,41 @@ export function OpeningStatus({ mpt }: OpeningStatusProps) {
     let nextOpening = null;
     const days = Object.keys(mpt.openingHours);
     const currentDayIndex = days.indexOf(currentDay);
-    
-    if (tempClosureEnd) {
-      nextOpening = {
-        day: currentDay,
-        time: tempClosureEnd,
-        isTemporary: true,
-      };
-    } else {
-      for (const slot of todaySchedule.slots) {
-        if (!slot.toLowerCase().includes('fermé')) {
-          const [start] = slot.split('-').map(t => t.trim());
-          if (parseTime(start) > currentTime) {
+
+    // Chercher la prochaine ouverture dans la journée
+    for (const slot of todaySchedule.slots) {
+      if (!slot.toLowerCase().includes('fermé')) {
+        const [start] = slot.split('-').map(t => t.trim());
+        if (parseTime(start) > currentTime) {
+          nextOpening = {
+            day: currentDay,
+            time: parseTime(start),
+            isTemporary: false,
+          };
+          break;
+        }
+      }
+    }
+
+    // Si pas d'ouverture aujourd'hui, chercher le prochain jour d'ouverture
+    if (!nextOpening) {
+      for (let i = 1; i <= 7; i++) {
+        const nextDayIndex = (currentDayIndex + i) % 7;
+        const nextDay = days[nextDayIndex];
+        const nextDaySchedule = mpt.openingHours[nextDay];
+
+        if (nextDaySchedule) {
+          const firstSlot = nextDaySchedule.slots.find(
+            slot => !slot.toLowerCase().includes('fermé')
+          );
+          if (firstSlot) {
+            const [start] = firstSlot.split('-').map(t => t.trim());
             nextOpening = {
-              day: currentDay,
+              day: nextDay,
               time: parseTime(start),
               isTemporary: false,
             };
             break;
-          }
-        }
-      }
-
-      if (!nextOpening) {
-        for (let i = 1; i <= 7; i++) {
-          const nextDayIndex = (currentDayIndex + i) % 7;
-          const nextDay = days[nextDayIndex];
-          const nextDaySchedule = mpt.openingHours[nextDay];
-          
-          if (nextDaySchedule) {
-            const firstSlot = nextDaySchedule.slots.find(
-              slot => !slot.toLowerCase().includes('fermé')
-            );
-            if (firstSlot) {
-              const [start] = firstSlot.split('-').map(t => t.trim());
-              nextOpening = {
-                day: nextDay,
-                time: parseTime(start),
-                isTemporary: false,
-              };
-              break;
-            }
           }
         }
       }
