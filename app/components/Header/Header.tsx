@@ -54,7 +54,7 @@ export default function Header() {
                 Accueil
               </Link>
               <Link
-                href="/mpt"
+                href="/maisons-pour-tous"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
               >
                 MPT

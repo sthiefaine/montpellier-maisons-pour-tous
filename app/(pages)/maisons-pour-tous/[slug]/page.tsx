@@ -9,6 +9,7 @@ import { MAIN_CATEGORIES } from '@/types/categories';
 import { Informations } from '@/app/components/(client)/Maisons/Informations/Informations';
 import LocalisationTabs from '@/app/components/Localisation/LocalisationTabs';
 import MPTHeader from '@/app/components/(client)/Maisons/MPTHeader';
+import SocialNetworks from '@/app/components/(client)/Maisons/SocialNetworks/SocialNetworks';
 import { cache, Suspense } from 'react';
 
 interface MPTPageProps {
@@ -93,12 +94,13 @@ export default async function MPTPage({ params }: MPTPageProps) {
               <Informations mpt={mpt} />
             </div>
           </div>
-
           <div className="bg-white rounded-lg shadow-sm p-6">
             <LocalisationTabs mpt={mpt} mapStyle={mapStyle} />
           </div>
         </div>
-
+        <div className="mt-12">
+          <SocialNetworks mpt={mpt} />
+        </div>
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-6">Activités proposées</h2>
           <Suspense fallback={<ActivitiesSkeleton />}>
