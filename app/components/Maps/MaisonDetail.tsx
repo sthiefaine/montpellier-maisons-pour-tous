@@ -22,13 +22,23 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
         exit={{ opacity: 0, scale: 0.8 }}
         transition={{ duration: 0.2 }}
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        style={{ contain: 'layout style paint' }}
       >
-        <div className="fixed inset-0 backdrop-blur-sm" onClick={onClose} />
+        <div
+          className="fixed inset-0 backdrop-blur-sm"
+          onClick={onClose}
+          style={{
+            contain: 'layout style paint',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+          }}
+        />
         <motion.div
           initial={{ y: 50 }}
           animate={{ y: 0 }}
           exit={{ y: 50 }}
           className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          style={{ contain: 'layout style paint' }}
         >
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center justify-center gap-2">

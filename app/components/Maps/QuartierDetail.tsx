@@ -31,16 +31,23 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
         exit={{ opacity: 0, scale: 0.8 }}
         transition={{ duration: 0.2 }}
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        style={{ contain: 'layout style paint' }}
       >
-        <div 
+        <div
           className="fixed inset-0 backdrop-blur-sm"
           onClick={onClose}
+          style={{
+            contain: 'layout style paint',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+          }}
         />
         <motion.div
           initial={{ y: 50 }}
           animate={{ y: 0 }}
           exit={{ y: 50 }}
           className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          style={{ contain: 'layout style paint' }}
         >
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center gap-2">
@@ -53,10 +60,7 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
               />
               <h2 className="text-xl font-bold text-gray-900">{quartierName}</h2>
             </div>
-            <button
-              onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
-            >
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
               <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
@@ -73,6 +77,7 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
                   <div
                     key={mpt.id}
                     className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors"
+                    style={{ contain: 'layout style paint' }}
                   >
                     <div className="flex items-start justify-between">
                       <div>
@@ -103,4 +108,4 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
       </motion.div>
     </AnimatePresence>
   );
-} 
+}
