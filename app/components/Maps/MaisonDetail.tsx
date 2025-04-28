@@ -25,7 +25,7 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
         style={{ contain: 'layout style paint' }}
       >
         <div
-          className="fixed inset-0 backdrop-blur-sm"
+          className="fixed inset-0"
           onClick={onClose}
           style={{
             contain: 'layout style paint',
