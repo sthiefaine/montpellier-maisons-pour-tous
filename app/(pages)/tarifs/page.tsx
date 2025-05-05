@@ -31,7 +31,7 @@ export default function Tarifs() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto space-y-12">
           {/* Introduction */}
-          <section className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+          <section className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
             <p className="text-gray-600 mb-6">
               Les Maisons pour Tous de Montpellier proposent environ 500 activités différentes dans
               des domaines variés : activités artistiques, sportives, culturelles, scientifiques,
@@ -76,28 +76,28 @@ export default function Tarifs() {
           </section>
 
           {/* Carte d'adhésion */}
-          <section className="bg-gradient-to-br from-indigo-50 to-white rounded-xl p-8 shadow-sm border border-indigo-100">
+          <section className="bg-gradient-to-br from-indigo-50 to-white rounded-xl p-4 shadow-sm border border-indigo-100">
             <h2 className="text-2xl font-bold text-indigo-900 mb-6">Carte d'adhésion</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="bg-indigo-100/50">
-                    <th className="px-4 py-3 text-left text-indigo-900 font-semibold">Type</th>
-                    <th className="px-4 py-3 text-right text-indigo-900 font-semibold">Tarif</th>
+                    <th className="px-2 py-2 text-left text-indigo-900 font-semibold">Type</th>
+                    <th className="px-1 py-2 text-right text-indigo-900 font-semibold">Tarif</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-indigo-100">
                   <tr className="hover:bg-indigo-50/50">
-                    <td className="px-4 py-3 text-gray-600">Adulte</td>
-                    <td className="px-4 py-3 text-right text-indigo-900 font-medium">135.00 €</td>
+                    <td className="px-2 py-2 text-gray-600">Adulte</td>
+                    <td className="px-1 py-2 text-right text-indigo-900 font-medium whitespace-nowrap">135.00€</td>
                   </tr>
                   <tr className="hover:bg-indigo-50/50">
-                    <td className="px-4 py-3 text-gray-600">Enfants (moins de 18 ans)</td>
-                    <td className="px-4 py-3 text-right text-indigo-900 font-medium">40.00 €</td>
+                    <td className="px-2 py-2 text-gray-600">Enfants (moins de 18 ans)</td>
+                    <td className="px-1 py-2 text-right text-indigo-900 font-medium whitespace-nowrap">40.00€</td>
                   </tr>
                   <tr className="hover:bg-indigo-50/50">
-                    <td className="px-4 py-3 text-gray-600">Détenteur du Pass Culture</td>
-                    <td className="px-4 py-3 text-right text-indigo-900 font-medium">Gratuit</td>
+                    <td className="px-2 py-2 text-gray-600">Détenteur du Pass Culture</td>
+                    <td className="px-1 py-2 text-right text-indigo-900 font-medium whitespace-nowrap">Gratuit</td>
                   </tr>
                 </tbody>
               </table>
@@ -105,44 +105,44 @@ export default function Tarifs() {
           </section>
 
           {/* Activités musicales */}
-          <section className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-8 shadow-sm border border-blue-100">
+          <section className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-4 shadow-sm border border-blue-100">
             <h2 className="text-2xl font-bold text-blue-900 mb-6">Activités musicales</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="bg-blue-100/50">
-                    <th className="px-4 py-3 text-left text-blue-900 font-semibold">
+                    <th className="px-2 py-2 text-left text-blue-900 font-semibold">
                       Type de cours
                     </th>
-                    <th className="px-4 py-3 text-right text-blue-900 font-semibold">Tarif</th>
+                    <th className="px-1 py-2 text-right text-blue-900 font-semibold">Tarif</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-blue-100">
                   <tr className="hover:bg-blue-50/50">
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-2 py-2 text-gray-600">
                       Séances de musique à 1 élève (30 séances minimum par an d'1 heure/semaine)
                     </td>
-                    <td className="px-4 py-3 text-right text-blue-900 font-medium">500.00 €</td>
+                    <td className="px-1 py-2 text-right text-blue-900 font-medium whitespace-nowrap">500.00€</td>
                   </tr>
                   <tr className="hover:bg-blue-50/50">
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-2 py-2 text-gray-600">
                       Séances de musique à 2 élèves /heure ou 30 mn par élève
                     </td>
-                    <td className="px-4 py-3 text-right text-blue-900 font-medium">380.00 €</td>
+                    <td className="px-1 py-2 text-right text-blue-900 font-medium whitespace-nowrap">380.00€</td>
                   </tr>
                   <tr className="hover:bg-blue-50/50">
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-2 py-2 text-gray-600">
                       Séances de musique à 3 élèves/heure ou 20 mn par élève
                     </td>
-                    <td className="px-4 py-3 text-right text-blue-900 font-medium">250.00 €</td>
+                    <td className="px-1 py-2 text-right text-blue-900 font-medium whitespace-nowrap">250.00€</td>
                   </tr>
                   <tr className="hover:bg-blue-50/50">
-                    <td className="px-4 py-3 text-gray-600">Cours collectif d'1h</td>
-                    <td className="px-4 py-3 text-right text-blue-900 font-medium">135.00 €</td>
+                    <td className="px-2 py-2 text-gray-600">Cours collectif d'1h</td>
+                    <td className="px-1 py-2 text-right text-blue-900 font-medium whitespace-nowrap">135.00€</td>
                   </tr>
                   <tr className="hover:bg-blue-50/50">
-                    <td className="px-4 py-3 text-gray-600">Musique et solfège 1h/semaine</td>
-                    <td className="px-4 py-3 text-right text-blue-900 font-medium">580.00 €</td>
+                    <td className="px-2 py-2 text-gray-600">Musique et solfège 1h/semaine</td>
+                    <td className="px-1 py-2 text-right text-blue-900 font-medium whitespace-nowrap">580.00€</td>
                   </tr>
                 </tbody>
               </table>
@@ -150,7 +150,7 @@ export default function Tarifs() {
           </section>
 
           {/* Tarification par type d'activité */}
-          <section className="bg-gradient-to-br from-green-50 to-white rounded-xl p-8 shadow-sm border border-green-100">
+          <section className="bg-gradient-to-br from-green-50 to-white rounded-xl p-4 shadow-sm border border-green-100">
             <h2 className="text-2xl font-bold text-green-900 mb-6">
               Tarification par type d'activité
             </h2>
@@ -158,50 +158,50 @@ export default function Tarifs() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-green-100/50">
-                    <th className="px-4 py-3 text-left text-green-900 font-semibold">
+                    <th className="px-2 py-2 text-left text-green-900 font-semibold">
                       Type d'activité
                     </th>
-                    <th className="px-4 py-3 text-right text-green-900 font-semibold">
+                    <th className="px-1 py-2 text-right text-green-900 font-semibold">
                       Plein tarif
                     </th>
-                    <th className="px-4 py-3 text-right text-green-900 font-semibold">-20%</th>
-                    <th className="px-4 py-3 text-right text-green-900 font-semibold">-30%</th>
-                    <th className="px-4 py-3 text-right text-green-900 font-semibold">-40%</th>
-                    <th className="px-4 py-3 text-right text-green-900 font-semibold">-50%</th>
+                    <th className="px-1 py-2 text-right text-green-900 font-semibold">-20%</th>
+                    <th className="px-1 py-2 text-right text-green-900 font-semibold">-30%</th>
+                    <th className="px-1 py-2 text-right text-green-900 font-semibold">-40%</th>
+                    <th className="px-1 py-2 text-right text-green-900 font-semibold">-50%</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-green-100">
                   <tr className="hover:bg-green-50/50">
-                    <td className="px-4 py-3 text-gray-600">Cours collectifs 1h/semaine</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">135 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">108 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">94,5 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">81 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">67,5 €</td>
+                    <td className="px-2 py-2 text-gray-600">Cours collectifs 1h/semaine</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">135€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">108€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">94,5€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">81€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">67,5€</td>
                   </tr>
                   <tr className="hover:bg-green-50/50">
-                    <td className="px-4 py-3 text-gray-600">Cours collectifs 1h30/semaine</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">215 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">172 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">150,5 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">129 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">107,5 €</td>
+                    <td className="px-2 py-2 text-gray-600">Cours collectifs 1h30/semaine</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">215€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">172€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">150,5€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">129€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">107,5€</td>
                   </tr>
                   <tr className="hover:bg-green-50/50">
-                    <td className="px-4 py-3 text-gray-600">Cours collectifs 2h/semaine</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">275 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">220 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">192,5 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">165 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">137,5 €</td>
+                    <td className="px-2 py-2 text-gray-600">Cours collectifs 2h/semaine</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">275€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">220€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">192,5€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">165€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">137,5€</td>
                   </tr>
                   <tr className="hover:bg-green-50/50">
-                    <td className="px-4 py-3 text-gray-600">Cours collectifs 3h/semaine</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">295 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">236 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">206,5 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">177 €</td>
-                    <td className="px-4 py-3 text-right text-green-900 font-medium">147,5 €</td>
+                    <td className="px-2 py-2 text-gray-600">Cours collectifs 3h/semaine</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">295€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">236€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">206,5€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">177€</td>
+                    <td className="px-1 py-2 text-right text-green-900 font-medium whitespace-nowrap">147,5€</td>
                   </tr>
                 </tbody>
               </table>
@@ -209,7 +209,7 @@ export default function Tarifs() {
           </section>
 
           {/* Réductions */}
-          <section className="bg-gradient-to-br from-purple-50 to-white rounded-xl p-8 shadow-sm border border-purple-100">
+          <section className="bg-gradient-to-br from-purple-50 to-white rounded-xl p-4 shadow-sm border border-purple-100">
             <h2 className="text-2xl font-bold text-purple-900 mb-6">Réductions accordées</h2>
 
             {/* Réductions de 50% */}

@@ -125,7 +125,7 @@ export default function SearchBar({ mpts, activities }: SearchBarProps) {
           type="text"
           value={searchQuery}
           onChange={handleSearchChange}
-          placeholder="Rechercher une MPT ou une activité..."
+          placeholder="Rechercher une Maison ou une activité..."
           className="w-full px-4 py-2 pl-10 pr-10 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />

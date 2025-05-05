@@ -4,6 +4,7 @@ import { MPT } from '@/types/maisons';
 import { Activity } from '@/types/activity';
 import { MAIN_CATEGORIES } from '@/types/categories';
 import ActivitiesListClient from '@/app/components/(client)/Activites/Activities';
+import { cache } from 'react';
 
 interface ActivitiesPageProps {
   searchParams: Promise<{
@@ -17,7 +18,7 @@ interface ActivitiesPageProps {
   }>;
 }
 
-async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
+const getData = cache(async (): Promise<{ mpts: MPT[]; activities: Activity[] }> => {
   try {
     const mptData = await fs.readFile(path.join(process.cwd(), 'data/mpt.json'), 'utf8');
     const activitiesData = await fs.readFile(
@@ -36,11 +37,20 @@ async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
       activities: [],
     };
   }
-}
+});
+
+export const revalidate = 3600; // TODO update with tag when API is ready
 
 export default async function ActivitiesPage({ searchParams }: ActivitiesPageProps) {
   const params = await searchParams;
   const { mpts, activities } = await getData();
+
+  const preFilteredActivities = activities.filter(activity => {
+    if (params.category && activity.category !== params.category) return false;
+    if (params.subcategory && activity.subCategory !== params.subcategory) return false;
+    if (params.mpt && activity.mptId !== params.mpt) return false;
+    return true;
+  });
 
   const subCategoriesByCategory: Record<string, string[]> = {};
   MAIN_CATEGORIES.forEach(category => {
@@ -73,7 +83,7 @@ export default async function ActivitiesPage({ searchParams }: ActivitiesPagePro
   return (
     <ActivitiesListClient
       mpts={mpts}
-      activities={activities}
+      activities={preFilteredActivities}
       subCategoriesByCategory={subCategoriesByCategory}
       allPublics={allPublics}
       allLevels={allLevels}

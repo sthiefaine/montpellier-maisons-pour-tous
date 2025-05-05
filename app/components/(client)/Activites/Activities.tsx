@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 
 import { MAIN_CATEGORIES } from '@/types/categories';
@@ -60,6 +60,11 @@ export default function ActivitiesListClient({
 }: ActivitiesListClientProps) {
   const [filters, setFilters] = useState<SearchFilters>(initialSearchParams);
   const [showFilters, setShowFilters] = useState(false);
+  const [visibleActivities, setVisibleActivities] = useState<Activity[]>([]);
+  const [page, setPage] = useState(1);
+  const ITEMS_PER_PAGE = 12;
+  const observerTarget = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef(false);
 
   const updateFilter = (key: keyof SearchFilters, value: string) => {
     setFilters(prev => ({
@@ -76,11 +81,13 @@ export default function ActivitiesListClient({
         activity.mptName.toLowerCase().includes(filters.search.toLowerCase());
 
       const matchesCategory = !filters.category || activity.category === filters.category;
-      const matchesSubCategory = !filters.subcategory || activity.subCategory === filters.subcategory;
+      const matchesSubCategory =
+        !filters.subcategory || activity.subCategory === filters.subcategory;
       const matchesPublic = !filters.public || activity.public === filters.public;
       const matchesMPT = !filters.mpt || activity.mptId === filters.mpt;
       const matchesLevel = !filters.level || activity.level?.value === filters.level;
-      const matchesDay = !filters.day || (activity.schedule && activity.schedule.day === filters.day);
+      const matchesDay =
+        !filters.day || (activity.schedule && activity.schedule.day === filters.day);
 
       return (
         matchesSearch &&
@@ -93,6 +100,51 @@ export default function ActivitiesListClient({
       );
     });
   }, [activities, filters]);
+
+  const loadMoreActivities = useCallback(() => {
+    if (loadingRef.current) return;
+
+    loadingRef.current = true;
+    const startIndex = 0;
+    const endIndex = page * ITEMS_PER_PAGE;
+    const newActivities = filteredActivities.slice(startIndex, endIndex);
+
+    setVisibleActivities(newActivities);
+    setPage(prev => prev + 1);
+    loadingRef.current = false;
+  }, [filteredActivities, page]);
+
+  useEffect(() => {
+    setPage(1);
+    setVisibleActivities([]);
+    loadMoreActivities();
+  }, [filters]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && !loadingRef.current) {
+          loadMoreActivities();
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.1,
+      }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [loadMoreActivities]);
 
   const resetFilters = () => {
     setFilters({
@@ -121,14 +173,16 @@ export default function ActivitiesListClient({
                 </p>
               </div>
               <div className="flex space-x-2 text-sm">
-                <Link 
-                  href="/" 
+                <Link
+                  href="/"
                   className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
                 >
                   Accueil
                 </Link>
                 <span className="text-blue-200">/</span>
-                <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">Activités</span>
+                <span className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium">
+                  Activités
+                </span>
               </div>
             </div>
           </div>
@@ -461,14 +515,22 @@ export default function ActivitiesListClient({
           </div>
         )}
 
-        {filteredActivities.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredActivities.map((activity, index) => (
+        {visibleActivities.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {visibleActivities.map((activity, index) => (
                 <div key={`${activity.id}-${index}`} className="h-full" style={{ height: `200px` }}>
                   <ActivityCard activity={activity} showMPT={true} />
                 </div>
-            ))}
-          </div>
+              ))}
+            </div>
+
+            {visibleActivities.length < filteredActivities.length && (
+              <div ref={observerTarget} className="h-20 flex items-center justify-center mt-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-12">
             <div className="inline-flex justify-center items-center bg-blue-100 text-blue-600 p-3 rounded-full mb-4">
@@ -479,17 +541,7 @@ export default function ActivitiesListClient({
               Essayez de modifier vos critères de recherche ou de filtrage.
             </p>
             <button
-              onClick={() => {
-                setFilters({
-                  search: '',
-                  category: '',
-                  subcategory: '',
-                  public: '',
-                  mpt: '',
-                  level: '',
-                  day: '',
-                });
-              }}
+              onClick={resetFilters}
               className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
             >
               <XMarkIcon className="h-5 w-5 mr-2" />
@@ -499,7 +551,13 @@ export default function ActivitiesListClient({
         )}
       </div>
 
-      {(filters.search || filters.category || filters.subcategory || filters.public || filters.level || filters.day || filters.mpt) && (
+      {(filters.search ||
+        filters.category ||
+        filters.subcategory ||
+        filters.public ||
+        filters.level ||
+        filters.day ||
+        filters.mpt) && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg md:hidden py-3 px-4">
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-500">{filteredActivities.length} résultats</div>

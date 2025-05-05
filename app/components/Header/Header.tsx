@@ -75,7 +75,7 @@ export default function Header() {
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
                 onClick={handleLinkClick}
               >
-                MPT
+                Maisons Pour Tous
               </Link>
               <Link
                 href="/activites"
