@@ -7,11 +7,15 @@ import { useState } from 'react';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header className="sticky h-[50px] top-0 z-40 bg-gradient-to-r from-blue-600 to-indigo-700 text-white border-b border-blue-500">
       <div className="container mx-auto max-w-6xl px-4 py-2">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>
             <span className="text-xl font-bold text-white">🏠</span>
             <span className="text-xl font-bold text-white">Maisons Pour Tous</span>
           </Link>
@@ -62,30 +66,35 @@ export default function Header() {
               <Link
                 href="/"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+                onClick={handleLinkClick}
               >
                 Accueil
               </Link>
               <Link
                 href="/maisons-pour-tous"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+                onClick={handleLinkClick}
               >
                 MPT
               </Link>
               <Link
                 href="/activites"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+                onClick={handleLinkClick}
               >
                 Activités
               </Link>
               <Link
                 href="/tarifs"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+                onClick={handleLinkClick}
               >
                 Tarifs
               </Link>
               <Link
                 href="/infos-pratiques"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+                onClick={handleLinkClick}
               >
                 Infos
               </Link>
