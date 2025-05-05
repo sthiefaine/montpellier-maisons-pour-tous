@@ -16,6 +16,7 @@ Application web pour la gestion et la visualisation des Maisons Pour Tous (MPT) 
   - Next.js 14
   - TypeScript
   - Tailwind CSS
+  - Motion
 
 - **Backend** :
   - Node.js
