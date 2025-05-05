@@ -1,3 +1,4 @@
+"use server"
 import { promises as fs } from 'fs';
 import path from 'path';
 import { MAIN_CATEGORIES } from '@/types/categories';
@@ -12,8 +13,10 @@ import FeaturedMPTs from './components/HomepageClient/FeaturedMPTs';
 import FeaturedActivities from './components/FeaturedActivities/FeaturedActivities';
 import InfoSection from './components/HomepageClient/InfoSection';
 import HowItWorksSection from './components/HomepageClient/HowItWorksSection';
+import { cache } from 'react';
 
-function getStatistics(mpts: MPT[], activities: Activity[]) {
+
+const getStatistics = cache(function getStatistics(mpts: MPT[], activities: Activity[]) {
   const uniquePublics = new Set(activities.map(activity => activity.public).filter(Boolean));
   const uniqueSubCategories = new Set(
     activities.map(activity => activity.subCategory).filter(Boolean)
@@ -43,9 +46,9 @@ function getStatistics(mpts: MPT[], activities: Activity[]) {
     activitiesByCategory,
     mptsByArea,
   };
-}
+});
 
-async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
+const getData = cache(async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   try {
     const mptData = await fs.readFile(path.join(process.cwd(), 'data/mpt.json'), 'utf8');
     const activitiesData = await fs.readFile(
@@ -64,7 +67,7 @@ async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
       activities: [],
     };
   }
-}
+});
 
 export default async function Home() {
   const { mpts, activities } = await getData();
