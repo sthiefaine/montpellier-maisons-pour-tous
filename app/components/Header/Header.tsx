@@ -16,8 +16,8 @@ export default function Header() {
             <span className="text-xl font-bold text-white">Maisons Pour Tous</span>
           </Link>
           <nav className="hidden md:flex items-center space-x-3">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="px-3 py-1 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
             >
               Accueil
@@ -28,11 +28,23 @@ export default function Header() {
             >
               Maisons
             </Link>
-            <Link 
-              href="/activites" 
+            <Link
+              href="/activites"
               className="px-3 py-1 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
             >
               Activités
+            </Link>
+            <Link
+              href="/tarifs"
+              className="px-3 py-1 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+            >
+              Tarifs
+            </Link>
+            <Link
+              href="/infos-pratiques"
+              className="px-3 py-1 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+            >
+              Infos
             </Link>
           </nav>
           <button
@@ -47,8 +59,8 @@ export default function Header() {
         <div className="md:hidden bg-gradient-to-r from-blue-600 to-indigo-700 border-t border-blue-500">
           <div className="container mx-auto max-w-6xl px-4 py-2">
             <nav className="flex flex-col space-y-2">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
               >
                 Accueil
@@ -66,10 +78,16 @@ export default function Header() {
                 Activités
               </Link>
               <Link
-                href="/contact"
+                href="/tarifs"
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
               >
-                Contact
+                Tarifs
+              </Link>
+              <Link
+                href="/infos-pratiques"
+                className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+              >
+                Infos
               </Link>
             </nav>
           </div>

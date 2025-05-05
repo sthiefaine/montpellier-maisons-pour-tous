@@ -10,6 +10,7 @@ import GuideSection from './components/HomepageClient/GuideSection';
 import CategorySection from './components/HomepageClient/CategorySection';
 import FeaturedMPTs from './components/HomepageClient/FeaturedMPTs';
 import FeaturedActivities from './components/FeaturedActivities/FeaturedActivities';
+import InfoSection from './components/HomepageClient/InfoSection';
 
 function getStatistics(mpts: MPT[], activities: Activity[]) {
   const uniquePublics = new Set(activities.map(activity => activity.public).filter(Boolean));
@@ -92,6 +93,7 @@ export default async function Home() {
       <HeroSection statistics={statistics} />
       <MapSection />
       <GuideSection />
+      <InfoSection />
       <div className="container mx-auto px-4 py-12">
         <CategorySection activities={activities} activitiesByCategory={activitiesByCategory} />
         <FeaturedMPTs featuredMPTs={featuredMPTs} activities={activities} />

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { MPT } from './types';
+import { MPT, MPT_NUMBERS } from './types';
 
 interface MaisonDetailProps {
   mpt: MPT;
@@ -13,6 +13,7 @@ interface MaisonDetailProps {
 
 export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
   const displayName = mpt.name.replace('Maison pour tous ', '');
+  const mptNumber = MPT_NUMBERS.find(m => m.id === mpt.id)?.number;
 
   return (
     <AnimatePresence>
@@ -42,7 +43,16 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
         >
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center justify-center gap-2">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600">🏠</span>
+              <div className="flex gap-1">
+                {mptNumber && (
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 font-medium">
+                    {mptNumber}
+                  </span>
+                )}
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600">
+                  🏠
+                </span>
+              </div>
               <h2 className="text-xl font-bold text-gray-900">{displayName}</h2>
             </div>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
