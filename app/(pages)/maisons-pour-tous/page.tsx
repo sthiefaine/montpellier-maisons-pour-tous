@@ -49,7 +49,7 @@ export default async function MPTPage({ searchParams }: PageProps) {
 
   return (
     <>
-      <MPTHeader />
+      <MPTHeader mptCount={mptCount} />
       <MPTListClient
         mpts={mpts}
         activities={activities}

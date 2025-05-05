@@ -15,7 +15,6 @@ import InfoSection from './components/HomepageClient/InfoSection';
 import HowItWorksSection from './components/HomepageClient/HowItWorksSection';
 import { cache } from 'react';
 
-
 const getStatistics = cache(function getStatistics(mpts: MPT[], activities: Activity[]) {
   const uniquePublics = new Set(activities.map(activity => activity.public).filter(Boolean));
   const uniqueSubCategories = new Set(

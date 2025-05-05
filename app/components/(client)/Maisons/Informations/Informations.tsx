@@ -76,6 +76,16 @@ export function Informations({ mpt }: InformationsProps) {
               </a>
             </p>
           )}
+          <p className="text-gray-600">
+            <a
+              href="/MPT-Fiche-inscription-MPT.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-blue-600 hover:underline font-medium"
+            >
+              Télécharger la fiche d'inscription (PDF)
+            </a>
+          </p>
         </div>
       </div>
     </div>

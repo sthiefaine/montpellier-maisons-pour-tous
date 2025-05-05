@@ -8,9 +8,10 @@ interface MPTHeaderProps {
   mpt?: MPT;
   activitiesCount?: number;
   isDetailPage?: boolean;
+  mptCount?: number;
 }
 
-export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false }: MPTHeaderProps) {
+export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false, mptCount }: MPTHeaderProps) {
   const displayName = mpt?.name.toLowerCase().replace('maison pour tous', '');
 
   return (
@@ -24,6 +25,11 @@ export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false }
               </ViewTransition>
             ) : (
               <h1 className="text-3xl md:text-4xl font-bold mb-2">Maisons Pour Tous</h1>
+            )}
+            {!isDetailPage && mptCount !== undefined && (
+              <p className="text-blue-100 text-lg font-medium">
+                {mptCount} Maison{mptCount > 1 ? 's' : ''} Pour Tous à Montpellier
+              </p>
             )}
             {activitiesCount !== undefined && (
               <ViewTransition name={`mpt-activities-${mpt?.id}`}>
@@ -62,4 +68,4 @@ export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false }
       </div>
     </div>
   );
-} 
+}
