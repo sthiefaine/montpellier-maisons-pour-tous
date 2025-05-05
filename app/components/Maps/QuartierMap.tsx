@@ -49,6 +49,16 @@ function calculateCentroid(coords: Ring): Coordinate {
   return [x / len, y / len];
 }
 
+function getMptPositionAdjustment(mptNumber: number): number {
+  const adjustments: Record<number, number> = {
+    3: -5,
+    4: 10,
+    22: -5,
+  };
+
+  return adjustments[mptNumber] || 0;
+}
+
 export default function QuartierMap({
   width = 800,
   height = 600,
@@ -99,9 +109,7 @@ export default function QuartierMap({
     const x = (mpt.coordinates.lng - minX) * scale + offsetX;
     const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
     
-    // Ajustement spécial pour L'Escoutaïre (MPT 22)
-    const adjustedX = mpt.id === 'mpt-22' ? x - 5 : x;
-    
+    const adjustedX = x + getMptPositionAdjustment(mptNumber);
     mptPositions.push({ x: adjustedX, y });
   });
 
@@ -115,7 +123,11 @@ export default function QuartierMap({
       {selectedQuartier && (
         <QuartierDetail quartierName={selectedQuartier} onClose={() => setSelectedQuartier(null)} />
       )}
-      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" style={{ userSelect: 'none' }}>
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ userSelect: 'none' }}
+      >
         {/* Formes des quartiers */}
         {data.features.map(quartierData => {
           const quartierName = quartierData.properties.name;
@@ -196,9 +208,8 @@ export default function QuartierMap({
           const x = (mpt.coordinates.lng - minX) * scale + offsetX;
           const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
           
-          // Ajustement spécial pour L'Escoutaïre (MPT 22)
-          const adjustedX = mpt.id === 'mpt-22' ? x - 5 : x;
-          
+          const adjustedX = x + getMptPositionAdjustment(mptNumber);
+
           return (
             <g
               key={`mpt-shape-${mpt.id}`}
@@ -206,7 +217,14 @@ export default function QuartierMap({
               onClick={() => handleMptClick(mpt)}
               style={{ cursor: 'pointer' }}
             >
-              <circle cx={mpt.id === 'mpt-22' ? adjustedX : x} cy={y} r="12" fill="#FFFFFF" stroke="#000000" strokeWidth="1.5" />
+              <circle
+                cx={adjustedX}
+                cy={y}
+                r="12"
+                fill="#FFFFFF"
+                stroke="#000000"
+                strokeWidth="1.5"
+              />
             </g>
           );
         })}
@@ -272,11 +290,12 @@ export default function QuartierMap({
 
             const x = (mpt.coordinates.lng - minX) * scale + offsetX;
             const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
+            const adjustedX = x + getMptPositionAdjustment(mptNumber);
 
             return (
               <g key={`mpt-text-${mpt.id}`}>
                 <text
-                  x={mpt.id === 'mpt-22' ? x - 5 : x}
+                  x={adjustedX}
                   y={y}
                   textAnchor="middle"
                   dominantBaseline="central"

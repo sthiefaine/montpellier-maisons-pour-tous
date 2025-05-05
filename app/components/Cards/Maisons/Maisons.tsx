@@ -65,7 +65,7 @@ export default function MaisonsCard({ mpt, activities }: MaisonsCardProps) {
   };
 
   return (
-    <Link href={`/maisons-pour-tous/${mpt.slug}`} className="block h-full">
+    <Link href={`/maisons-pour-tous/${mpt.slug}`} className="block h-full no-underline hover:no-underline">
       <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full flex flex-col group relative">
         <div
           className={`bg-gradient-to-r ${getColorClass(
@@ -85,7 +85,7 @@ export default function MaisonsCard({ mpt, activities }: MaisonsCardProps) {
             <div className="flex items-center">
               <HomeIcon className="h-5 w-5 mr-2" />
               <ViewTransition name={`mpt-title-${mpt.id}`}>
-                <h2 className="text-xl font-bold mt-1 mb-2 group-hover:translate-x-2 transition-transform duration-300 truncate">
+                <h2 className="text-xl font-bold mt-1 mb-2 group-hover:translate-x-2 group-hover:underline transition-transform duration-300 truncate">
                   {mpt.codeMPT}
                 </h2>
               </ViewTransition>

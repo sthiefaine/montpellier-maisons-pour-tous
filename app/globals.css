@@ -102,10 +102,9 @@ body {
 a {
   text-decoration: none;
   transition: var(--transition);
-
 }
 
-a:hover {
+a:hover:not(.no-underline) {
   text-decoration: underline;
 }
 

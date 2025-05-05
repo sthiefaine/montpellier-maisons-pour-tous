@@ -52,10 +52,10 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center gap-2">
               <span
-                className="w-4 h-4 rounded-sm"
+                className="w-6 h-6 rounded-full"
                 style={{
                   backgroundColor: style.fill,
-                  border: `1px solid ${style.fill}`,
+                  border: `2px solid ${style.stroke}`,
                 }}
               />
               <h2 className="text-xl font-bold text-gray-900">{quartierName}</h2>
@@ -76,28 +76,31 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
                 return (
                   <div
                     key={mpt.id}
-                    className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors"
+                    className="bg-white rounded-lg p-3 hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm hover:shadow-md"
                     style={{ contain: 'layout style paint' }}
                   >
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-black text-black text-xs font-bold">
-                            {mptNumber}
-                          </span>
-                          <div className="font-medium text-gray-900">
-                            {mpt.name.replace('Maison pour tous ', '')}
-                          </div>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-2">
+                        <span 
+                          className="flex items-center justify-center w-7 h-7 rounded-full text-white text-sm font-bold"
+                          style={{ backgroundColor: style.fill }}
+                        >
+                          {mptNumber}
+                        </span>
+                        <div className="font-medium text-gray-900">
+                          {mpt.name.replace('Maison pour tous ', '')}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">{mpt.address}</div>
                       </div>
-                      <Link
-                        href={`/maisons-pour-tous/${mpt.slug}`}
-                        className="text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
-                      >
-                        <span className="text-xs">Voir la fiche</span>
-                        <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" />
-                      </Link>
+                      <div className="text-sm text-gray-500 ml-9">{mpt.address}</div>
+                      <div className="ml-9">
+                        <Link
+                          href={`/maisons-pour-tous/${mpt.slug}`}
+                          className="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 bg-indigo-50 px-2.5 py-1 rounded-lg hover:bg-indigo-100 transition-colors w-fit"
+                        >
+                          <span className="text-xs font-medium">Voir la fiche</span>
+                          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );

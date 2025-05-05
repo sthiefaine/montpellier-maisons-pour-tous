@@ -42,7 +42,7 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
         >
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center justify-center gap-2">
-              <span className=" pl-1">🏠</span>
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600">🏠</span>
               <h2 className="text-xl font-bold text-gray-900">{displayName}</h2>
             </div>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
@@ -51,14 +51,14 @@ export default function MaisonDetail({ mpt, onClose }: MaisonDetailProps) {
           </div>
           <div className="p-4">
             <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Adresse</h3>
-                <p className="mt-1 text-gray-900">{mpt.address}</p>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-sm font-medium text-gray-500 mb-2">Adresse</h3>
+                <p className="text-gray-900">{mpt.address}</p>
               </div>
               <div className="pt-4">
                 <Link
                   href={`/maisons-pour-tous/${mpt.slug}`}
-                  className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
                 >
                   <span>Voir la fiche complète</span>
                   <ArrowTopRightOnSquareIcon className="h-4 w-4" />
