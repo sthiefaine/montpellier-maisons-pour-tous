@@ -30,26 +30,6 @@ export default function InfoSection() {
               </Link>
             </div>
 
-            {/* Tarifs */}
-            <div className="bg-gradient-to-br from-green-50 to-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                  💰
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900">Tarifs</h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Découvrez nos tarifs adaptés à votre situation et les différentes formules d'abonnement disponibles.
-              </p>
-              <Link
-                href="/tarifs"
-                className="inline-flex items-center gap-2 text-green-600 hover:text-green-800 font-medium transition-colors duration-200"
-              >
-                En savoir plus
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
-            </div>
-
             {/* Animations */}
             <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
               <div className="flex items-center gap-3 mb-4">
@@ -64,6 +44,26 @@ export default function InfoSection() {
               <Link
                 href="/infos-pratiques#animations"
                 className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+              >
+                En savoir plus
+                <ArrowRightIcon className="h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Tarifs */}
+            <div className="bg-gradient-to-br from-green-50 to-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                  💰
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900">Tarifs</h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Découvrez nos tarifs adaptés à votre situation et les différentes formules d'abonnement disponibles.
+              </p>
+              <Link
+                href="/tarifs"
+                className="inline-flex items-center gap-2 text-green-600 hover:text-green-800 font-medium transition-colors duration-200"
               >
                 En savoir plus
                 <ArrowRightIcon className="h-4 w-4" />

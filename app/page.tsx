@@ -11,6 +11,7 @@ import CategorySection from './components/HomepageClient/CategorySection';
 import FeaturedMPTs from './components/HomepageClient/FeaturedMPTs';
 import FeaturedActivities from './components/FeaturedActivities/FeaturedActivities';
 import InfoSection from './components/HomepageClient/InfoSection';
+import HowItWorksSection from './components/HomepageClient/HowItWorksSection';
 
 function getStatistics(mpts: MPT[], activities: Activity[]) {
   const uniquePublics = new Set(activities.map(activity => activity.public).filter(Boolean));
@@ -76,8 +77,9 @@ export default async function Home() {
     .slice(0, 6);
 
   const maxActivities = 8;
-  const featuredActivities = groupedActivities.slice(0, maxActivities);
-  const randomActivities = groupedActivities.sort(() => Math.random() - 0.5).slice(0, maxActivities);
+  const randomActivities = groupedActivities
+    .sort(() => Math.random() - 0.5)
+    .slice(0, maxActivities);
 
   const activitiesByCategory: Record<string, Activity[]> = {};
   MAIN_CATEGORIES.forEach(category => {
@@ -93,12 +95,11 @@ export default async function Home() {
       <HeroSection statistics={statistics} />
       <MapSection />
       <GuideSection />
+      <HowItWorksSection statistics={statistics} />
+      <CategorySection activities={activities} activitiesByCategory={activitiesByCategory} />
+      <FeaturedMPTs featuredMPTs={featuredMPTs} activities={activities} />
+      <FeaturedActivities groupedActivities={randomActivities} />
       <InfoSection />
-      <div className="container mx-auto px-4 py-12">
-        <CategorySection activities={activities} activitiesByCategory={activitiesByCategory} />
-        <FeaturedMPTs featuredMPTs={featuredMPTs} activities={activities} />
-        <FeaturedActivities groupedActivities={randomActivities} />
-      </div>
     </div>
   );
 }

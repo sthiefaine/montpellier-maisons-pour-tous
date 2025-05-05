@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { StatisticsType } from '@/types';
 import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import QuartierMap from '@/app/components/Maps/QuartierMap';
-import MapSection from './MapSection';
 
 interface HeroSectionProps {
   statistics: StatisticsType;
