@@ -51,7 +51,7 @@ export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false, 
             <span className="text-blue-200">/</span>
             <Link
               href="/maisons-pour-tous"
-              className="bg-white/60 hover:bg-white/80 text-blue-900 px-3 py-1 rounded transition-colors"
+              className="bg-blue-900/80 text-white px-3 py-1 rounded font-medium"
             >
               Maisons
             </Link>

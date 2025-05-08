@@ -90,15 +90,6 @@ export default function HowItWorksSection({ statistics }: HowItWorksSectionProps
                 <p className="text-gray-600 text-center mb-4">
                   Rejoignez vos cours et profitez des animations tout au long de l'année !
                 </p>
-                <div className="text-center">
-                  <Link
-                    href="/maisons-pour-tous"
-                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-                  >
-                    Trouver une maison
-                    <ArrowRightIcon className="h-4 w-4" />
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
