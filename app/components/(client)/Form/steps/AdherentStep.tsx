@@ -9,14 +9,6 @@ interface AdherentStepProps {
 
 export default function AdherentStep({ formData, setFormData }: AdherentStepProps) {
   useEffect(() => {
-    setFormData(prev => ({
-      ...prev,
-      consentement: true,
-      departementNaissance: 0,
-    }));
-  }, []);
-
-  useEffect(() => {
     if (formData.dateNaissance) {
       const birthDate = new Date(formData.dateNaissance);
       const today = new Date();
@@ -92,14 +84,14 @@ export default function AdherentStep({ formData, setFormData }: AdherentStepProp
             onChange={handleChange}
             min={`${new Date().getFullYear() - 125}-01-01`}
             max={new Date().toISOString().split('T')[0]}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer [&::-webkit-calendar-picker-indicator]:hover:cursor-pointer bg-white [&::-webkit-datetime-edit-year-field]:focus:bg-blue-50 [&::-webkit-datetime-edit-month-field]:hidden [&::-webkit-datetime-edit-day-field]:hidden"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer [&::-webkit-calendar-picker-indicator]:hover:cursor-pointer bg-white [&::-webkit-datetime-edit-year-field]:focus:bg-blue-50"
             placeholder=" "
           />
           <label
             htmlFor="dateNaissance"
             className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-blue-600 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
           >
-            Année de naissance
+            Date de naissance
           </label>
         </div>
 
@@ -132,7 +124,7 @@ export default function AdherentStep({ formData, setFormData }: AdherentStepProp
               type="text"
               id="departementNaissance"
               name="departementNaissance"
-              value={formData.departementNaissance === 0 ? '' : formData.departementNaissance}
+              value={formData.departementNaissance}
               onChange={handleChange}
               list="departements-list"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 peer bg-white"
@@ -252,7 +244,6 @@ export default function AdherentStep({ formData, setFormData }: AdherentStepProp
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     title="Veuillez entrer une adresse email valide"
                     className="w-full px-3 py-2 border border-gray-300 rounded-l-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     placeholder=" "

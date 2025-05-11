@@ -62,9 +62,9 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                       setFormData(prev => ({
                         ...prev,
                         personnesHabilitees: [
-                          ...prev.personnesHabilitees.slice(0, idx),
-                          prev.personnesAccident[idx],
-                          ...prev.personnesHabilitees.slice(idx + 1),
+                          ...prev.personnesAccident.slice(0, idx),
+                          prev.personnesHabilitees[idx],
+                          ...prev.personnesAccident.slice(idx + 1),
                         ],
                       }));
                     }}
@@ -226,26 +226,21 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
           </div>
 
           {/* Autorisation de sortie de l'enfant de plus de 6 ans */}
-          {formData.mineur ||
-            (!formData.dateNaissance && (
-              <div className="mb-6">
-                <h2 className="text-lg font-semibold mb-2">
-                  Autorisation de sortie de l'enfant de plus de 6 ans
-                </h2>
+          {formData.mineur || !formData.dateNaissance ? (
+            <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm mb-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">Autorisation de sortie de l'enfant de plus de 6 ans</h3>
+              <div className="space-y-4">
                 <div className="flex gap-6 items-center">
-                  {/* Les inputs Je soussigné sont déjà affichés au-dessus */}
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
                       name="autorisationSortie"
                       value="autorise"
                       checked={formData.autorisationSortie === 'autorise'}
-                      onChange={e =>
-                        setFormData(prev => ({ ...prev, autorisationSortie: 'autorise' }))
-                      }
-                      className="ml-2 bg-white"
+                      onChange={e => setFormData(prev => ({ ...prev, autorisationSortie: 'autorise' }))}
+                      className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
-                    <span className="ml-1">Autorise</span>
+                    <span className="ml-2">Autorise</span>
                   </label>
                   <label className="inline-flex items-center">
                     <input
@@ -253,140 +248,136 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                       name="autorisationSortie"
                       value="nonAutorise"
                       checked={formData.autorisationSortie === 'nonAutorise'}
-                      onChange={e =>
-                        setFormData(prev => ({ ...prev, autorisationSortie: 'nonAutorise' }))
-                      }
-                      className="ml-2 bg-white"
+                      onChange={e => setFormData(prev => ({ ...prev, autorisationSortie: 'nonAutorise' }))}
+                      className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
-                    <span className="ml-1">N'autorise pas</span>
+                    <span className="ml-2">N'autorise pas</span>
                   </label>
                 </div>
-                <div className="mt-2 text-sm text-gray-700 italic">
+                <p className="text-sm text-gray-600 italic">
                   {`Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom} ${formData.autorisationSortie === 'autorise' ? 'autorise' : "n'autorise pas"} le bénéficiaire de plus de 6 ans à sortir seul de la Maison pour tous après les activités.`}
-                </div>
+                </p>
               </div>
-            ))}
+            </div>
+          ) : null}
         </>
       )}
 
-      {/* Droit à l'image */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Droit à l'image</h2>
-        <div className="flex gap-6 items-center">
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="droitImage"
-              value="autorise"
-              checked={formData.droitImage === 'autorise'}
-              onChange={e => setFormData(prev => ({ ...prev, droitImage: 'autorise' }))}
-              className="ml-2"
-            />
-            <span className="ml-1">Autorise</span>
-          </label>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="droitImage"
-              value="nonAutorise"
-              checked={formData.droitImage === 'nonAutorise'}
-              onChange={e => setFormData(prev => ({ ...prev, droitImage: 'nonAutorise' }))}
-              className="ml-2"
-            />
-            <span className="ml-1">N'autorise pas</span>
-          </label>
-        </div>
-        <div className="mt-2 text-sm text-gray-700 italic">
-          {`Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom} ${formData.droitImage === 'autorise' ? 'autorise' : "n'autorise pas"} l'établissement d'accueil à me photographier/filmer ou à photographier/filmer le bénéficiaire de la prestation.`}
-        </div>
-      </div>
-
-      {/* APS */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Activités sportives (APS)</h2>
-        <div className="flex gap-6 items-center">
-          <span>Le bénéficiaire de la prestation est</span>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="aps"
-              value="apte"
-              checked={formData.aps === 'apte'}
-              onChange={e => setFormData(prev => ({ ...prev, aps: 'apte' }))}
-              className="ml-2"
-            />
-            <span className="ml-1">Apte</span>
-          </label>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="aps"
-              value="inapte"
-              checked={formData.aps === 'inapte'}
-              onChange={e => setFormData(prev => ({ ...prev, aps: 'inapte' }))}
-              className="ml-2"
-            />
-            <span className="ml-1">N'est pas apte</span>
-          </label>
-        </div>
-        <div className="mt-2 text-sm text-gray-700 italic">
-          {`Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom} atteste que le bénéficiaire de la prestation est ${formData.aps === 'apte' ? 'apte' : "n'est pas apte"} à la pratique des activités sportives.`}
-        </div>
-      </div>
-
-      {/* CAF */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Information CAF</h2>
-        <div className="flex gap-6 items-center mb-2">
-          <span>Allocataire</span>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="allocataire"
-              value="oui"
-              checked={formData.caf.allocataire === true}
-              onChange={e => handleCafChange('allocataire', true)}
-              className="ml-2 bg-white"
-            />
-            <span className="ml-1">Oui</span>
-          </label>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="allocataire"
-              value="non"
-              checked={formData.caf.allocataire === false}
-              onChange={e => handleCafChange('allocataire', false)}
-              className="ml-2 bg-white"
-            />
-            <span className="ml-1">Non</span>
-          </label>
-        </div>
-        {formData.caf.allocataire && (
-          <div className="flex gap-4">
-            <div className="input-floating flex-1">
+      <div className="space-y-6">
+        {/* Droit à l'image */}
+        <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Droit à l'image</h3>
+          <div className="space-y-4">
+            <div className="flex items-start">
               <input
-                type="text"
-                placeholder=" "
-                value={formData.caf.numeroAllocataire}
-                onChange={e => handleCafChange('numeroAllocataire', e.target.value)}
-                id="numero-allocataire"
+                type="checkbox"
+                id="droitImage"
+                checked={formData.droitImage === 'autorise'}
+                onChange={e => setFormData(prev => ({ ...prev, droitImage: e.target.checked ? 'autorise' : 'nonAutorise' }))}
+                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
               />
-              <label htmlFor="numero-allocataire">N° Allocataire</label>
+              <label htmlFor="droitImage" className="ml-3 text-sm text-gray-700">
+                J'autorise la prise de photos et/ou de vidéos de mon enfant dans le cadre des activités
+                de la Maison pour tous
+              </label>
             </div>
-            <div className="input-floating flex-1">
-              <input
-                type="number"
-                min={0}
-                placeholder=" "
-                value={formData.caf.nbEnfants}
-                onChange={e => handleCafChange('nbEnfants', Number(e.target.value))}
-                id="nb-enfants"
-              />
-              <label htmlFor="nb-enfants">Nombre d'enfants à charge</label>
-            </div>
+            <p className="text-sm text-gray-600 italic">
+              L'utilisation de ces images sera réservée à la structure d'accueil (affichage, diaporama, album photos…) ainsi qu'à la communication municipale (journaux municipaux et site web). Tout autre usage devra faire l'objet d'une autorisation spécifique.
+            </p>
           </div>
-        )}
+        </div>
+
+        {/* APS */}
+        <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Activités sportives (APS)</h3>
+          <div className="space-y-4">
+            <div className="flex gap-6 items-center">
+              <span>Le bénéficiaire de la prestation est</span>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="aps"
+                  value="apte"
+                  checked={formData.aps === 'apte'}
+                  onChange={e => setFormData(prev => ({ ...prev, aps: 'apte' }))}
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span className="ml-2">Apte</span>
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="aps"
+                  value="inapte"
+                  checked={formData.aps === 'inapte'}
+                  onChange={e => setFormData(prev => ({ ...prev, aps: 'inapte' }))}
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span className="ml-2">N'est pas apte</span>
+              </label>
+            </div>
+            <p className="text-sm text-gray-600 italic">
+              {`Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom} atteste que le bénéficiaire de la prestation est ${formData.aps === 'apte' ? 'apte' : "n'est pas apte"} à la pratique des activités sportives.`}
+            </p>
+          </div>
+        </div>
+
+        {/* CAF */}
+        <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Information CAF</h3>
+          <div className="space-y-4">
+            <div className="flex gap-6 items-center">
+              <span>Allocataire</span>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="allocataire"
+                  value="oui"
+                  checked={formData.caf.allocataire === true}
+                  onChange={e => handleCafChange('allocataire', true)}
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span className="ml-2">Oui</span>
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="allocataire"
+                  value="non"
+                  checked={formData.caf.allocataire === false}
+                  onChange={e => handleCafChange('allocataire', false)}
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <span className="ml-2">Non</span>
+              </label>
+            </div>
+            {formData.caf.allocataire && (
+              <div className="flex gap-4">
+                <div className="input-floating flex-1">
+                  <input
+                    type="text"
+                    placeholder=" "
+                    value={formData.caf.numeroAllocataire}
+                    onChange={e => handleCafChange('numeroAllocataire', e.target.value)}
+                    id="numero-allocataire"
+                  />
+                  <label htmlFor="numero-allocataire">N° Allocataire</label>
+                </div>
+                <div className="input-floating flex-1">
+                  <input
+                    type="number"
+                    min={0}
+                    placeholder=" "
+                    value={formData.caf.nbEnfants}
+                    onChange={e => handleCafChange('nbEnfants', Number(e.target.value))}
+                    id="nb-enfants"
+                  />
+                  <label htmlFor="nb-enfants">Nombre d'enfants à charge</label>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

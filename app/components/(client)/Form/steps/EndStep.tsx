@@ -32,7 +32,12 @@ export default function EndStep({ formData }: EndStepProps) {
 
         const response = await fetch(url);
         const pdfData = await response.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        const pdf = await pdfjsLib.getDocument({
+          data: pdfData,
+          verbosity: 0,
+          cMapUrl: 'https://unpkg.com/pdfjs-dist@3.11.174/cmaps/',
+          cMapPacked: true,
+        }).promise;
 
         const images: string[] = [];
         for (let i = 1; i <= 2; i++) {
@@ -75,6 +80,15 @@ export default function EndStep({ formData }: EndStepProps) {
       ? ' de ' + nomCapitalized + ' ' + prenomCapitalized
       : '';
 
+  const handleDownloadPdf = async () => {
+    try {
+      const pdfUrl = await generatePdf(formData);
+      window.open(pdfUrl, '_blank');
+    } catch (error) {
+      console.error('Erreur lors de la génération du PDF:', error);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center space-y-6">
@@ -114,10 +128,24 @@ export default function EndStep({ formData }: EndStepProps) {
             ) : pageImages.length > 0 ? (
               <div className="flex gap-4">
                 <div className="w-28 h-40 bg-gray-100 rounded shadow-md flex items-center justify-center transform -rotate-6 transition-transform hover:scale-105 hover:shadow-xl cursor-pointer overflow-hidden">
-                  <img src={pageImages[0]} alt="Page 1" className="w-full h-full object-contain" />
+                  <Image
+                    src={pageImages[0]}
+                    width={112}
+                    height={160}
+                    priority
+                    alt="Page 1"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="w-28 h-40 bg-gray-100 rounded shadow-md flex items-center justify-center transform rotate-6 transition-transform hover:scale-105 hover:shadow-xl cursor-pointer overflow-hidden">
-                  <img src={pageImages[1]} alt="Page 2" className="w-full h-full object-contain" />
+                  <Image
+                    src={pageImages[1]}
+                    width={112}
+                    height={160}
+                    priority
+                    alt="Page 2"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               </div>
             ) : (
@@ -126,7 +154,7 @@ export default function EndStep({ formData }: EndStepProps) {
           </div>
           <button
             type="button"
-            onClick={() => pdfUrl && window.open(pdfUrl, '_blank')}
+            onClick={handleDownloadPdf}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors flex items-center gap-2"
             disabled={!pdfUrl}
           >

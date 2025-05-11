@@ -1,4 +1,3 @@
-
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FormData } from '@/types/form';
 import { DateRangePicker } from '../DateRangePicker';
@@ -794,6 +793,27 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Conditions de remboursement */}
+      <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Conditions de remboursement</h3>
+        <p className="text-sm text-gray-600 mb-4">
+          Cf. délibération du Conseil municipal consultable sur le site de la ville montpellier.fr
+        </p>
+        <p className="text-sm text-gray-600">
+          Le remboursement se fera aux conditions suivantes :
+        </p>
+        <ul className="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+          <li>cessation de l'activité de la part de la MPT</li>
+          <li>raison médicale de l'usager</li>
+          <li>changement d'emploi du temps professionnel de l'usager</li>
+          <li>déménagement de l'usager</li>
+          <li>perte d'emploi des usagers (à la date de prise d'effet de la nouvelle situation)</li>
+        </ul>
+        <p className="text-sm text-gray-600 mt-2">
+          et sur présentation des justificatifs afférents.
+        </p>
       </div>
     </div>
   );

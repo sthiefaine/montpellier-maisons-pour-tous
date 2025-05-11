@@ -2,21 +2,13 @@ import { useState, useMemo, Dispatch, SetStateAction } from 'react';
 import { FormData } from '@/types/form';
 import mptData from '@/data/mpt.json';
 
-interface MPT {
-  id: string;
-  codeMPT: string;
-  name: string;
-  address: string;
-  slug: string;
-}
-
 interface HouseSelectionStepProps {
   formData: FormData;
   setFormData: Dispatch<SetStateAction<FormData>>;
 }
 
 export default function HouseSelectionStep({ formData, setFormData }: HouseSelectionStepProps) {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(formData.maison);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const sortedMPTData = useMemo(() => {
@@ -33,7 +25,12 @@ export default function HouseSelectionStep({ formData, setFormData }: HouseSelec
   };
 
   const handleHouseSelect = (codeMPT: string) => {
-    setFormData(prev => ({ ...prev, maison: codeMPT }));
+    const selectedMPT = sortedMPTData.find(mpt => mpt.codeMPT === codeMPT);
+    setFormData(prev => ({
+      ...prev,
+      selectedHouse: codeMPT,
+      maison: selectedMPT ? selectedMPT.name : '',
+    }));
     setShowSuggestions(false);
   };
 
@@ -95,7 +92,7 @@ export default function HouseSelectionStep({ formData, setFormData }: HouseSelec
           />
           {showSuggestions && filteredSuggestions.length > 0 && (
             <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
-              {filteredSuggestions.map((mpt: MPT) => (
+              {filteredSuggestions.map((mpt) => (
                 <div
                   key={mpt.id}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
@@ -117,12 +114,12 @@ export default function HouseSelectionStep({ formData, setFormData }: HouseSelec
           </label>
           <select
             id="mpt-select"
-            value={formData.maison}
+            value={formData.selectedHouse}
             onChange={e => handleHouseSelect(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
           >
             <option value="">Sélectionnez une Maison pour tous</option>
-            {sortedMPTData.map((mpt: MPT) => (
+            {sortedMPTData.map((mpt) => (
               <option key={mpt.id} value={mpt.codeMPT}>
                 {mpt.name.replace('Maison pour tous', '')}
               </option>

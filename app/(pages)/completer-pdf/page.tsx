@@ -31,7 +31,7 @@ export default function CompleterPdf() {
                 <span className="flex-shrink-0 h-6 w-6 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center mr-3 shadow-sm">
                   3
                 </span>
-                <p className="text-gray-600">Signez-le et remettez-le à votre Maison pour tous</p>
+                <p className="text-gray-600">Remettez-le à votre Maison pour tous</p>
               </div>
             </div>
             <a

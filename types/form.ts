@@ -1,4 +1,8 @@
 export interface FormData {
+  id: string;
+  version: number;
+  surnom: string;
+  favori: boolean;
   formType: 'self' | 'other' | '';
   selectedHouse: string | '';
   maison: string;
@@ -8,7 +12,7 @@ export interface FormData {
   sexe: 'Homme' | 'Femme' | '';
   mineur: boolean;
   communeNaissance: string;
-  departementNaissance: number;
+  departementNaissance: string;
   adresse: string;
   codePostal: string;
   ville: string;

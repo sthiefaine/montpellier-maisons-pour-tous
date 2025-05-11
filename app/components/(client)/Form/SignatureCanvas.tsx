@@ -20,6 +20,18 @@ export default function SignatureCanvas({ value, onChange }: SignatureCanvasProp
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
+    // Si une signature existe, la charger sur le canvas
+    if (value) {
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, rect.width, rect.height);
+      };
+      img.src = value;
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
     // Définir la taille du canvas avec un ratio plus élevé pour une meilleure qualité
     const devicePixelRatio = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();

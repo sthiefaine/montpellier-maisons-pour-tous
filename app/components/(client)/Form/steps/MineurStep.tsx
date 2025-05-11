@@ -38,6 +38,13 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
     }));
   };
 
+  const formatDate = (day: string, month: string, year: string) => {
+    if (!day || !month || !year || day === '00' || month === '00') return '';
+    const paddedDay = day.padStart(2, '0');
+    const paddedMonth = month.padStart(2, '0');
+    return `${year}-${paddedMonth}-${paddedDay}`;
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Informations représentants légaux</h1>
@@ -118,7 +125,11 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                 className="input peer bg-white mb-3"
                 id="dateNaissance-legal1"
                 name="dateNaissance"
-                value={`${formData.representantLegal1.anneeNaissance}-${formData.representantLegal1.moisNaissance.padStart(2, '0')}-${formData.representantLegal1.jourNaissance.padStart(2, '0')}`}
+                value={formatDate(
+                  formData.representantLegal1.jourNaissance,
+                  formData.representantLegal1.moisNaissance,
+                  formData.representantLegal1.anneeNaissance
+                )}
                 onChange={e => {
                   const date = new Date(e.target.value);
                   handleChange(
@@ -299,7 +310,6 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
               <div className="relative flex-grow">
                 <input
                   type="text"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"
                   title="Veuillez entrer une adresse email valide"
                   id="courriel-legal1"
                   name="courriel"
@@ -422,7 +432,11 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                 className="input peer bg-white mb-3"
                 id="dateNaissance-legal2"
                 name="dateNaissance"
-                value={`${formData.representantLegal2.anneeNaissance}-${formData.representantLegal2.moisNaissance.padStart(2, '0')}-${formData.representantLegal2.jourNaissance.padStart(2, '0')}`}
+                value={formatDate(
+                  formData.representantLegal2.jourNaissance,
+                  formData.representantLegal2.moisNaissance,
+                  formData.representantLegal2.anneeNaissance
+                )}
                 onChange={e => {
                   const date = new Date(e.target.value);
                   handleChange(
@@ -598,7 +612,6 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
               <div className="relative flex-grow">
                 <input
                   type="text"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"
                   title="Veuillez entrer une adresse email valide"
                   id="courriel-legal2"
                   name="courriel"

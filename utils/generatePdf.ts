@@ -1,4 +1,3 @@
-
 import type { FormData } from '@/types/form';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
@@ -56,20 +55,26 @@ export async function generatePdf(formData: FormData) {
   });
 
   const maisonSize = formData.maison.length > 10 ? 11.2 : 12;
-  page.drawText(formData.maison, { x: 333, y: 745, size: maisonSize, font, color: rgb(0, 0, 0) });
+  page.drawText(formData.maison.replace('Maison pour tous', ''), {
+    x: 333,
+    y: 745,
+    size: maisonSize,
+    font,
+    color: rgb(0, 0, 0),
+  });
 
   const subsribersSize =
     formData.nom.length > 10 ? (formData.nom.length > 18 ? 10 : 11) : defaultSize;
   page.drawText(formData.nom.toUpperCase(), {
     x: 86,
-    y: 669,
+    y: 668,
     size: subsribersSize,
     font,
     color: rgb(0, 0, 0),
   });
   page.drawText(formData.prenom.toUpperCase(), {
     x: 369,
-    y: 669,
+    y: 668,
     size: subsribersSize,
     font,
     color: rgb(0, 0, 0),
@@ -107,7 +112,7 @@ export async function generatePdf(formData: FormData) {
   if (formData.sexe === 'Femme') {
     page.drawText('x', {
       x: 374,
-      y: 652,
+      y: 651,
       size: 10,
       font,
       color: rgb(0, 0, 0),
@@ -115,7 +120,7 @@ export async function generatePdf(formData: FormData) {
   } else if (formData.sexe === 'Homme') {
     page.drawText('x', {
       x: 423.8,
-      y: 652,
+      y: 651,
       size: 10,
       font,
       color: rgb(0, 0, 0),
@@ -137,6 +142,7 @@ export async function generatePdf(formData: FormData) {
   if (formData.communeNaissance) {
     const communeLines = formData.communeNaissance.split(' ');
     let currentCommuneY = 615;
+    let currentCommuneYSmallSize = 599;
     let currentCommuneLine = '';
     let currentCommuneX = 115;
     for (const word of communeLines) {
@@ -156,9 +162,9 @@ export async function generatePdf(formData: FormData) {
       }
     }
     if (currentCommuneLine) {
-      page.drawText(currentCommuneLine, {
+      page.drawText(currentCommuneLine.slice(0, 1).toUpperCase() + currentCommuneLine.slice(1), {
         x: currentCommuneX,
-        y: currentCommuneY,
+        y: currentCommuneYSmallSize,
         size: defaultSize,
         font,
         color: rgb(0, 0, 0),
@@ -224,7 +230,7 @@ export async function generatePdf(formData: FormData) {
   // ville
   if (formData.ville) {
     const citySize = formData.ville.length > 10 ? 11 : defaultSize;
-    page.drawText(formData.ville, {
+    page.drawText(formData.ville.slice(0, 1).toUpperCase() + formData.ville.slice(1), {
       x: 333,
       y: 536,
       size: citySize,
@@ -399,6 +405,15 @@ export async function generatePdf(formData: FormData) {
     });
 
     // Dates de paiement pour le paiement en 3 fois (période ②)
+
+    page.drawText(formData.saison.split('-')[0], {
+      x: 450,
+      y: 236,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
     if (formData.datePaiementDebut1 && formData.datePaiementFin1) {
       const debut = new Date(formData.datePaiementDebut1);
       const fin = new Date(formData.datePaiementFin1);
@@ -470,9 +485,9 @@ export async function generatePdf(formData: FormData) {
   // signature et date
   if (formData.faitA) {
     const faitASize: number = formData.faitA.length > 25 ? 10 : defaultSize;
-    page.drawText(formData.faitA, {
+    page.drawText(formData.faitA.slice(0, 1).toUpperCase() + formData.faitA.slice(1), {
       x: 73,
-      y: 148,
+      y: 146,
       size: faitASize,
       font,
       color: rgb(0, 0, 0),
@@ -482,7 +497,7 @@ export async function generatePdf(formData: FormData) {
   if (formData.dateSignature) {
     page.drawText(formData.dateSignature, {
       x: 73,
-      y: 134,
+      y: 132,
       size: defaultSize,
       font,
       color: rgb(0, 0, 0),
@@ -490,13 +505,21 @@ export async function generatePdf(formData: FormData) {
   }
 
   if (formData.signature) {
-    page.drawText(formData.signature, {
-      x: 374,
-      y: 145,
-      size: defaultSize,
-      font,
-      color: rgb(0, 0, 0),
-    });
+    try {
+      // Convertir la chaîne base64 en Uint8Array
+      const base64Data = formData.signature.split(',')[1];
+      const imageBytes = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
+      // Incorporer l'image dans le PDF
+      const signatureImage = await pdfDoc.embedPng(imageBytes);
+      page.drawImage(signatureImage, {
+        x: 374,
+        y: 132,
+        width: 100,
+        height: 30,
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'incorporation de la signature:", error);
+    }
   }
 
   // paiements administratifs
@@ -561,7 +584,7 @@ export async function generatePdf(formData: FormData) {
     color: rgb(0, 0, 0),
   });
 
-  page2.drawText(formData.maison, {
+  page2.drawText(formData.maison.replace('Maison pour tous', ''), {
     x: 333,
     y: 745,
     size: maisonSize,
@@ -775,9 +798,9 @@ export async function generatePdf(formData: FormData) {
   // Sexe RL2
   if (formData.representantLegal2.sexe === 'F') {
     page2.drawText('x', {
-      x: 360,
-      y: 593,
-      size: 10,
+      x: 360.5,
+      y: 592,
+      size: 8,
       font,
       color: rgb(0, 0, 0),
     });
@@ -785,8 +808,8 @@ export async function generatePdf(formData: FormData) {
   if (formData.representantLegal2.sexe === 'M') {
     page2.drawText('x', {
       x: 402,
-      y: 593,
-      size: 10,
+      y: 592,
+      size: 8,
       font,
       color: rgb(0, 0, 0),
     });
@@ -937,13 +960,10 @@ export async function generatePdf(formData: FormData) {
   const soussigneSize = soussigneString.length > 30 ? 10 : defaultSize;
   const soussigneSmallSize =
     soussigneString.length > 20 ? (soussigneString.length > 25 ? 6.5 : 8) : 10;
-  // autorisationSortie: 'autorise',
-  //droitImage: 'autorise',
-  //aps: 'apte',
   if (formData.autorisationSortie === 'autorise') {
     page2.drawText(soussigneString, {
       x: 102,
-      y: 230,
+      y: 229,
       size: soussigneSize,
       font,
       color: rgb(0, 0, 0),
@@ -952,7 +972,7 @@ export async function generatePdf(formData: FormData) {
   if (formData.droitImage === 'autorise') {
     page2.drawText(soussigneString, {
       x: 100,
-      y: 174,
+      y: 173,
       size: soussigneSize,
       font,
       color: rgb(0, 0, 0),
@@ -1046,11 +1066,13 @@ export async function generatePdf(formData: FormData) {
       x: 305,
       y: 56,
       size: 8,
+      font,
     });
     page2.drawText(formData.caf.nbEnfants.toString(), {
       x: 511,
       y: 56,
       size: 8,
+      font,
     });
   }
 
@@ -1071,12 +1093,23 @@ export async function generatePdf(formData: FormData) {
     font,
   });
 
-  page2.drawText(formData.signature, {
-    x: 460,
-    y: 23,
-    size: defaultSize,
-    font,
-  });
+  if (formData.signature) {
+    try {
+      // Convertir la chaîne base64 en Uint8Array
+      const base64Data = formData.signature.split(',')[1];
+      const imageBytes = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
+      // Incorporer l'image dans le PDF
+      const signatureImage = await pdfDoc.embedPng(imageBytes);
+      page2.drawImage(signatureImage, {
+        x: 460,
+        y: 15,
+        width: 100,
+        height: 30,
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'incorporation de la signature:", error);
+    }
+  }
 
   const pdfBytes = await pdfDoc.save();
   const blob = new Blob([pdfBytes], { type: 'application/pdf' });

@@ -37,6 +37,10 @@ export default function CompleteForm() {
 
   const [selectedYear, setSelectedYear] = useState(getCurrentSeason());
   const [formData, setFormData] = useState<FormData>({
+    id: crypto.randomUUID(),
+    version: 1,
+    surnom: '',
+    favori: false,
     formType: '',
     selectedHouse: '',
     maison: '',
@@ -46,7 +50,7 @@ export default function CompleteForm() {
     sexe: '',
     mineur: false,
     communeNaissance: '',
-    departementNaissance: 0,
+    departementNaissance: '',
     adresse: '',
     codePostal: '',
     ville: '',
@@ -136,6 +140,13 @@ export default function CompleteForm() {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Sauvegarder le formulaire actuel dans le localStorage
+      localStorage.setItem('currentForm', JSON.stringify(formData));
+    }
+  }, [formData]);
+
   const handleNext = () => {
     setCurrentStep(prev => prev + 1);
   };
@@ -144,13 +155,35 @@ export default function CompleteForm() {
     if (currentStep > 1) {
       setCurrentStep(prev => prev - 1);
     } else {
-      window.location.href = '/inscription-en-ligne';
+      // Sauvegarder le formulaire actuel avant de quitter
+      if (formData.nom || formData.prenom) {
+        const savedForms = localStorage.getItem('savedForms');
+        const forms = savedForms ? JSON.parse(savedForms) : [];
+        const formToSave = {
+          ...formData,
+          createdAt: new Date().toISOString()
+        };
+        forms.push(formToSave);
+        localStorage.setItem('savedForms', JSON.stringify(forms));
+      }
+      window.location.href = '/completer-pdf';
     }
   };
 
   const handleQuit = () => {
     if (typeof window !== 'undefined') {
-      window.location.href = '/inscription-en-ligne';
+      // Sauvegarder le formulaire actuel avant de quitter
+      if (formData.nom || formData.prenom) {
+        const savedForms = localStorage.getItem('savedForms');
+        const forms = savedForms ? JSON.parse(savedForms) : [];
+        const formToSave = {
+          ...formData,
+          createdAt: new Date().toISOString()
+        };
+        forms.push(formToSave);
+        localStorage.setItem('savedForms', JSON.stringify(forms));
+      }
+      window.location.href = '/completer-pdf';
     }
   };
 
@@ -163,13 +196,10 @@ export default function CompleteForm() {
     }
   };
 
-  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
 
   const handleShowPdfPreview = async () => {
     try {
-      const url = await generatePdf(formData);
-      setPdfPreviewUrl(url);
-      setShowPdfPreview(true);
+      setShowPdfPreview(true)
     } catch (error) {
       console.error('Erreur lors de la génération du PDF:', error);
     }
@@ -183,7 +213,6 @@ export default function CompleteForm() {
             formData={formData}
             setFormData={setFormData}
             onNext={handleNext}
-            onBack={handleBack}
           />
         );
       case 2:
@@ -239,7 +268,6 @@ export default function CompleteForm() {
               <button
                 onClick={() => {
                   setShowPdfPreview(false);
-                  setPdfPreviewUrl(null);
                 }}
                 className="text-gray-400 hover:text-gray-500"
               >
@@ -260,7 +288,6 @@ export default function CompleteForm() {
               <button
                 onClick={() => {
                   setShowPdfPreview(false);
-                  setPdfPreviewUrl(null);
                 }}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
