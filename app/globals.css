@@ -99,6 +99,12 @@ body {
   min-height: 100vh;
 }
 
+button,
+select,
+select[class] {
+  cursor: pointer !important;
+}
+
 a {
   text-decoration: none;
   transition: var(--transition);
@@ -593,4 +599,69 @@ pre {
 /* Masquer la légende de la carte */
 .maplibregl-ctrl-attrib {
   display: none !important;
+}
+
+/* Input flottant */
+.input-floating {
+  position: relative;
+}
+
+.input-floating input,
+.input-floating select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(209, 213, 219);
+  border-radius: var(--radius-sm);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  background-color: white;
+}
+
+.input-floating input:focus,
+.input-floating select:focus {
+  border-color: rgb(37, 99, 235);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.input-floating input::placeholder {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+  transition: all 0.2s;
+}
+
+.input-floating input:focus::placeholder,
+.input-floating input:not(:placeholder-shown)::placeholder {
+  opacity: 0;
+  transform: translateY(-50%) translateX(-0.5rem);
+}
+
+.input-floating label {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgb(107, 114, 128);
+  transition: all 0.2s;
+  pointer-events: none;
+  background-color: white;
+  padding: 0 0.25rem;
+}
+
+.input-floating input:focus + label,
+.input-floating input:not(:placeholder-shown) + label,
+.input-floating select:focus + label,
+.input-floating select:not(:placeholder-shown) + label {
+  top: 0;
+  font-size: 0.875rem;
+  color: rgb(37, 99, 235);
+}
+
+/* Styles de base pour les inputs et selects */
+input,
+select {
+  background-color: white !important;
 }

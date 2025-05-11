@@ -23,7 +23,12 @@ const bounds: maplibregl.LngLatBoundsLike = [
   [4.018, 43.706], // Northeast coordinates
 ];
 
-export default function MapLibre({ coordinates, mapStyle, userLocation, onMapReady }: MapLibreProps) {
+export default function MapLibre({
+  coordinates,
+  mapStyle,
+  userLocation,
+  onMapReady,
+}: MapLibreProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,13 +56,12 @@ export default function MapLibre({ coordinates, mapStyle, userLocation, onMapRea
       .setLngLat([coordinates.lng, coordinates.lat])
       .addTo(map.current);
 
-
     return () => {
       if (map.current) {
         map.current.remove();
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates, mapStyle]);
 
   useEffect(() => {
@@ -68,7 +72,7 @@ export default function MapLibre({ coordinates, mapStyle, userLocation, onMapRea
         color: '#0000FF',
       })
         .setLngLat([userLocation.lng, userLocation.lat])
-        .addTo(map.current)
+        .addTo(map.current);
 
       map.current?.flyTo({
         center: [userLocation.lng, userLocation.lat],

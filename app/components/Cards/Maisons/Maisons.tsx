@@ -65,7 +65,10 @@ export default function MaisonsCard({ mpt, activities }: MaisonsCardProps) {
   };
 
   return (
-    <Link href={`/maisons-pour-tous/${mpt.slug}`} className="block h-full no-underline hover:no-underline">
+    <Link
+      href={`/maisons-pour-tous/${mpt.slug}`}
+      className="block h-full no-underline hover:no-underline"
+    >
       <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full flex flex-col group relative">
         <div
           className={`bg-gradient-to-r ${getColorClass(

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
+import { QUARTIER_STYLES } from '@/helpers/quartierStyles';
 import quartierData from '@/data/sav/montpellier_quartiers.json';
 import { MPT, MPT_NUMBERS, QUARTIERS } from './types';
 
@@ -33,7 +33,11 @@ interface GeoJSON {
   features: GeoJSONFeature[];
 }
 
-export default function SingleQuartierMap({ mpt, width = 400, height = 300 }: SingleQuartierMapProps) {
+export default function SingleQuartierMap({
+  mpt,
+  width = 400,
+  height = 300,
+}: SingleQuartierMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -163,4 +167,4 @@ function calculateCentroid(coords: Ring): Coordinate {
   }
 
   return [x / len, y / len];
-} 
+}

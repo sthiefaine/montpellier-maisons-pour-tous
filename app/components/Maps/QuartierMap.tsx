@@ -4,7 +4,7 @@ import { useState } from 'react';
 import QuartierDetail from './QuartierDetail';
 import MaisonDetail from './MaisonDetail';
 import { MPT, MPT_NUMBERS, Quartier, TramData } from './types';
-import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
+import { QUARTIER_STYLES } from '@/helpers/quartierStyles';
 
 type Coordinate = [number, number];
 type Ring = Coordinate[];
@@ -108,7 +108,7 @@ export default function QuartierMap({
 
     const x = (mpt.coordinates.lng - minX) * scale + offsetX;
     const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
-    
+
     const adjustedX = x + getMptPositionAdjustment(mptNumber);
     mptPositions.push({ x: adjustedX, y });
   });
@@ -207,7 +207,7 @@ export default function QuartierMap({
 
           const x = (mpt.coordinates.lng - minX) * scale + offsetX;
           const y = height - ((mpt.coordinates.lat - minY) * scale + offsetY);
-          
+
           const adjustedX = x + getMptPositionAdjustment(mptNumber);
 
           return (

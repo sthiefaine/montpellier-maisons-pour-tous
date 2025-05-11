@@ -47,9 +47,7 @@ function LocalisationTabs({ mpt, mapStyle }: LocalisationTabsProps) {
           onClick={handleLocate}
           disabled={isMapLoading}
           className={`flex items-center gap-2 px-4 py-2 text-white rounded-lg transition-colors ${
-            isMapLoading
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700'
+            isMapLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
           }`}
         >
           <MapPinIcon className="w-5 h-5" />

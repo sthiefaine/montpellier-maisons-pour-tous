@@ -59,7 +59,8 @@ export default function InfoSection() {
                 <h3 className="text-xl font-semibold text-gray-900">Tarifs</h3>
               </div>
               <p className="text-gray-600 mb-4">
-                Découvrez nos tarifs adaptés à votre situation et les différentes formules d'abonnement disponibles.
+                Découvrez nos tarifs adaptés à votre situation et les différentes formules
+                d'abonnement disponibles.
               </p>
               <Link
                 href="/tarifs"
@@ -79,9 +80,7 @@ export default function InfoSection() {
                 <h3 className="text-xl font-semibold text-gray-900">Contact</h3>
               </div>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <p className="text-gray-600">
-                  Service des Maisons pour Tous - Pôle Solidarités
-                </p>
+                <p className="text-gray-600">Service des Maisons pour Tous - Pôle Solidarités</p>
                 <Link
                   href="/infos-pratiques#contact"
                   className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 font-medium transition-colors duration-200"

@@ -98,4 +98,4 @@ export interface TramLine {
 export interface TramData {
   type: string;
   features: TramLine[];
-} 
+}

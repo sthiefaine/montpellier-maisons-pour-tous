@@ -12,7 +12,7 @@ import {
   XMarkIcon,
   HomeIcon,
 } from '@heroicons/react/24/outline';
-import { NEIGHBORHOODS } from '@/lib/helpers/neighborhoods';
+import { NEIGHBORHOODS } from '@/helpers/neighborhoods';
 import { MAIN_CATEGORIES } from '@/types/categories';
 
 type MaisonsClientProps = {

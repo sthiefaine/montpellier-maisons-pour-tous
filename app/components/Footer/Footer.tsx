@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bottom-0 left-0 right-0 z-10 bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -18,7 +18,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Liens utiles</h3>
             <ul className="space-y-2">
               <li>
-                <Link 
+                <Link
                   href="/infos-pratiques"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
@@ -26,7 +26,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/tarifs"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
@@ -34,7 +34,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/plan-du-site"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
@@ -47,9 +47,12 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <p className="text-gray-400">
-              Service des Maisons pour Tous<br />
-              Pôle Solidarités<br />
-              16 Rue de la République<br />
+              Service des Maisons pour Tous
+              <br />
+              Pôle Solidarités
+              <br />
+              16 Rue de la République
+              <br />
               34000 Montpellier
             </p>
           </div>

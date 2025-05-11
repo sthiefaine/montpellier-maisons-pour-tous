@@ -4,7 +4,7 @@ import { MPT } from '@/types/maisons';
 import { Activity } from '@/types/activity';
 import MPTListClient from '@/app/components/(client)/Maisons/Maisons';
 import MPTHeader from '@/app/components/(client)/Maisons/MPTHeader';
-import { NEIGHBORHOODS } from '@/lib/helpers/neighborhoods';
+import { NEIGHBORHOODS } from '@/helpers/neighborhoods';
 
 async function getData(): Promise<{ mpts: MPT[]; activities: Activity[] }> {
   try {

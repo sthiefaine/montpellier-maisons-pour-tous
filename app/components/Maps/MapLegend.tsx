@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
+import { QUARTIER_STYLES } from '@/helpers/quartierStyles';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { QUARTIERS, MPT_NUMBERS, TramData } from './types';
 import { MPT } from '@/types/maisons';
@@ -28,17 +28,21 @@ export default function MapLegend({ mptData, tramData }: MapLegendProps) {
   };
 
   // Regrouper les lignes de tram par numéro d'exploitation
-  const tramLines = tramData?.features.reduce((acc, line) => {
-    const num = line.properties.num_exploitation;
-    if (!acc[num]) {
-      acc[num] = {
-        num,
-        color: line.properties.code_couleur,
-        name: line.properties.nom_ligne,
-      };
-    }
-    return acc;
-  }, {} as Record<number, { num: number; color: string; name: string }>) || {};
+  const tramLines =
+    tramData?.features.reduce(
+      (acc, line) => {
+        const num = line.properties.num_exploitation;
+        if (!acc[num]) {
+          acc[num] = {
+            num,
+            color: line.properties.code_couleur,
+            name: line.properties.nom_ligne,
+          };
+        }
+        return acc;
+      },
+      {} as Record<number, { num: number; color: string; name: string }>
+    ) || {};
 
   return (
     <div className="bg-white/95 rounded-lg p-2 shadow-sm border border-gray-100">
@@ -71,9 +75,7 @@ export default function MapLegend({ mptData, tramData }: MapLegendProps) {
                           border: `1px solid ${line.color}`,
                         }}
                       />
-                      <span className="text-sm text-gray-700">
-                        Ligne {line.num}
-                      </span>
+                      <span className="text-sm text-gray-700">Ligne {line.num}</span>
                     </div>
                   ))}
                 </div>
@@ -130,7 +132,9 @@ export default function MapLegend({ mptData, tramData }: MapLegendProps) {
 
                       return (
                         <div key={mpt.id} className="flex items-center gap-1 text-xs text-gray-600">
-                          <span className="font-medium min-w-[1rem] flex-shrink-0">{mptNumber}.</span>
+                          <span className="font-medium min-w-[1rem] flex-shrink-0">
+                            {mptNumber}.
+                          </span>
                           <span className="truncate">{displayName}</span>
                         </div>
                       );

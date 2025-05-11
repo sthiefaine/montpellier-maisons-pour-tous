@@ -1,10 +1,11 @@
 'use client';
 
 import { MPT } from '@/types/maisons';
-import { ClockIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { ClockIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { OpeningStatus } from '../OpeningStatus/OpeningStatus';
 import { Suspense } from 'react';
 import { OpeningStatusSkeleton } from '../OpeningStatus/OpeningStatusSkeleton';
+import DetailFicheInscription from '@/app/components/DetailFicheInscription';
 
 interface InformationsProps {
   mpt: MPT;
@@ -76,16 +77,7 @@ export function Informations({ mpt }: InformationsProps) {
               </a>
             </p>
           )}
-          <p className="text-gray-600">
-            <a
-              href="/MPT-Fiche-inscription-MPT.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-blue-600 hover:underline font-medium"
-            >
-              Télécharger la fiche d'inscription (PDF)
-            </a>
-          </p>
+          <DetailFicheInscription />
         </div>
       </div>
     </div>

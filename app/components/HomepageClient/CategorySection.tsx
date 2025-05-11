@@ -36,7 +36,6 @@ export default function CategorySection({
       setCurrentCategoryIndex(prev => (prev === MAIN_CATEGORIES.length - 1 ? 0 : prev + 1));
     }, 10000);
 
-
     return () => clearInterval(interval);
   }, [currentCategoryIndex, router]);
 
@@ -112,7 +111,9 @@ export default function CategorySection({
                           +
                           {Array.from(
                             new Set(
-                              activities.filter(a => a.category === category).map(a => a.subCategory)
+                              activities
+                                .filter(a => a.category === category)
+                                .map(a => a.subCategory)
                             )
                           ).length - 6}{' '}
                           autres

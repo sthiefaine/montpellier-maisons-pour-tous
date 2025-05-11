@@ -1,6 +1,6 @@
 import React from 'react';
 import CategoryIcon from '../Icons/Category/Category';
-import { BADGE_STYLES } from '@/lib/helpers/styles';
+import { BADGE_STYLES } from '@/helpers/styles';
 
 type BadgeType = 'category' | 'subcategory' | 'public' | 'level' | 'schedule';
 

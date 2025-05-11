@@ -24,7 +24,6 @@ const eslintConfig = [
       },
     },
     rules: {
-      "react/no-unescaped-entities": "warn",
       "no-unused-vars": "off",
       "prefer-const": "off",
       "@typescript-eslint/no-unused-vars": [
@@ -32,6 +31,7 @@ const eslintConfig = [
         { vars: "all", args: "after-used", ignoreRestSiblings: false }
       ],
       "@typescript-eslint/no-explicit-any": "warn",
+      "react/no-unescaped-entities": "off",
     }
   }
 ];

@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { QUARTIER_STYLES } from '@/lib/helpers/quartierStyles';
+import { QUARTIER_STYLES } from '@/helpers/quartierStyles';
 import mptData from '@/data/mpt.json';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -81,7 +81,7 @@ export default function QuartierDetail({ quartierName, onClose }: QuartierDetail
                   >
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center gap-2">
-                        <span 
+                        <span
                           className="flex items-center justify-center w-7 h-7 rounded-full text-white text-sm font-bold"
                           style={{ backgroundColor: style.fill }}
                         >

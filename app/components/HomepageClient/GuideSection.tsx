@@ -3,7 +3,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Balloon = ({ color, size, delay, position }: { color: string; size: string; delay: number; position: string }) => (
+const Balloon = ({
+  color,
+  size,
+  delay,
+  position,
+}: {
+  color: string;
+  size: string;
+  delay: number;
+  position: string;
+}) => (
   <div
     className={`absolute z-0 ${position} ${size} rounded-full ${color} animate-float`}
     style={{ animationDelay: `${delay}s` }}
@@ -47,7 +57,8 @@ export default function GuideSection() {
               Guide des Maisons Pour Tous 2024-2025
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Découvrez notre guide complet des activités et services proposés dans les Maisons Pour Tous de Montpellier.
+              Découvrez notre guide complet des activités et services proposés dans les Maisons Pour
+              Tous de Montpellier.
             </p>
             <div className="relative group flex items-center">
               <Link
@@ -77,4 +88,4 @@ export default function GuideSection() {
       </div>
     </section>
   );
-} 
+}

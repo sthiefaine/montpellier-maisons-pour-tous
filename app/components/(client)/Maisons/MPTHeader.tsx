@@ -11,7 +11,12 @@ interface MPTHeaderProps {
   mptCount?: number;
 }
 
-export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false, mptCount }: MPTHeaderProps) {
+export default function MPTHeader({
+  mpt,
+  activitiesCount,
+  isDetailPage = false,
+  mptCount,
+}: MPTHeaderProps) {
   const displayName = mpt?.name.toLowerCase().replace('maison pour tous', '');
 
   return (
@@ -34,7 +39,8 @@ export default function MPTHeader({ mpt, activitiesCount, isDetailPage = false, 
             {activitiesCount !== undefined && (
               <ViewTransition name={`mpt-activities-${mpt?.id}`}>
                 <p className="text-blue-100 text-lg font-medium mb-4">
-                  {activitiesCount} activité{activitiesCount !== 1 ? 's' : ''} disponible{activitiesCount !== 1 ? 's' : ''}
+                  {activitiesCount} activité{activitiesCount !== 1 ? 's' : ''} disponible
+                  {activitiesCount !== 1 ? 's' : ''}
                 </p>
               </ViewTransition>
             )}

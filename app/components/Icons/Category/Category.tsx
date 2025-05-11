@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CATEGORY_ICONS } from '@/lib/helpers/icons';
+import { CATEGORY_ICONS } from '@/helpers/icons';
 
 type CategoryIconProps = {
   category: string;

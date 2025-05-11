@@ -1,0 +1,89 @@
+export interface FormData {
+  formType: 'self' | 'other' | '';
+  selectedHouse: string | '';
+  maison: string;
+  nom: string;
+  prenom: string;
+  dateNaissance: string;
+  sexe: 'Homme' | 'Femme' | '';
+  mineur: boolean;
+  communeNaissance: string;
+  departementNaissance: number;
+  adresse: string;
+  codePostal: string;
+  ville: string;
+  telephone: string;
+  email: string;
+  acceptationInformations: boolean;
+  saison: string;
+  carteReseau: boolean;
+  activites: Array<{
+    designation: string;
+    jour: string;
+    horaireDebut: string;
+    horaireFin: string;
+    prix: number;
+  }>;
+  total: number;
+  modeReglement: 'comptant' | '3fois' | '';
+  datePaiementDebut1?: string;
+  datePaiementFin1?: string;
+  datePaiementDebut2?: string;
+  datePaiementFin2?: string;
+  faitA: string;
+  dateSignature: string;
+  signature: string;
+  representantLegal1: {
+    type: 'pere' | 'mere' | 'autre' | '';
+    nom: string;
+    prenom: string;
+    jourNaissance: string;
+    moisNaissance: string;
+    anneeNaissance: string;
+    sexe: 'M' | 'F' | '';
+    adresse: string;
+    codePostal: string;
+    ville: string;
+    tel: string;
+    courriel: string;
+  };
+  representantLegal2: {
+    type: 'pere' | 'mere' | 'autre' | '';
+    nom: string;
+    prenom: string;
+    jourNaissance: string;
+    moisNaissance: string;
+    anneeNaissance: string;
+    sexe: 'M' | 'F' | '';
+    adresse: string;
+    codePostal: string;
+    ville: string;
+    tel: string;
+    courriel: string;
+  };
+  domiciliation: {
+    domicile1: boolean;
+    domicile2: boolean;
+    gardeAlternee: boolean;
+  };
+  personnes: Array<{
+    id: string;
+    nom: string;
+    prenom: string;
+    tel: string;
+  }>;
+  personnesAccident: Array<{ nom: string; prenom: string; tel: string }>;
+  personnesHabilitees: Array<{ nom: string; prenom: string; tel: string }>;
+  soussigneNom: string;
+  soussignePrenom: string;
+  autorisationSortie: 'autorise' | 'nonAutorise';
+  droitImage: 'autorise' | 'nonAutorise';
+  aps: 'apte' | 'inapte';
+  caf: {
+    allocataire: boolean;
+    numeroAllocataire: string;
+    nbEnfants: number;
+  };
+  consentement: boolean;
+  paiementsAdmin: Array<{ mode: string; date: string }>;
+}

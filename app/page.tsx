@@ -1,8 +1,8 @@
-"use server"
+'use server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { MAIN_CATEGORIES } from '@/types/categories';
-import { groupSimilarActivities } from '@/lib/utils/activity';
+import { groupSimilarActivities } from '@/utils/activity';
 import { Activity } from '@/types/activity';
 import { MPT } from '@/types/maisons';
 import HeroSection from './components/HomepageClient/HeroSection';

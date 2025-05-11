@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as XLSX from 'xlsx';
 import { MPT } from '@/types/maisons';
 import { MAIN_CATEGORIES, MainCategory } from '@/types/categories';
-import { determineSubCategory } from '@/lib/helpers/categorizationHelpers';
+import { determineSubCategory } from '@/helpers/categorizationHelpers';
 import { Activity } from '@/types/activity';
 
 /**

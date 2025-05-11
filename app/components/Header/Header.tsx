@@ -50,6 +50,12 @@ export default function Header() {
             >
               Infos
             </Link>
+            <Link
+              href="/completer-pdf"
+              className="px-3 py-1 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+            >
+              Completer PDF
+            </Link>
           </nav>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -97,6 +103,13 @@ export default function Header() {
                 onClick={handleLinkClick}
               >
                 Infos
+              </Link>
+              <Link
+                href="/completer-pdf"
+                className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
+                onClick={handleLinkClick}
+              >
+                Completer PDF
               </Link>
             </nav>
           </div>
