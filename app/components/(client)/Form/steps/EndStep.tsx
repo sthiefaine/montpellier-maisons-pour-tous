@@ -8,6 +8,11 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import fiche1 from '@/public/MPT-Fiche-inscription-MPT_page-0001.jpg';
 import fiche2 from '@/public/MPT-Fiche-inscription-MPT_page-0002.jpg';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const ReactConfetti = dynamic(() => import('react-confetti'), {
+  ssr: false
+});
 
 interface EndStepProps {
   formData: FormData;
@@ -17,6 +22,23 @@ export default function EndStep({ formData }: EndStepProps) {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [pageImages, setPageImages] = useState<string[]>([]);
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const generatePdfPreview = async () => {
@@ -91,8 +113,18 @@ export default function EndStep({ formData }: EndStepProps) {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <ReactConfetti
+        width={windowSize.width}
+        height={windowSize.height}
+        recycle={false}
+        numberOfPieces={300}
+        gravity={0.2}
+        colors={['#3B82F6', '#10B981', '#F59E0B', '#EF4444']}
+        initialVelocityY={10}
+        tweenDuration={3000}
+      />
       <div className="text-center space-y-6">
-        <h1 className="text-2xl font-bold text-gray-800">Inscription terminée !</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Vous avez terminé !</h1>
 
         <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm flex flex-col items-center">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
