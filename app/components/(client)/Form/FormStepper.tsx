@@ -9,7 +9,6 @@ interface FormStepperProps {
 }
 
 export default function FormStepper({ currentStep, setCurrentStep, formData }: FormStepperProps) {
-  console.log('formData.mineur', formData.mineur);
   return (
     <div className="sticky top-14 z-40 bg-white shadow-sm h-16">
       <div
