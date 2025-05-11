@@ -27,7 +27,7 @@ export default function CompleteForm() {
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth() + 1;
 
-    // Si nous sommes après septembre, la saison est l'année en cours - l'année suivante
+    // Si nous sommes en septembre ou après, la saison est l'année en cours - l'année suivante
     if (currentMonth >= 9) {
       return `${currentYear}-${currentYear + 1}`;
     } else {
@@ -56,9 +56,9 @@ export default function CompleteForm() {
     ville: '',
     telephone: '',
     email: '',
-    acceptationInformations: false,
+    acceptationInformations: true,
     saison: getCurrentSeason(),
-    carteReseau: false,
+    carteReseau: true,
     activites: [
       {
         designation: '',
@@ -119,7 +119,7 @@ export default function CompleteForm() {
       numeroAllocataire: '',
       nbEnfants: 0,
     },
-    consentement: false,
+    consentement: true,
     paiementsAdmin: [],
   });
 

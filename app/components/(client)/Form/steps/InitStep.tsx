@@ -83,7 +83,8 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
       ville: '',
       telephone: '',
       email: '',
-      acceptationInformations: false,
+      acceptationInformations: true,
+      carteReseau: true,
       activites: [],
       total: 0,
       modeReglement: '',
@@ -136,7 +137,7 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
         numeroAllocataire: '',
         nbEnfants: 0,
       },
-      consentement: false,
+      consentement: true,
       paiementsAdmin: [],
     }));
     onNext();

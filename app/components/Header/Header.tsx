@@ -12,7 +12,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky h-[50px] top-0 z-40 bg-gradient-to-r from-blue-600 to-indigo-700 text-white border-b border-blue-500">
+    <header className="sticky h-[50px] top-0 z-42 bg-gradient-to-r from-blue-600 to-indigo-700 text-white border-b border-blue-500">
       <div className="container mx-auto max-w-6xl px-4 py-2">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>

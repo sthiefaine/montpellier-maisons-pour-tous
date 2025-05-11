@@ -32,7 +32,7 @@ export default function SignatureStep({ formData, setFormData }: SignatureStepPr
               value={formData.signature || ''}
               onChange={value => setFormData(prev => ({ ...prev, signature: value }))}
             />
-            <label className="absolute left-3 -top-2 text-sm text-gray-500 bg-gray-50 px-1">
+            <label className="absolute left-3 -top-2 text-sm text-gray-500 bg-white px-1">
               Signature
             </label>
           </div>
@@ -51,7 +51,7 @@ export default function SignatureStep({ formData, setFormData }: SignatureStepPr
               />
               <label
                 htmlFor="fait-a"
-                className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-blue-600 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm bg-gray-50 px-1"
+                className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-blue-600 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm bg-white px-1"
               >
                 Fait à
               </label>
@@ -73,7 +73,7 @@ export default function SignatureStep({ formData, setFormData }: SignatureStepPr
               />
               <label
                 htmlFor="date-signature"
-                className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-blue-600 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm bg-gray-50 px-1"
+                className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-blue-600 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm bg-white px-1"
               >
                 Le
               </label>

@@ -228,7 +228,9 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
           {/* Autorisation de sortie de l'enfant de plus de 6 ans */}
           {formData.mineur || !formData.dateNaissance ? (
             <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Autorisation de sortie de l'enfant de plus de 6 ans</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                Autorisation de sortie de l'enfant de plus de 6 ans
+              </h3>
               <div className="space-y-4">
                 <div className="flex gap-6 items-center">
                   <label className="inline-flex items-center">
@@ -237,7 +239,9 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                       name="autorisationSortie"
                       value="autorise"
                       checked={formData.autorisationSortie === 'autorise'}
-                      onChange={e => setFormData(prev => ({ ...prev, autorisationSortie: 'autorise' }))}
+                      onChange={e =>
+                        setFormData(prev => ({ ...prev, autorisationSortie: 'autorise' }))
+                      }
                       className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
                     <span className="ml-2">Autorise</span>
@@ -248,7 +252,9 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                       name="autorisationSortie"
                       value="nonAutorise"
                       checked={formData.autorisationSortie === 'nonAutorise'}
-                      onChange={e => setFormData(prev => ({ ...prev, autorisationSortie: 'nonAutorise' }))}
+                      onChange={e =>
+                        setFormData(prev => ({ ...prev, autorisationSortie: 'nonAutorise' }))
+                      }
                       className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
                     <span className="ml-2">N'autorise pas</span>
@@ -273,16 +279,22 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                 type="checkbox"
                 id="droitImage"
                 checked={formData.droitImage === 'autorise'}
-                onChange={e => setFormData(prev => ({ ...prev, droitImage: e.target.checked ? 'autorise' : 'nonAutorise' }))}
+                onChange={e =>
+                  setFormData(prev => ({
+                    ...prev,
+                    droitImage: e.target.checked ? 'autorise' : 'nonAutorise',
+                  }))
+                }
                 className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
               />
               <label htmlFor="droitImage" className="ml-3 text-sm text-gray-700">
-                J'autorise la prise de photos et/ou de vidéos de mon enfant dans le cadre des activités
-                de la Maison pour tous
+                J'autorise la prise de photos et/ou de vidéos du bénéficiaire de la prestation.
               </label>
             </div>
             <p className="text-sm text-gray-600 italic">
-              L'utilisation de ces images sera réservée à la structure d'accueil (affichage, diaporama, album photos…) ainsi qu'à la communication municipale (journaux municipaux et site web). Tout autre usage devra faire l'objet d'une autorisation spécifique.
+              L'utilisation de ces images sera réservée à la structure d'accueil (affichage,
+              diaporama, album photos…) ainsi qu'à la communication municipale (journaux municipaux
+              et site web). Tout autre usage devra faire l'objet d'une autorisation spécifique.
             </p>
           </div>
         </div>
@@ -372,7 +384,9 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                     onChange={e => handleCafChange('nbEnfants', Number(e.target.value))}
                     id="nb-enfants"
                   />
-                  <label htmlFor="nb-enfants">Nombre d'enfants à charge</label>
+                  <label htmlFor="nb-enfants" className="text-xs">
+                    Nombre d'enfants à charge
+                  </label>
                 </div>
               </div>
             )}
