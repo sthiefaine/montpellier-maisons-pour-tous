@@ -43,3 +43,6 @@ next-env.d.ts
 pnpm-lock.yaml
 .vscode
 rules
+test-results
+test-results/*
+playwright-report

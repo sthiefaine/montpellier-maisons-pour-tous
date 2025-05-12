@@ -185,7 +185,7 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                 checked={formData.representantLegal1.sexe === 'F'}
                 onChange={e => handleChange(e, 'representantLegal1')}
               />{' '}
-              F
+              Féminin
             </label>
             <label>
               <input
@@ -195,10 +195,9 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                 checked={formData.representantLegal1.sexe === 'M'}
                 onChange={e => handleChange(e, 'representantLegal1')}
               />{' '}
-              M
+              Masculin
             </label>
           </div>
-          {/* Bouton copier l'adresse de l'autre représentant */}
           <div className="mb-2">
             <button
               type="button"
@@ -211,8 +210,11 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                     adresse: prev.representantLegal2.adresse,
                     codePostal: prev.representantLegal2.codePostal,
                     ville: prev.representantLegal2.ville,
-                    tel: prev.representantLegal2.tel,
-                    courriel: prev.representantLegal2.courriel,
+                  },
+                  domiciliation: {
+                    domicile1: false,
+                    domicile2: false,
+                    gardeAlternee: false,
                   },
                 }));
               }}
@@ -492,7 +494,7 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                 checked={formData.representantLegal2.sexe === 'F'}
                 onChange={e => handleChange(e, 'representantLegal2')}
               />{' '}
-              F
+              Féminin
             </label>
             <label>
               <input
@@ -502,7 +504,7 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                 checked={formData.representantLegal2.sexe === 'M'}
                 onChange={e => handleChange(e, 'representantLegal2')}
               />{' '}
-              M
+              Masculin
             </label>
           </div>
           {/* Bouton copier l'adresse de l'autre représentant */}
@@ -518,8 +520,11 @@ export default function MineurStep({ formData, setFormData }: MineurStepProps) {
                     adresse: prev.representantLegal1.adresse,
                     codePostal: prev.representantLegal1.codePostal,
                     ville: prev.representantLegal1.ville,
-                    tel: prev.representantLegal1.tel,
-                    courriel: prev.representantLegal1.courriel,
+                  },
+                  domiciliation: {
+                    domicile1: false,
+                    domicile2: false,
+                    gardeAlternee: false,
                   },
                 }));
               }}

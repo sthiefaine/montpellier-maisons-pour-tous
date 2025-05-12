@@ -6,11 +6,12 @@ interface FormStepperProps {
   currentStep: number;
   setCurrentStep: (step: number) => void;
   formData: FormData;
+  noShadow?: boolean;
 }
 
-export default function FormStepper({ currentStep, setCurrentStep, formData }: FormStepperProps) {
+export default function FormStepper({ currentStep, setCurrentStep, formData, noShadow }: FormStepperProps) {
   return (
-    <div className="sticky top-14 z-40 bg-white shadow-sm h-16">
+    <div className={`sticky top-14 z-40 bg-white ${noShadow ? '' : 'shadow-sm'} h-16`}>
       <div
         className="flex justify-center px-1 sm:px-4 lg:px-8 overflow-x-auto overscroll-x-none scrollbar-hide"
         style={{ WebkitOverflowScrolling: 'touch' }}

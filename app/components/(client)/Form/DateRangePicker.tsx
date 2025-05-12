@@ -5,6 +5,7 @@ interface DateRangePickerProps {
   endDate: string;
   onDateChange: (start: string, end: string) => void;
   className?: string;
+  id: string;
 }
 
 export const DateRangePicker = ({
@@ -12,6 +13,7 @@ export const DateRangePicker = ({
   endDate,
   onDateChange,
   className = '',
+  id = '',
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -180,7 +182,11 @@ export const DateRangePicker = ({
   };
 
   return (
-    <div className={`relative ${className}`} ref={ref}>
+    <div
+      className={`relative ${className}`}
+      ref={ref}
+      id={id}
+    >
       <div
         className="w-full px-1 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white peer cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}

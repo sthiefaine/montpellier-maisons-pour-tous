@@ -83,6 +83,7 @@ export default function HouseSelectionStep({ formData, setFormData }: HouseSelec
           <input
             type="text"
             id="mpt-search"
+            name="mpt-search"
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
             placeholder="Tapez pour rechercher..."
             value={searchValue}
@@ -98,10 +99,10 @@ export default function HouseSelectionStep({ formData, setFormData }: HouseSelec
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
                     handleHouseSelect(mpt.codeMPT);
-                    setSearchValue(mpt.name.replace('Maison pour tous', ''));
+                    setSearchValue(mpt.name.replace('Maison pour tous', '').trim());
                   }}
                 >
-                  {mpt.name.replace('Maison pour tous', '')}
+                  {mpt.name.replace('Maison pour tous', '').trim()}
                 </div>
               ))}
             </div>

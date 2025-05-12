@@ -71,7 +71,7 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                   >
                     Copier la personne {idx + 1} à prévenir en cas d'accident
                   </button>
-                  <div className="input-floating">
+                  <div className="relative">
                     <input
                       type="text"
                       placeholder=" "
@@ -80,10 +80,16 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                         handlePersonChange('personnesHabilitees', idx, 'nom', e.target.value)
                       }
                       id={`nom-habilitee-${idx}`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     />
-                    <label htmlFor={`nom-habilitee-${idx}`}>Nom</label>
+                    <label
+                      htmlFor={`nom-habilitee-${idx}`}
+                      className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                    >
+                      Nom
+                    </label>
                   </div>
-                  <div className="input-floating mt-2">
+                  <div className="relative mt-4">
                     <input
                       type="text"
                       placeholder=" "
@@ -92,10 +98,16 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                         handlePersonChange('personnesHabilitees', idx, 'prenom', e.target.value)
                       }
                       id={`prenom-habilitee-${idx}`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     />
-                    <label htmlFor={`prenom-habilitee-${idx}`}>Prénom</label>
+                    <label
+                      htmlFor={`prenom-habilitee-${idx}`}
+                      className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                    >
+                      Prénom
+                    </label>
                   </div>
-                  <div className="input-floating mt-2">
+                  <div className="relative mt-4">
                     <input
                       type="tel"
                       placeholder=" "
@@ -104,8 +116,14 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                         handlePersonChange('personnesHabilitees', idx, 'tel', e.target.value)
                       }
                       id={`tel-habilitee-${idx}`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     />
-                    <label htmlFor={`tel-habilitee-${idx}`}>Tél</label>
+                    <label
+                      htmlFor={`tel-habilitee-${idx}`}
+                      className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                    >
+                      Tél
+                    </label>
                   </div>
                 </div>
               ))}
@@ -137,59 +155,59 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                   >
                     Copier la personne {idx + 1} habilitée à venir chercher l'enfant
                   </button>
-                  <div className="input-floating">
+                  <div className="relative">
                     <input
                       type="text"
                       placeholder=" "
-                      value={
-                        (
-                          formData.personnesAccident[idx] as unknown as
-                            | { nom: string; prenom: string; tel: string }
-                            | undefined
-                        )?.nom || ''
-                      }
+                      value={formData.personnesAccident[idx]?.nom || ''}
                       onChange={e =>
                         handlePersonChange('personnesAccident', idx, 'nom', e.target.value)
                       }
                       id={`nom-accident-${idx}`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     />
-                    <label htmlFor={`nom-accident-${idx}`}>Nom</label>
+                    <label
+                      htmlFor={`nom-accident-${idx}`}
+                      className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                    >
+                      Nom
+                    </label>
                   </div>
-                  <div className="input-floating mt-2">
+                  <div className="relative mt-4">
                     <input
                       type="text"
                       placeholder=" "
-                      value={
-                        (
-                          formData.personnesAccident[idx] as unknown as
-                            | { nom: string; prenom: string; tel: string }
-                            | undefined
-                        )?.prenom || ''
-                      }
+                      value={formData.personnesAccident[idx]?.prenom || ''}
                       onChange={e =>
                         handlePersonChange('personnesAccident', idx, 'prenom', e.target.value)
                       }
                       id={`prenom-accident-${idx}`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     />
-                    <label htmlFor={`prenom-accident-${idx}`}>Prénom</label>
+                    <label
+                      htmlFor={`prenom-accident-${idx}`}
+                      className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                    >
+                      Prénom
+                    </label>
                   </div>
-                  <div className="input-floating mt-2">
+                  <div className="relative mt-4">
                     <input
                       type="tel"
                       placeholder=" "
-                      value={
-                        (
-                          formData.personnesAccident[idx] as unknown as
-                            | { nom: string; prenom: string; tel: string }
-                            | undefined
-                        )?.tel || ''
-                      }
+                      value={formData.personnesAccident[idx]?.tel || ''}
                       onChange={e =>
                         handlePersonChange('personnesAccident', idx, 'tel', e.target.value)
                       }
                       id={`tel-accident-${idx}`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                     />
-                    <label htmlFor={`tel-accident-${idx}`}>Tél</label>
+                    <label
+                      htmlFor={`tel-accident-${idx}`}
+                      className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                    >
+                      Tél
+                    </label>
                   </div>
                 </div>
               ))}
@@ -261,7 +279,7 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                   </label>
                 </div>
                 <p className="text-sm text-gray-600 italic">
-                  {`Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom} ${formData.autorisationSortie === 'autorise' ? 'autorise' : "n'autorise pas"} le bénéficiaire de plus de 6 ans à sortir seul de la Maison pour tous après les activités.`}
+                  {`${formData.soussigneNom || formData.nom ? `Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom}` : ''} ${formData.autorisationSortie === 'autorise' ? 'autorise' : "n'autorise pas"} le bénéficiaire de plus de 6 ans à sortir seul de la Maison pour tous après les activités.`}
                 </p>
               </div>
             </div>
@@ -274,23 +292,46 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
         <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Droit à l'image</h3>
           <div className="space-y-4">
-            <div className="flex items-start">
-              <input
-                type="checkbox"
-                id="droitImage"
-                checked={formData.droitImage === 'autorise'}
-                onChange={e =>
-                  setFormData(prev => ({
-                    ...prev,
-                    droitImage: e.target.checked ? 'autorise' : 'nonAutorise',
-                  }))
-                }
-                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
-              />
-              <label htmlFor="droitImage" className="ml-3 text-sm text-gray-700">
-                J'autorise la prise de photos et/ou de vidéos du bénéficiaire de la prestation.
+            <div className="flex gap-6 items-center">
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="droitImage"
+                  value="autorise"
+                  checked={formData.droitImage === 'autorise'}
+                  onChange={e =>
+                    setFormData(prev => ({
+                      ...prev,
+                      droitImage: 'autorise',
+                    }))
+                  }
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-none"
+                />
+                <span className="ml-2">Autorise</span>
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="droitImage"
+                  value="nonAutorise"
+                  checked={formData.droitImage === 'nonAutorise'}
+                  onChange={e =>
+                    setFormData(prev => ({
+                      ...prev,
+                      droitImage: 'nonAutorise',
+                    }))
+                  }
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-none"
+                />
+                <span className="ml-2">N'autorise pas</span>
               </label>
             </div>
+            <p className="text-sm text-gray-600">
+              {formData.droitImage === "autorise"
+                ? "J'autorise l'établissement d'accueil à me photographier/filmer ou à photographier/filmer le bénéficiaire de la prestation."
+                : "Je n'autorise pas l'établissement d'accueil à me photographier/filmer ou à photographier/filmer le bénéficiaire de la prestation."
+              }
+            </p>
             <p className="text-sm text-gray-600 italic">
               L'utilisation de ces images sera réservée à la structure d'accueil (affichage,
               diaporama, album photos…) ainsi qu'à la communication municipale (journaux municipaux
@@ -329,7 +370,7 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
               </label>
             </div>
             <p className="text-sm text-gray-600 italic">
-              {`Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom} atteste que le bénéficiaire de la prestation est ${formData.aps === 'apte' ? 'apte' : "n'est pas apte"} à la pratique des activités sportives.`}
+              {`${formData.soussigneNom || formData.nom ? `Je soussigné ${formData.soussigneNom || formData.nom} ${formData.soussignePrenom || formData.prenom}` : ''} atteste que le bénéficiaire de la prestation est ${formData.aps === 'apte' ? 'apte' : "n'est pas apte"} à la pratique des activités sportives.`}
             </p>
           </div>
         </div>
@@ -364,27 +405,37 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
               </label>
             </div>
             {formData.caf.allocataire && (
-              <div className="flex gap-4">
-                <div className="input-floating flex-1">
+              <div className="flex flex-col gap-4">
+                <div className="relative">
                   <input
                     type="text"
                     placeholder=" "
                     value={formData.caf.numeroAllocataire}
                     onChange={e => handleCafChange('numeroAllocataire', e.target.value)}
                     id="numero-allocataire"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                   />
-                  <label htmlFor="numero-allocataire">N° Allocataire</label>
+                  <label
+                    htmlFor="numero-allocataire"
+                    className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                  >
+                    N° Allocataire
+                  </label>
                 </div>
-                <div className="input-floating flex-1">
+                <div className="relative">
                   <input
                     type="number"
-                    min={0}
                     placeholder=" "
+                    min={0}
                     value={formData.caf.nbEnfants}
-                    onChange={e => handleCafChange('nbEnfants', Number(e.target.value))}
+                    onChange={e => handleCafChange('nbEnfants', e.target.value)}
                     id="nb-enfants"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
                   />
-                  <label htmlFor="nb-enfants" className="text-xs">
+                  <label
+                    htmlFor="nb-enfants"
+                    className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
+                  >
                     Nombre d'enfants à charge
                   </label>
                 </div>

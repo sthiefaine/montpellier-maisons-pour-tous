@@ -94,6 +94,53 @@ export default function AdherentStep({ formData, setFormData }: AdherentStepProp
             Date de naissance
           </label>
         </div>
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="mineur"
+            name="mineur"
+            checked={formData.mineur}
+            disabled
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-gray-100"
+          />
+          <label htmlFor="mineur" className="text-gray-700">
+            Mineur (calculé automatiquement selon la date de naissance)
+          </label>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <label className="text-gray-700">Sexe :</label>
+          <div className="flex items-center space-x-2">
+            <input
+              type="radio"
+              id="sexe-femme"
+              data-testid="sexe-femme"
+              name="sexe"
+              value="Femme"
+              checked={formData.sexe === 'Femme'}
+              onChange={handleChange}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+            />
+            <label htmlFor="sexe-femme" className="text-gray-700">
+              Féminin
+            </label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <input
+              type="radio"
+              id="sexe-homme"
+              data-testid="sexe-homme"
+              name="sexe"
+              value="Homme"
+              checked={formData.sexe === 'Homme'}
+              onChange={handleChange}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+            />
+            <label htmlFor="sexe-homme" className="text-gray-700">
+              Masculin
+            </label>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative">

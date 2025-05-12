@@ -35,7 +35,6 @@ export default function CompleteForm() {
     }
   };
 
-  const [selectedYear, setSelectedYear] = useState(getCurrentSeason());
   const [formData, setFormData] = useState<FormData>({
     id: crypto.randomUUID(),
     version: 1,
@@ -117,7 +116,7 @@ export default function CompleteForm() {
     caf: {
       allocataire: false,
       numeroAllocataire: '',
-      nbEnfants: 0,
+      nbEnfants: '',
     },
     consentement: true,
     paiementsAdmin: [],
@@ -133,7 +132,7 @@ export default function CompleteForm() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedData = localStorage.getItem('formData');
+      const savedData = localStorage.getItem('currentForm');
       if (savedData) {
         setFormData(JSON.parse(savedData));
       }
@@ -146,6 +145,10 @@ export default function CompleteForm() {
       localStorage.setItem('currentForm', JSON.stringify(formData));
     }
   }, [formData]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentStep]);
 
   const handleNext = () => {
     setCurrentStep(prev => prev + 1);
@@ -184,6 +187,7 @@ export default function CompleteForm() {
         localStorage.setItem('savedForms', JSON.stringify(forms));
       }
       window.location.href = '/completer-pdf';
+      localStorage.removeItem('currentForm');
     }
   };
 
@@ -196,6 +200,12 @@ export default function CompleteForm() {
     }
   };
 
+    const handleYearChange = (year: string) => {
+      setFormData({
+        ...formData,
+        saison: year
+      });
+  };
 
   const handleShowPdfPreview = async () => {
     try {
@@ -238,14 +248,14 @@ export default function CompleteForm() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <FormHeader
-        selectedYear={selectedYear}
-        onYearChange={setSelectedYear}
+        selectedYear={formData.saison}
+        onYearChange={handleYearChange}
         seasons={seasons}
         onShowPdfPreview={currentStep > 1 ? handleShowPdfPreview : undefined}
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+        formData={formData}
       />
-
-      {/* Stepper */}
-      <FormStepper currentStep={currentStep} setCurrentStep={setCurrentStep} formData={formData} />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pb-24 px-2">{renderStep()}</main>

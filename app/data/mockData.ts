@@ -135,7 +135,7 @@ export const mockFormDataMineur: FormData = {
   caf: {
     allocataire: true,
     numeroAllocataire: '123456789',
-    nbEnfants: 2,
+    nbEnfants: '2',
   },
   consentement: true,
   paiementsAdmin: [
@@ -261,7 +261,7 @@ export const mockFormDataMajeur: FormData = {
   caf: {
     allocataire: false,
     numeroAllocataire: '',
-    nbEnfants: 0,
+    nbEnfants: '',
   },
   consentement: true,
   paiementsAdmin: [],

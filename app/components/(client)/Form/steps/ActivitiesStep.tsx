@@ -116,6 +116,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
               type="radio"
               name="carteReseau"
               value="oui"
+              data-testid="carteReseau-oui"
               checked={formData.carteReseau}
               onChange={handleCarteReseauChange}
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
@@ -127,6 +128,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
               type="radio"
               name="carteReseau"
               value="non"
+              data-testid="carteReseau-non"
               checked={!formData.carteReseau}
               onChange={handleCarteReseauChange}
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
@@ -147,6 +149,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
                 <input
                   type="text"
                   id="designation-0"
+                  name="designation-0"
                   value={formData.activites[0]?.designation || ''}
                   onChange={e => handleActivityChange(0, 'designation', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
@@ -315,6 +318,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
                   <input
                     type="text"
                     id={`designation-${index + 1}`}
+                    name={`designation-${index + 1}`}
                     value={activite.designation || ''}
                     onChange={e => handleActivityChange(index + 1, 'designation', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 peer bg-white"
@@ -676,6 +680,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
                   <div>
                     <div className="relative">
                       <DateRangePicker
+                        id="datePaiementDebut1"
                         startDate={formData.datePaiementDebut1 || ''}
                         endDate={formData.datePaiementFin1 || ''}
                         onDateChange={(start, end) => {
@@ -696,6 +701,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
                   <div>
                     <div className="relative">
                       <DateRangePicker
+                        id="datePaiementDebut2"
                         startDate={formData.datePaiementDebut2 || ''}
                         endDate={formData.datePaiementFin2 || ''}
                         onDateChange={(start, end) => {
@@ -801,9 +807,7 @@ export default function ActivitiesStep({ formData, setFormData }: ActivitiesStep
         <p className="text-sm text-gray-600 mb-4">
           Cf. délibération du Conseil municipal consultable sur le site de la ville montpellier.fr
         </p>
-        <p className="text-sm text-gray-600">
-          Le remboursement se fera aux conditions suivantes :
-        </p>
+        <p className="text-sm text-gray-600">Le remboursement se fera aux conditions suivantes :</p>
         <ul className="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
           <li>cessation de l'activité de la part de la MPT</li>
           <li>raison médicale de l'usager</li>

@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:ui:humain": "playwright test --ui --project=chromium",
+    "test:debug": "playwright test --debug"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -30,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.52.0",
     "@tailwindcss/postcss": "^4.1.3",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20",

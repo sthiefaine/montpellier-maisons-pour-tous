@@ -86,7 +86,7 @@ export interface FormData {
   caf: {
     allocataire: boolean;
     numeroAllocataire: string;
-    nbEnfants: number;
+    nbEnfants: string;
   };
   consentement: boolean;
   paiementsAdmin: Array<{ mode: string; date: string }>;

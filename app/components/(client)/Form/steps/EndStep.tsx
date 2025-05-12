@@ -131,7 +131,7 @@ export default function EndStep({ formData }: EndStepProps) {
             Téléchargez le PDF {stringNom}
           </h2>
           <p className="text-gray-600 mb-4">
-            Imprimez la fiche d'inscription et la remettez à votre maison pour tous
+            Imprimez la fiche d'inscription et remettez-la à votre maison pour tous
           </p>
           <div className="flex justify-center items-center gap-4 mb-6">
             {loading ? (

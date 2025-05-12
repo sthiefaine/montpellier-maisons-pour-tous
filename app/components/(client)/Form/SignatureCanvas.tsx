@@ -8,10 +8,21 @@ interface SignatureCanvasProps {
 export default function SignatureCanvas({ value, onChange }: SignatureCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [lastX, setLastX] = useState(0);
   const [lastY, setLastY] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
   const [isDrawingMode, setIsDrawingMode] = useState(false);
+
+  useEffect(() => {
+    // Détection du mobile
+    const checkMobile = () => {
+      setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -211,7 +222,7 @@ export default function SignatureCanvas({ value, onChange }: SignatureCanvasProp
             }}
             className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
           >
-            Dessiner ma signature
+            Signez
           </button>
         </div>
       )}
@@ -229,7 +240,7 @@ export default function SignatureCanvas({ value, onChange }: SignatureCanvasProp
         onTouchEnd={stopDrawingTouch}
       />
       <div className="flex items-center mt-2">
-        {isDrawingMode && (
+        {isDrawingMode && !isMobile && (
           <div className="text-sm text-gray-500 flex-1">Cliquez pour stopper le dessin</div>
         )}
         <button
