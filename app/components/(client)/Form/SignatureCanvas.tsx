@@ -243,6 +243,11 @@ export default function SignatureCanvas({ value, onChange }: SignatureCanvasProp
         {isDrawingMode && !isMobile && (
           <div className="text-sm text-gray-500 flex-1">Cliquez pour stopper le dessin</div>
         )}
+        {!isDrawingMode && !isMobile && (
+          <div className="text-sm text-gray-500 flex-1">
+            Cliquez pour dessiner
+          </div>
+        )}
         <button
           type="button"
           onClick={clearSignature}

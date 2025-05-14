@@ -122,7 +122,7 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                       htmlFor={`tel-habilitee-${idx}`}
                       className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
                     >
-                      Tél
+                      Téléphone
                     </label>
                   </div>
                 </div>
@@ -206,7 +206,7 @@ export default function AutorisationStep({ formData, setFormData }: Autorisation
                       htmlFor={`tel-accident-${idx}`}
                       className="absolute left-3 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-500 peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm px-1 bg-white"
                     >
-                      Tél
+                      Téléphone
                     </label>
                   </div>
                 </div>

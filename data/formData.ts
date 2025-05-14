@@ -135,6 +135,7 @@ export const villes = [
   'Mauguio',
   'Mèze',
   'Montbazin',
+  'Montpellier',
   'Nîmes',
   'Perpignan',
   'Pérols',

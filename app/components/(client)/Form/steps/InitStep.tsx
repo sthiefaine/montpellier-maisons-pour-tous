@@ -37,14 +37,8 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
-    const mockFormDataMineurWithCreatedAt = {
-      ...mockFormDataMineur,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-
-    setPreviousForms([mockFormDataMineurWithCreatedAt]);
-    setFilteredForms([mockFormDataMineurWithCreatedAt]);
+    setPreviousForms(sortedForms);
+    setFilteredForms(sortedForms);
   }, []);
 
   useEffect(() => {
@@ -236,7 +230,7 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
             } bg-white p-6 rounded-lg border border-gray-200 shadow-sm`}
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">Inscription pour moi-même</h2>
+              <h2 className="text-xl font-semibold text-gray-800">Mon Inscription</h2>
               <div
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                   formData.formType === 'self' ? 'border-blue-500 bg-blue-500' : 'border-gray-300'
@@ -245,7 +239,7 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
                 {formData.formType === 'self' && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </div>
-            <p className="text-gray-600">Je souhaite m'inscrire personnellement aux activités</p>
+            <p className="text-gray-600">Je souhaite m'inscrire aux activités</p>
           </button>
 
           <button

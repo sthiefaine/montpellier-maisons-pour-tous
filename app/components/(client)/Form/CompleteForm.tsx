@@ -251,7 +251,7 @@ export default function CompleteForm() {
         selectedYear={formData.saison}
         onYearChange={handleYearChange}
         seasons={seasons}
-        onShowPdfPreview={currentStep > 1 ? handleShowPdfPreview : undefined}
+        onShowPdfPreview={handleShowPdfPreview}
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
         formData={formData}
