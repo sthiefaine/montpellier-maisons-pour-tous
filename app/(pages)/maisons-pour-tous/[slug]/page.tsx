@@ -18,6 +18,14 @@ interface MPTPageProps {
   }>;
 }
 
+export async function generateStaticParams() {
+  const mpts = await fs.readFile(path.join(process.cwd(), 'data/mpt.json'), 'utf8');
+  const mptsData = JSON.parse(mpts);
+  return mptsData.map((mpt: MPT) => ({
+    slug: mpt.slug,
+  }));
+}
+
 const getMapStyle = cache(async () => {
   const data = await fs.readFile(path.join(process.cwd(), 'data/map/style.json'), 'utf8');
   return JSON.parse(data) as maplibregl.StyleSpecification;
