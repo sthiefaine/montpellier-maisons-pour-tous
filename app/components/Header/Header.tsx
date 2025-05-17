@@ -54,7 +54,7 @@ export default function Header() {
               href="/completer-pdf"
               className="px-3 py-1 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
             >
-              Completer PDF
+              PDF d'inscription
             </Link>
           </nav>
           <button
@@ -109,7 +109,7 @@ export default function Header() {
                 className="px-3 py-1.5 rounded-md bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors duration-200"
                 onClick={handleLinkClick}
               >
-                Completer PDF
+                PDF d'inscription
               </Link>
             </nav>
           </div>
