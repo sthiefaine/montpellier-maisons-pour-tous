@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormData } from '@/types/form';
+import { generateUUID } from '@/app/utils/uuid';
 
 interface FormFooterProps {
   currentStep: number;
@@ -57,7 +58,7 @@ export default function FormFooter({
       // Créer un nouveau formulaire avec un nouvel ID et version 1
       const newForm = {
         ...formData,
-        id: crypto.randomUUID(),
+        id: generateUUID(),
         version: 1,
         nom: '',
         prenom: '',

@@ -15,6 +15,7 @@ import FormFooter from './FormFooter';
 import PdfImagesPreview from './PdfImagesPreview';
 import { generatePdf } from '@/utils/generatePdf';
 import { FormData } from '@/types/form';
+import { generateUUID } from '@/app/utils/uuid';
 
 
 
@@ -36,7 +37,7 @@ export default function CompleteForm() {
   };
 
   const [formData, setFormData] = useState<FormData>({
-    id: crypto.randomUUID(),
+    id: generateUUID(),
     version: 1,
     surnom: '',
     favori: false,

@@ -6,9 +6,11 @@ function pad2(n: number | string) {
 }
 
 export async function generatePdf(formData: FormData) {
-  const existingPdfBytes = await fetch('/MPT-Fiche-inscription-MPT.pdf').then(res =>
-    res.arrayBuffer()
-  );
+  const existingPdfBytes = await fetch('/MPT-Fiche-inscription-MPT.pdf').then(res => {
+    console.log(res, 'FETCHED');
+    return res.arrayBuffer();
+  });
+  console.log(existingPdfBytes, 'EXISTING PDF BYTES');
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
   const page = pdfDoc.getPages()[0];
   const page2 = pdfDoc.getPages()[1];

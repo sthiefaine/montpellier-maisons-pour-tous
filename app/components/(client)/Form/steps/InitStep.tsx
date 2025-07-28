@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FormData } from '@/types/form';
 import { mockFormDataMineur } from '@/app/data/mockData';
+import { generateUUID } from '@/app/utils/uuid';
 
 interface InitStepProps {
   formData: FormData;
@@ -176,7 +177,7 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
   const handleExport = (form: SavedForm) => {
     const formToExport = { ...form };
     formToExport.signature = '';
-    formToExport.id = crypto.randomUUID();
+    formToExport.id = generateUUID();
     formToExport.favori = false;
     const jsonString = JSON.stringify(formToExport, null, 2);
     setExportedJson(jsonString);
@@ -199,7 +200,7 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
         ...previousForms,
         ...validForms.map(form => ({
           ...form,
-          id: crypto.randomUUID(),
+          id: generateUUID(),
           createdAt: new Date().toISOString(),
           signature: '',
         })),
@@ -470,7 +471,7 @@ export default function InitStep({ formData, setFormData, onNext }: InitStepProp
                       onClick={() => {
                         const formToLoad = {
                           ...form,
-                          id: crypto.randomUUID(),
+                          id: generateUUID(),
                           version: form.version + 1,
                         };
                         setFormData(formToLoad);

@@ -43,7 +43,8 @@ export default function PdfImagesPreview({ formData, mode = 'miniature' }: PdfIm
           await page.render({
             canvasContext: context!,
             viewport: viewport,
-          }).promise;
+            canvas: canvas,
+          } as any).promise;
 
           const imageData = canvas.toDataURL('image/png');
           images.push(imageData);
